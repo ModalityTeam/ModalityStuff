@@ -49,6 +49,8 @@
 - 16:00h, STEIM Open Lab ends
 - soundcheck for all players
 - concert
+	+ [facebook event page](https://www.facebook.com/events/1457121127845305/?ref_newsfeed_story_type=regular)
+	+ [OT301](http://ot301.nl/page=site.home) (venue)
 
 
 ### Sun, 06.4.2014 -- departure / farewell
