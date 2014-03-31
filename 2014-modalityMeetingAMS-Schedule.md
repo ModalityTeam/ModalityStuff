@@ -6,27 +6,27 @@
 
 ### Sun, 30.3.2014 -- arrival of guests
 
-+ dinner together?
++ [x] dinner together?
 
 ### Mon, 31.3.2014 -- first full day, 
 
-+ 10:00h, warm welcome words, short(!) intro words of new people 
-+ what we did last time
-+ what we want to achieve this time
-+ setting up developer teams (pairs of people working together)
-+ working and talking
-+ evening, what have we done over the day?  (30min discussion)
-+ shared dinner
++ [x] 10:00h, warm welcome words, short(!) intro words of new people 
++ [ ] what we did last time
++ [ ] what we want to achieve this time
++ [ ] setting up developer teams (pairs of people working together)
++ [ ] working and talking
++ [ ] evening, what have we done over the day?  (30min discussion)
++ [ ] shared dinner
 
 ### Tue, 01.4.2014
 
-+ morning, what's the plan for the day? (1h discussion)
-+ working and talking
-+ lunch
-+ working and talking
-+ evening, what have we done over the day?  (30min discussion)
-+ 19:30h, STEIM Creative Music Coding Lab
-+ shared dinner
++ [ ] morning, what's the plan for the day? (1h discussion)
++ [ ] working and talking
++ [ ] lunch
++ [ ] working and talking
++ [ ] evening, what have we done over the day?  (30min discussion)
++ [ ] 19:30h, STEIM Creative Music Coding Lab
++ [ ] shared dinner
 
 ### Wed, 02.4.2014
 
