@@ -20,14 +20,14 @@
 
 
 %user defined variables
-\def\papertitle{Advances in Modality}
+\def\papertitle{Modality Workshop}
 \def\firstauthor{First author}
 \def\secondauthor{Second author}
 \def\thirdauthor{Third author}
 
 
-% authors so far:
-% AdC, Till, Jeff
+% workshop leaders so far:
+% Till
 
 % adds the automatic
 % Saves a lot of ouptut space in PDF... after conversion with the distiller
@@ -114,15 +114,20 @@
 \capstarttrue
 %
 \begin{abstract}
-	Modality is a toolkit to improve and facilitate the use of digital technology within sound art and music, based on the audio programming language SuperCollider.
+Modality is a toolkit to improve and facilitate the use of digital technology within sound art and music, based on the audio programming language SuperCollider.
 \end{abstract}
 
 \begin{figure}[h]
 	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140331-IMG_5976.jpg}
-	\caption{Meeting 2014 in Amsterdam}
+		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
+	\caption{Public workshop and open Lab at STEIM}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
+
+
+
+
+
 
 \section{Overview of the modality concept and its aims}
 \label{sec:overview_of_modality_concept_and_aims}
@@ -142,121 +147,51 @@ Currently HID and MIDI are supported with OSC, GUI-based interfaces can be creat
 The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
-\subsection{Unifications of interface implementations}
-\label{sub:unifications_of_interface_implementations}
-
-With MKtl, it is possible to assign functionality to controller elements.
-Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evauated every time, the value of that element gets updated. Below, there are two examples using popular MIDI controller.
-
-\begin{Verbatim}
-k = MKtl('nnkn20');
-\end{Verbatim}
-
-
+The Modality toolkit aims to facilitate the following:
 
 \begin{itemize}
-	\item Modality toolkit + Various Mixed Things + closely related
-	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
-		all of Marijes device related quarks, etc 
+	\item Access to data coming from commercial controllers, such as game controllers (human input devices; HID), MIDI controllers, OSC controllers (including mobile phone Apps), and other controllers, by providing a common interface to access these controllers. This includes creating specification files which characterize these devices.
+	\item Access to data coming from custom/DIY controllers/interfaces, such as Arduino (or other microcontroller) based sensor interfaces, linking into the same common interface as above.
+	\item Send output to these same controllers/interfaces.
+	\item Graphical feedback of the current state of a device, as well as a possibility to replace a controller with a graphical user interface (GUI) substitute.
+	\item Manipulation of data streams coming from these devices.
+	\item Mapping the output of these data streams to output parameters of sound units.
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
-	\caption{Public workshop and open Lab at STEIM}
-	\label{fig:media_20140331-IMG_5976}
-\end{figure}
-
-
-\section{Descriptions files}
-\label{sec:descriptions_files}
-
-A controller is always bound to one protocol. 
-If there is a device that communicates on multiple protocols (e.g. ICON i-controls), it has to be merged later in the processing chain. 
-A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above.
-
-The functionality of MKtl relies on descriptions of the used devices. 
-A description file gathers information for each control element. 
-One line in the description is a combination of (a) semantic information (e.g. for searching or automated grouping) and (b) technical information that is used to get information on how the element can be accessed internally.
-It is of this form:
-\begin{Verbatim}
-\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
-\end{Verbatim}
-Elements can also be hierarchically grouped:
-\begin{Verbatim}
-\elemkey: [
-	[
-		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
-		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
-	],[
-		...
-	]
-]
-\end{Verbatim}
-
-
-\section{Islands and Bridges, uniform protocols}
-\label{sec:islands_and_bridges_uniform_protocols}
-
-Uniform devices (MIDI, HID, OSC, GUI, Serial)
-		with rich descriptions, hierarchical names for all elements
-		FakeGUI for everything
-
-
-	
-	Uniform destinations:
-		set messages, RelSet, SoftSet, // if Influx, influence
-		
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140405-IMG_1691.jpg}
-	\caption{Modality Concert 2014 at OT301}
-	\label{fig:media_20140405-IMG_1691}
-\end{figure}
-
-\section{Methods}
-\label{sec:methods}
-
-Transformer islands: 
-		FRP, Influx, others 
-		- process incoming events, pass on results to destinations.
-
-\section{Examples / Use Cases}
-\label{sec:examples_use_cases}
 
 
 
-
-\subsection{MPD 18}
-\label{sub:mpd_18}
-
-The MPD18 has 16 Buttons and a slider.
-
-    [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
-        By pushing them down sound turns on; releasing: sound off.
-    the Slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
-    [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
-        if sound is assigned (see below), sound is played when button depressed.
-    [Shift Button] Button 4 is a 'shift key'. When depressed
-        Sound Buttons don't trigger any sound but select the active slot. This can be followed by
-        depressing a Memory Slot button, which assigns the selected sound to that pad.
-        if you release the shift key before assignment, nothing happens.
-        assigning a copy to an already assigned memory slot replaces existing
-        mute copy +[Sound Button then Shift button]
-        Sound Button triggers sound
-        depress Memory Slot button, assigning the sound to the pad, with sound
-
-\subsection{Switching actions}
-\label{sub:switching_actions}
+Specific attention is given to the concept of modal control: the ability to ‘on -the-­fly’ i.e., within a performance, change the mapping of one control of a device to a control on another device, or change the functionality of one control based on the state of another control (compare to changing the function of an alphanumerical key by using the SHIFT key on a computer keyboard).
 
 
+\section{Workshop content}
+\label{sec:workshop_content}
+
+The concept of the workshop is to be as “hands-­on” as possible.
+Participants will learn how to use the Modality toolkit, create their own instruments, and play together with their creations. 
+Under the guidance of the Modality Work Group, each participant will be able to work on his or her own instrument, and use and play it along with the other participants.
+
+In detail, the outline of the workshop is as follows:
+
+\begin{itemize}
+	\item brief introduction to the Modality toolkit,
+	\item installation party,
+	\item mapping out devices (i.e., writing description files for them), in case the brought devices are not yet specified in Modality (contributing to the library of known devices),
+	\item accessing devices and using data from devices; creating a basic sound--controller setup,
+	\item performing with the system,
+	\item swap controllers and share sounds between participants,
+	\item adaption of the setup and manipulation of data streams,
+	\item performing with the system
+\end{itemize}
 
 
-\section{Conclusions}
-\label{sec:conclusions}
 
-
-Modality - it's THE THING, yo!
+Participants should bring 
+\begin{itemize}
+	\item MIDI or HID controllers such as game gads, joysticks or fader boxes, 
+	\item their own laptops with a recent version of SuperCollider installed, and
+	\item a basic familiarity with the programming environment SuperCollider.
+\end{itemize}
 
 
 \begin{acknowledgments}
@@ -276,7 +211,7 @@ The Modality team is (in alphabetical order):
 Associated organisations are (in alphabetical order):
 BEK,
 the project \emph{Design, Development and Dissemination of New Musical Instruments} of UdK Berlin/TU Berlin, supported by the Einstein Foundation,
-nescivi, and
+nescivi supported by theCreative Industry Fund NL, and
 STEIM.
 
 \end{acknowledgments} 
