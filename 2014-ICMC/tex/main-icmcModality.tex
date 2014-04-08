@@ -4,7 +4,7 @@
 \usepackage{ifpdf}
 \usepackage[english]{babel}
 %\usepackage{cite}
-
+\usepackage{fancyvrb}
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
@@ -24,6 +24,10 @@
 \def\firstauthor{First author}
 \def\secondauthor{Second author}
 \def\thirdauthor{Third author}
+
+
+% authors so far:
+% AdC, Till, Jeff
 
 % adds the automatic
 % Saves a lot of ouptut space in PDF... after conversion with the distiller
@@ -115,7 +119,7 @@
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140331-IMG_5976.jpg}
-	\caption{last workshop in Amsterdam}
+	\caption{Meeting 2014 in Amsterdam}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
@@ -134,10 +138,19 @@ The name Modality arose from the idea to scaffold the creation of modal interfac
 \label{sec:scope_of_modality_tech_info_where_what}
 
 
+\subsection{Unifications of interface implementations}
+\label{sub:unifications_of_interface_implementations}
+
+With MKtl, it is possible to assign functionality to controller elements.
+Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evauated every time, the value of that element gets updated. Below, there are two examples using popular MIDI controller.
+
+\begin{Verbatim}
+k = MKtl('nnkn20');
+\end{Verbatim}
+
 
 
 \begin{itemize}
-	\item additions/unifications in basic SC, 
 	\item Modality toolkit + Various Mixed Things + closely related
 	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
 		all of Marijes device related quarks, etc 
@@ -146,7 +159,7 @@ The name Modality arose from the idea to scaffold the creation of modal interfac
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
-	\caption{Workshop and open Lab at STEIM}
+	\caption{Public workshop and open Lab at STEIM}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
@@ -156,10 +169,19 @@ The name Modality arose from the idea to scaffold the creation of modal interfac
 Uniform devices (MIDI, HID, OSC, GUI, Serial)
 		with rich descriptions, hierarchical names for all elements
 		FakeGUI for everything
+
+
 	
 	Uniform destinations:
 		set messages, RelSet, SoftSet, // if Influx, influence
 		
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=.9\columnwidth]{../media/20140405-IMG_1691.jpg}
+	\caption{Modality Concert 2014 at OT301}
+	\label{fig:media_20140405-IMG_1691}
+\end{figure}
+
 \section{Methods}
 \label{sec:methods}
 
@@ -171,8 +193,32 @@ Transformer islands:
 \label{sec:examples_use_cases}
 
 
+
+
 \subsection{MPD 18}
 \label{sub:mpd_18}
+
+The MPD18 has 16 Buttons and a slider.
+
+    [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
+        By pushing them down sound turns on; releasing: sound off.
+    the Slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
+    [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
+        if sound is assigned (see below), sound is played when button depressed.
+    [Shift Button] Button 4 is a 'shift key'. When depressed
+        Sound Buttons don't trigger any sound but select the active slot. This can be followed by
+        depressing a Memory Slot button, which assigns the selected sound to that pad.
+        if you release the shift key before assignment, nothing happens.
+        assigning a copy to an already assigned memory slot replaces existing
+        mute copy +[Sound Button then Shift button]
+        Sound Button triggers sound
+        depress Memory Slot button, assigning the sound to the pad, with sound
+
+\subsection{Switching actions}
+\label{sub:switching_actions}
+
+
+
 
 \section{Conclusions}
 \label{sec:conclusions}
