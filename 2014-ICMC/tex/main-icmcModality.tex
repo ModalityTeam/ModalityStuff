@@ -123,19 +123,22 @@
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
-\section{Overview of Modality Concept and Aims}
+\section{Overview of the modality concept and its aims}
 \label{sec:overview_of_modality_concept_and_aims}
 
 Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
 
-The central idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. Currently HID and MIDI are supported with OSC, serial port and GUI-based interfaces are planned to be integrated.
-
-The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
-
+The idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. 
+To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. 
+Currently HID and MIDI are supported with OSC, GUI-based interfaces can be created on the fly from interface descriptions.
 
 
 \section{Scope of Modality}
 \label{sec:scope_of_modality_tech_info_where_what}
+
+\emph{Tells about the scope of the modality group, how it was established and how the meetings work. Should especially include a description of the combination of developer meeting, public workshop and concert.}
+
+The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
 \subsection{Unifications of interface implementations}
@@ -162,6 +165,34 @@ k = MKtl('nnkn20');
 	\caption{Public workshop and open Lab at STEIM}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
+
+
+\section{Descriptions files}
+\label{sec:descriptions_files}
+
+A controller is always bound to one protocol. 
+If there is a device that communicates on multiple protocols (e.g. ICON i-controls), it has to be merged later in the processing chain. 
+A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above.
+
+The functionality of MKtl relies on descriptions of the used devices. 
+A description file gathers information for each control element. 
+One line in the description is a combination of (a) semantic information (e.g. for searching or automated grouping) and (b) technical information that is used to get information on how the element can be accessed internally.
+It is of this form:
+\begin{Verbatim}
+\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
+\end{Verbatim}
+Elements can also be hierarchically grouped:
+\begin{Verbatim}
+\elemkey: [
+	[
+		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
+		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
+	],[
+		...
+	]
+]
+\end{Verbatim}
+
 
 \section{Islands and Bridges, uniform protocols}
 \label{sec:islands_and_bridges_uniform_protocols}
