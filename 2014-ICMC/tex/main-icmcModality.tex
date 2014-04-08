@@ -145,8 +145,11 @@ The name Modality arose from the idea to scaffold the creation of modal interfac
 \subsection{Unifications of interface implementations}
 \label{sub:unifications_of_interface_implementations}
 
-With MKtl, it is possible to assign functionality to controller elements.
-Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evauated every time, the value of that element gets updated. Below, there are two examples using popular MIDI controller.
+With MKtl, it is possible to assign functionality to controller elements.  A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above.
+
+Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. 
+
+ Below, there are two examples using a popular MIDI controller.
 
 \begin{Verbatim}
 k = MKtl('nnkn20');
@@ -168,44 +171,69 @@ k = MKtl('nnkn20');
 \end{figure}
 
 
-\section{Descriptions files}
+\section{Description files}
 \label{sec:descriptions_files}
 
-A controller is always bound to one protocol. 
-If there is a device that communicates on multiple protocols (e.g. ICON i-controls), it has to be merged later in the processing chain. 
-A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above.
+In order for Modality to be able to use a device a \textit{device description} file must be available for it.  A device description file characterizes and labels each element and provides the shape of the data structure used to access elements. It is implemented using one text file per device containing an sclang dictionary with (at least) fields 'protocol' (only one protocol allowed per device, currently only HID and MIDI implemented), 'device' (the operating system provided name of the device) and 'description'. The 'description' field contains a dictionary with a tree-like structure, where the value at each key can be another dictionary or array and where the leafs contain a dictionary describing each element. These element dictionaries contain the technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, e.t.c.) and a \textit{ControlSpec} that specifies how to convert the incoming values to the range $[0,1]$.   \emph{Slould we include the ABNF definition  in an annex ? point to it online ?} Following is the element dictionary for a button of a MIDI device.
 
-The functionality of MKtl relies on descriptions of the used devices. 
-A description file gathers information for each control element. 
-One line in the description is a combination of (a) semantic information (e.g. for searching or automated grouping) and (b) technical information that is used to get information on how the element can be accessed internally.
-It is of this form:
 \begin{Verbatim}
-\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
+\rew: (
+	\midiMsgType: \cc,
+	\type: \button,
+	\midiChan: 0,
+	\midiNum: 47,
+	\spec: \midiBut,
+	\mode: \push
+)
 \end{Verbatim}
-Elements can also be hierarchically grouped:
+
+Elements which are physically (or virtually) grouped on the device such as with pages, rows or columns are grouped together in the description file using arrays. For instance the third button on the second row of page 4 of a Korg NanoKONTROL can be accessed with the following code:
+
 \begin{Verbatim}
-\elemkey: [
-	[
-		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
-		\key: (\infoKey: infoVal, \infoKey: infoVal, ...),
-	],[
-		...
-	]
-]
+MKtl('nnkn0').elements[\sl][3][1][2]
 \end{Verbatim}
+
+The hierarchical grouping of elements also facilitates bulk addressing of elements by traversing the hierarchy starting at the desired node. For instance, it's easy to programatically add actions to multiple elements:
+
+\begin{Verbatim}
+MKtl('nnkn0').elements[\sl]
+.do{ |xs, page|
+ xs.do{ |xs, row|
+  xs.do{ |element, column|
+   element.action = 
+    {[page, row, column].postln}
+  }
+ }
+}
+  		
+\end{Verbatim}
+
+The standard order for grouped elements is first page, then row starting from the top of controller and finally column starting from the left of the controller.
+
+New devices can be added to modality easily, all that is needed is to write the corresponding device description file. If a user tries to access a device for which there is still no description file available the toolkit can help the user with the creation of the description file. For HID devices a description file can be generated using the HIDExplorer class from the information provided by the HID stack at the operating system level. For MIDI devices the user is asked to press or move all the physical controls available and then a description file is generated with the recorded data. In both cases the user should then supply suitable labels or placement in an array for each element, and complete or correct the information provided.
+
+
+
 
 
 \section{Islands and Bridges, uniform protocols}
 \label{sec:islands_and_bridges_uniform_protocols}
 
-Uniform devices (MIDI, HID, OSC, GUI, Serial)
+
+
+\subsection{ Uniform devices (MIDI, HID, OSC, GUI, Serial) }
+
 		with rich descriptions, hierarchical names for all elements
 		FakeGUI for everything
 
 
-	
-	Uniform destinations:
+\subsection{ Uniform destinations}
+
 		set messages, RelSet, SoftSet, // if Influx, influence
+
+\emph{ miguel: I'm a bit skeptical about us really having a uniform protocol for destinations. MKtl allows registering call-backs for actions, so does Influx, etc, ok, but so do the stock SC guis, MIDIFunc, etc.  I wonder if we are not claiming too much by saying we have created uniform protocols when all that we are doing is providing call-backs which are known and used everywhere in SuperCollider. One could argue all of Supercollider uses a uniform protocol which is calling methods on objects. Maybe I'm missing something here.
+}
+ 
 		
 \begin{figure}[h]
 	\centering
@@ -214,17 +242,28 @@ Uniform devices (MIDI, HID, OSC, GUI, Serial)
 	\label{fig:media_20140405-IMG_1691}
 \end{figure}
 
-\section{Methods}
-\label{sec:methods}
+\subsection{Transformer islands} 
 
-Transformer islands: 
-		FRP, Influx, others 
-		- process incoming events, pass on results to destinations.
+What are they supposed to be ? Why are there several different ones ?	
+	
+\subsubsection{MDispatch}	
+
+describe : An initial attempt, interesting but didn't catch on.
+		
+\subsubsection{FRP}
+
+describe
+
+\subsubsection{Influx}
+
+describe
+
+\subsubsection{others}
+
+which ones ?
 
 \section{Examples / Use Cases}
 \label{sec:examples_use_cases}
-
-
 
 
 \subsection{MPD 18}
@@ -249,14 +288,16 @@ The MPD18 has 16 Buttons and a slider.
 \subsection{Switching actions}
 \label{sub:switching_actions}
 
+Switching actions from one controller to another mid-way through a performance.
 
+\subsection{An example of a performance setup with influx and KtlLoop}
 
+\emph{Would this make sense here ?}
 
 \section{Conclusions}
 \label{sec:conclusions}
 
-
-Modality - it's THE THING, yo!
+We have showed beyond doubt that Modality is the best thing since sliced bread. It surpasses all other solutions out there both already invented and to be invented in the future. Resistance is futile, you will modalidated.
 
 
 \begin{acknowledgments}
@@ -279,10 +320,12 @@ the project \emph{Design, Development and Dissemination of New Musical Instrumen
 nescivi, and
 STEIM.
 
+
+
 \end{acknowledgments} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %bibliography here
-\bibliography{smacsmc2014template}
+\bibliography{icmcsmc2014template}
 
 \end{document}
