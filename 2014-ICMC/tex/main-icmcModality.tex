@@ -106,7 +106,7 @@
    {\thirdauthor} { Affiliation3 \\ %
      {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
 
-\newcommand{\code}[1] {\begin{Verbatim}#1\end{Verbatim}}
+\newcommand{\code}[1] {\textbf{#1}}
 
 \newcommand{\todo}[1] {\emph{\textbf{TODO:} #1}}
 
@@ -160,10 +160,11 @@ The strength of such a modal interface is that it allows for fast changes and mo
 Over the last years, the ModalityTeam met four times at different places:
 
 \begin{description}
-	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bjørnar Habbestad, several experts and sound artists met to discuss about modal control in performance and rehearsal situations.
-	Soon it became apparent that, for all attendees, easy access and outlining of modal control structures is of great interest.
+	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss about modal control in performance and rehearsal situations.
+	Soon it became apparent that, for all attendees, easy access and outlining of modal control structures is of great interest. First sketches for uniform access were made based on the then already existing JITMIDIKtl extension, creating a more uniform access to controllers in the Ktl extension.
 	
-	\todo{add further description on founding meeting. Should do someone who actually was there.}
+% 	\todo{add further description on founding meeting. Should do someone who actually was there.}
+	
 	\item[May 2011, STEIM, Amsterdam] Initial discussions unveiled the necessity for users to abstract from hardware dependencies and being able to do flexible routings and filtering incoming data.
 
 	We therefore developed a new extension (a so-called Quark) for the in SuperCollider language that (partly) implemented two sets of functionalities:
@@ -177,7 +178,11 @@ Over the last years, the ModalityTeam met four times at different places:
 		\item In addition, we worked on the \code{MDispatch} class, which allowed to create \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. 
 		Templates for commonly used functionality were created.
 	\end{itemize}
+	
+	A stumbleblock at this point was that the HID implementation in SuperCollider on OSX was broken with the move of the SuperCollider (version 3.5) codebase for 64-bit support on OSX and changes in the API to Apple's HID toolkit. This issue has only recently been solved with version 3.7 with a brand new cross-platform implementation of HID.
+	
 	\item[November 2013, BEK, Bergen] After almost 2 years, 
+	
 	\item[April 2014, STEIM, Amsterdam]
  
 \end{description}
@@ -193,6 +198,7 @@ Over the last years, the ModalityTeam met four times at different places:
 	
 	\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
 	\item[OSCulator] 
+	\item[Digital Orchestra Toolkit] \todo{McGill's Digital Orchestra Toolkit for Max/MSP}
 	\item[*def paradigm in SuperCollider]
 \end{description}
 
@@ -212,7 +218,7 @@ Over the last years, the ModalityTeam met four times at different places:
 
 \DefineShortVerb{\|}
 
-ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney_ret}. The control elements of devices are accessed through the |MKtl| class. A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above. Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the |allElement| method. The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, etc.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
+ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. The control elements of devices are accessed through the |MKtl| class. A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above. Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the |allElement| method. The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, etc.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
 Each MKtl has a name, and only one MKtl is active with same name at any given time. MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
@@ -401,16 +407,16 @@ We have showed beyond doubt that Modality is the best thing since sliced bread. 
 \begin{acknowledgments}
 The Modality team is (in alphabetical order):
     Marije Baalman,
-	Tim Blechmann,
+    Tim Blechmann,
     Till Bovermann,
     Alberto de Campo,
     Jeff Carey,
-    Bjoernar Habbestad,
-	Dominik Hildebrand Marques Lopes,
-	Amelie Hinrichsen,
+    Bj\o{}rnar Habbestad,
+    Dominik Hildebrand Marques Lopes,
+    Amelie Hinrichsen,
     Robert van Heumen,
     Hannes Hoelzl,
-    Miguel Negrao, and
+    Miguel Negr\~{a}o, and
     Wouter Snoei.
 Associated organisations are (in alphabetical order):
 BEK,
@@ -418,6 +424,7 @@ the project \emph{Design, Development and Dissemination of New Musical Instrumen
 nescivi, and
 STEIM.
 
+The Modality meetings have been funded by Bergen Kommune, Nordisk Kulturfond and Creative Industries Fund NL.
 
 
 \end{acknowledgments} 
