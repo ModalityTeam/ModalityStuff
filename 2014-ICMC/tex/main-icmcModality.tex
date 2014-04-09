@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 %\usepackage{cite}
 \usepackage{fancyvrb}
+\usepackage[autostyle]{csquotes}  
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
@@ -106,10 +107,11 @@
      {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
 
 \newcommand{\code}[1] {\begin{Verbatim}#1\end{Verbatim}}
-\DefineShortVerb{\|}
+
+\newcommand{\todo}[1] {\emph{\textbf{TODO:} #1}}
 
 
-% ***************************************** the document starts here ***************
+% ***************************************** tA document starts here ***************
 \begin{document}
 %
 \capstartfalse
@@ -117,7 +119,10 @@
 \capstarttrue
 %
 \begin{abstract}
-	Modality is a toolkit to improve and facilitate the use of digital technology within sound art and music, based on the audio programming language SuperCollider.
+The Modality toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
+Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
+To this end, a common code interface, \code{MKtl}, is used to connect controllers from various sources and protocols. 
+Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
 \end{abstract}
 
 \begin{figure}[h]
@@ -127,30 +132,77 @@
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
-\section{Overview of the modality concept and its aims}
+\section{Scope and Overview}
 \label{sec:overview_of_modality_concept_and_aims}
 
+The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance. 
+Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. 
+It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers, both of and for SuperCollider.
 
-Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
-
-The idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. 
-To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. 
-Currently HID and MIDI are supported with OSC, GUI-based interfaces can be created on the fly from interface descriptions.
+The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g., one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. 
+We belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. 
+The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
-\section{Scope of Modality}
-\label{sec:scope_of_modality_tech_info_where_what}
+\section{Towards modal control}
+\label{sec:modal_control}
 
 \emph{Tells about the scope of the modality group, how it was established and how the meetings work. Should especially include a description of the combination of developer meeting, public workshop and concert.}
 
-The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
+
+
+\subsection{The modality way}
+\label{sub:the_modality_way}
+
+\emph{Tells about how the Modality meetings work, i.e., a description of the combination of developer meeting, public workshop and concerts.}
+
+
+Over the last years, the ModalityTeam met four times at different places:
+
+\begin{description}
+	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bjørnar Habbestad, several experts and sound artists met to discuss about modal control in performance and rehearsal situations.
+	Soon it became apparent that, for all attendees, easy access and outlining of modal control structures is of great interest.
+	
+	\todo{add further description on founding meeting. Should do someone who actually was there.}
+	\item[May 2011, STEIM, Amsterdam] Initial discussions unveiled the necessity for users to abstract from hardware dependencies and being able to do flexible routings and filtering incoming data.
+
+	We therefore developed a new extension (a so-called Quark) for the in SuperCollider language that (partly) implemented two sets of functionalities:
+	
+	\begin{itemize}
+		\item 	It was possible to query connected MIDI and HID hardware devices with an \code{MKtl} object. 
+		Capabilities of each device were stored in a configuration file. 
+		Rather than assigning functions via hardware-specific code (e.g. a MIDI control number, or an HID device element cookie), we thought of controllers as a combination of \emph{controller elements}, \code{MKtlElements}. 
+		It was possible to associate a human-readable name with element-specific data.
+		With the goal for future support of the serial port, OpenSoundControl, and other hardware interfaces, the workflow was designed as generic as needed to abstract from the actual backend.
+		\item In addition, we worked on the \code{MDispatch} class, which allowed to create \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. 
+		Templates for commonly used functionality were created.
+	\end{itemize}
+	\item[November 2013, BEK, Bergen] After almost 2 years, 
+	\item[April 2014, STEIM, Amsterdam]
+ 
+\end{description}
+
+
+
+\section{Related work}
+\label{sec:related_work}
+
+\begin{description}
+	\item[junXion] is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
+	It is implemented as a stand-alone program to be put in the middle between the sensor layer and the synthesis layer.
+	
+	\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
+	\item[OSCulator] 
+	\item[*def paradigm in SuperCollider]
+\end{description}
+
 
 
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
 	\caption{Public workshop and open Lab at STEIM}
-	\label{fig:media_20140331-IMG_5976}
+	\label{fig:media_20140403-IMG_1667}
 \end{figure}
 
 
