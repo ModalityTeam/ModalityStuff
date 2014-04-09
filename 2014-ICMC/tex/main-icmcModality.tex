@@ -143,27 +143,6 @@ Currently HID and MIDI are supported with OSC, GUI-based interfaces can be creat
 The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
-\subsection{Unifications of interface implementations}
-\label{sub:unifications_of_interface_implementations}
-
-With MKtl, it is possible to assign functionality to controller elements.  A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above.
-
-Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. 
-
- Below, there are two examples using a popular MIDI controller.
-
-\begin{Verbatim}
-k = MKtl('nnkn20');
-\end{Verbatim}
-
-
-
-\begin{itemize}
-	\item Modality toolkit + Various Mixed Things + closely related
-	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
-		all of Marijes device related quarks, etc 
-\end{itemize}
-
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
@@ -172,8 +151,51 @@ k = MKtl('nnkn20');
 \end{figure}
 
 
-\section{Description files}
-\label{sec:descriptions_files}
+
+\section{Implementation}
+\label{sec:implementation}
+
+ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney_rethinking_2002}. The control elements of devices are accessed through the 'MKtl' class. A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above. Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the 'allElements' method. The 'elementDescription' variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, e.t.c.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type 'slider'.
+
+Each MKtl has a name, and only one MKtl is active with same name at any given time. MKtl's can be retrieved from a global dictionary by name, using the MKtl('name') syntax. The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. 'nnkn0' from 'nanoKONTROL'). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
+
+\begin{Verbatim}
+k = MKtl('nnkn20');
+\end{Verbatim}
+
+Actions are added to elements by setting the MKtlElements' 'action' to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the 'addAction' and 'removeAction' methods which use the 'FunctionList' class.
+
+\begin{Verbatim}
+//add action
+MKtl('nnkn20')
+.elements[\sl][0]
+.action = { |e|
+  var freq = e.value
+  .linlin(0.0,1.0,300,3000);
+  x.set(\freq, freq)
+};
+
+//remove action
+MKtl('nnkn20')
+.elements[\sl][0]
+.action = nil
+\end{Verbatim}
+
+Some elements (with 'ioType' 'out' or 'inout') can also send values back to the device, this is done using the value\_ method of MKtlElement.
+
+\begin{Verbatim}
+MKtl('bcr20000')
+.elements[\kn][0][0]
+.value_(0.3)
+\end{Verbatim}
+
+\subsection{Unifications of interface implementations}
+\label{sub:unifications_of_interface_implementations}
+
+The Modality toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (HIDMKtl, MIDIMktl, OSCMKtl, etc) implement the specific back-end for each protocol. Since the interface for using Modality is defined in MKtl and MKtlElement, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values of from the device are also scaled to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol.  This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
+
+\subsection{Description files}
+\label{sub:descriptions_files}
 
 In order for Modality to be able to use a device a \textit{device description} file must be available for it.  A device description file characterizes and labels each element and provides the shape of the data structure used to access elements. It is implemented using one text file per device containing an sclang dictionary with (at least) fields 'protocol' (only one protocol allowed per device, currently only HID and MIDI implemented), 'device' (the operating system provided name of the device) and 'description'. The 'description' field contains a dictionary with a tree-like structure, where the value at each key can be another dictionary or array and where the leafs contain a dictionary describing each element. These element dictionaries contain the technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, e.t.c.) and a \textit{ControlSpec} that specifies how to convert the incoming values to the range $[0,1]$.   \emph{Slould we include the ABNF definition  in an annex ? point to it online ?} Following is the element dictionary for a button of a MIDI device.
 
@@ -221,6 +243,11 @@ New devices can be added to modality easily, all that is needed is to write the 
 \label{sec:islands_and_bridges_uniform_protocols}
 
 
+\begin{itemize}
+	\item Modality toolkit + Various Mixed Things + closely related
+	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
+		all of Marijes device related quarks, etc 
+\end{itemize}
 
 \subsection{ Uniform devices (MIDI, HID, OSC, GUI, Serial) }
 
