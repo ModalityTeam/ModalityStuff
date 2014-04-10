@@ -303,6 +303,8 @@ MKtl('bcr20000')
 
 The Modality Toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values of from the device are also scaled to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
 
+MKtl also has the useful feature of being able to automatically create a GUI representing a known device from it's description file. If the user tries to instantiate an MKtl with an auto-generated name corresponding to a known device, but the device is not currently available, an |MKtlGui| will be automatically created instead. This makes it trivial to exchange a physical controller for a GUI representation without have to change any code at all.
+
 \subsection{Description files}
 \label{sub:descriptions_files}
 
@@ -311,12 +313,10 @@ It is implemented using one text file per device containing a dictionary with th
 \begin{description}
 	\item[protocol] currently, HID and MIDI are implemented. Note that only one protocol per device is allowed,
 	\item[device] the name of the device as provided by the operating system,
-	\item[description] a dictionary with a tree structure, where the value at each key is either an element dictionary with key-value pairs describing the element at hand, or an array of such dictionaries.
+	\item[description] a dictionary with a tree structure composed of nested dictionaries and arrays. The value at each leaf of the tree is an element dictionary with key-value pairs describing the element at hand.
 	An element dictionary contains technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, etc.) and a |ControlSpec| that specifies how to convert the incoming values to the range $[0,1]$.
 \end{description}
 
-\todo{Slould we include the ABNF definition  in an annex ? point to it online ?} 
-   
 As an example, the element dictionary for a button of a MIDI device would look like this:
 \begin{Verbatim}
 \rew: (
