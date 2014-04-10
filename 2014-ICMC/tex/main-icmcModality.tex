@@ -118,7 +118,7 @@
 \capstarttrue
 %
 \begin{abstract}
-The Modality toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
+The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
 Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
 To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
 Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
@@ -134,30 +134,31 @@ Currently, HID and MIDI are supported; GUI-based interfaces can be created on th
 \section{Scope and Overview}
 \label{sec:overview_of_modality_concept_and_aims}
 
-The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance. 
-Its primary product is the Modality Toolkit, a library that supports access to many hardware and software controllers, flexible routing of control messages to generative processes, and flexible routing, processing, recording of controller signals.
-It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers, both of and for SuperCollider.
+The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance and musical practice.
+Its primary product is the \emph{Modality Toolkit}, a software library that facilitates (a) access to hardware and software controllers, (b) flexible routing of control messages to generative processes, and (c) recording, filtering and further processing of controller signals.
+The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SuperCollider meets at regular intervals to work on the library, discuss issues around music performance and composition, and perform in self-organised concerts.
 
-The name Modality arose from the idea to investigate the creation and extensive use of modal interfaces, i.e., to create interfaces where a small set of physical controllers can be used for many different purposes, by making it possible and easy to switch their functionality even in public performance. 
-We contend that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting and rewarding to play. 
 
-The essential strength of modal interfaces is that they allow fast changes and more opportunity for sonic discovery, as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
 \section{Towards modal control}
 \label{sec:modal_control}
 
-\emph{Tells about the scope of the modality group, how it was established and how the meetings work. Should especially include a description of the combination of developer meeting, public workshop and concert.}
+\emph{Tells about the modality group}
+
+The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces, i.e., to create interfaces where a small set of physical controllers can be used for many different purposes, by making it possible and easy to switch their functionality even in public performance. 
+We contend that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting and rewarding to play. 
+
+The essential strength of modal interfaces is that they allow fast changes and more opportunity for sonic discovery, as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
-
-\subsection{The modality way}
+\section{The Modality way}
 \label{sub:the_modality_way}
 
 \emph{Tells about how the Modality meetings work, i.e., a description of the combination of developer meeting, public workshop and concerts.}
 
-
-So far, the ModalityTeam held four meetings:
+So far, the ModalityTeam held four meetings.
+Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely developer phases in which the Modality Toolkit was implemented, public workshops disseminating knowledge about the Modality Toolkit, and concerts in which participants performed with their custom instruments.
 
 \begin{description}
 	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss shared ideas about modal control in performance and rehearsal situations.
@@ -178,7 +179,6 @@ So far, the ModalityTeam held four meetings:
 	
 	\item[November 2013, BEK, Bergen] After almost 2 years of pause, 
 		use cases, issue tracker.
-		
 		\begin{itemize}
 		\item remove FRP
 		\item remove FuncChain
@@ -219,7 +219,7 @@ So far, the ModalityTeam held four meetings:
 \section{Related work}
 \label{sec:related_work}
 
-The Modality toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
+The Modality Toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
 Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{*def paradigm}.
 
 % simple to complex
@@ -254,9 +254,19 @@ Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard201
 \label{sec:implementation}
 
 
-ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. The control elements of devices are accessed through the |MKtl| class. A control element is a part of a controller that typically generates and/or accepts a one-dimensional stream of events, or does both. Each MKtl object has elements such as sliders, knobs, buttons and the like. One can assign actions to such an element that are evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the |allElement| method. The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, etc.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
+The Modality Toolkit is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. 
+The control elements of devices are accessed through the |MKtl| class. 
+A control element is a part of a controller that either generates and/or accepts a one-dimensional stream of events. 
+Each |MKtl| object consists of elements such as sliders, knobs, buttons or encoders.
+It is possible to assign actions to such elements that are evaluated every time the value of that element gets updated.
+Elements are instances of |MKtlElement| and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. 
+For convenience, elements can also be accessed from a flat array using the |allElement| method. 
+The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button, slider) and control spec for scaling incoming values. 
+This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
-Each MKtl has a name, and only one MKtl is active with same name at any given time. MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
+Mimicking the |*def| paradigm described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
+MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. 
+The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
 \begin{Verbatim}
 k = MKtl('nnkn20');
@@ -291,13 +301,23 @@ MKtl('bcr20000')
 \subsection{Unifications of interface implementations}
 \label{sub:unifications_of_interface_implementations}
 
-The Modality toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values of from the device are also scaled to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
+The Modality Toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values of from the device are also scaled to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
 
 \subsection{Description files}
 \label{sub:descriptions_files}
 
-In order for Modality to be able to use a device a \textit{device description} file must be available for it.  A device description file characterizes and labels each element and provides the shape of the data structure used to access elements. It is implemented using one text file per device containing an sclang dictionary with (at least) fields |protocol| (only one protocol allowed per device, currently only HID and MIDI implemented), |device| (the operating system provided name of the device) and |description|. The 'description' field contains a dictionary with a tree-like structure, where the value at each key can be another dictionary or array and where the leafs contain a dictionary describing each element. These element dictionaries contain the technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, etc.) and a \textit{ControlSpec} that specifies how to convert the incoming values to the range $[0,1]$.   \emph{Slould we include the ABNF definition  in an annex ? point to it online ?} Following is the element dictionary for a button of a MIDI device.
+In order to use a device within the Modality Toolkit context, a \textit{device description} file is needed that characterises each control element and its semantical position in relation to other elements.
+It is implemented using one text file per device containing a dictionary with the fields 
+\begin{description}
+	\item[protocol] currently, HID and MIDI are implemented. Note that only one protocol per device is allowed,
+	\item[device] the name of the device as provided by the operating system,
+	\item[description] a dictionary with a tree structure, where the value at each key is either an element dictionary with key-value pairs describing the element at hand, or an array of such dictionaries.
+	An element dictionary contains technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, etc.) and a |ControlSpec| that specifies how to convert the incoming values to the range $[0,1]$.
+\end{description}
 
+\todo{Slould we include the ABNF definition  in an annex ? point to it online ?} 
+   
+As an example, the element dictionary for a button of a MIDI device would look like this:
 \begin{Verbatim}
 \rew: (
 	\midiMsgType: \cc,
@@ -327,23 +347,23 @@ MKtl('nnkn0').elements[\sl]
   }
  }
 }
-  		
 \end{Verbatim}
 
 The standard order for grouped elements is first page, then row starting from the top of controller and finally column starting from the left of the controller.
 
-New devices can be added to modality easily, all that is needed is to write the corresponding device description file. If a user tries to access a device for which there is still no description file available the toolkit can help the user with the creation of the description file. For HID devices a description file can be generated using the |HIDExplorer| class from the information provided by the HID stack at the operating system level. For MIDI devices the user is asked to press or move all the physical controls available and then a description file is generated with the recorded data. In both cases the user should then supply suitable labels or placement in an array for each element, and complete or correct the information provided.
-
-
-
-
+New devices can be added to modality easily, all that is needed is to write the corresponding device description file. 
+If a user tries to access a device for which there is still no description file available, the toolkit guides the user in the process of creating the description file. 
+More specifically, a description file can be generated for HID devices using the |HIDExplorer| class, which collects information provided by the low-level HID stack. 
+For the less self-documenting range of devices connected via MIDI, the user is asked by the |MIDIexplorer| class to operate all available physical controls. 
+The captured data stream is then used to generate a description file.
+In both cases the user then supplies suitable labels and orders the elements hierarchically according to their physical placement on the device.
 
 \section{Islands and Bridges, uniform protocols}
 \label{sec:islands_and_bridges_uniform_protocols}
 
 
 \begin{itemize}
-	\item Modality toolkit + Various Mixed Things + closely related
+	\item Modality Toolkit + Various Mixed Things + closely related
 	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
 		all of Marijes device related quarks, etc 
 \end{itemize}
@@ -360,7 +380,7 @@ New devices can be added to modality easily, all that is needed is to write the 
 
 \emph{ miguel: I'm a bit skeptical about us really having a uniform protocol for destinations. MKtl allows registering call-backs for actions, so does Influx, etc, ok, but so do the stock SC guis, MIDIFunc, etc.  I wonder if we are not claiming too much by saying we have created uniform protocols when all that we are doing is providing call-backs which are known and used everywhere in SuperCollider. One could argue all of Supercollider uses a uniform protocol which is calling methods on objects. Maybe I'm missing something here.
 }
- 
+ \emph{Till: I think, we should not claim to have a unified protocol for now. But maybe we can talk about the difficulties to get it up...}
 		
 \begin{figure}[h]
 	\centering
