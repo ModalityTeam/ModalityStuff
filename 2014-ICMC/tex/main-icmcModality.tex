@@ -169,7 +169,7 @@ So far, the ModalityTeam held four meetings:
 	
 	\begin{itemize}
 		\item 	|MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
-		 Instead of assigning functions to hardware-specifics like MIDI cc numbers, or an HID element cookies, we considered controllers as a combination of \emph{controller elements}, the |MKtlElements|, which were given human-readable short names for semantically simple access, e.g. 'sl1' instead of midi channel 0 cc number 14.
+		 Instead of assigning functions to hardware-specifics like MIDI cc numbers, or an HID element cookies, we considered controllers as a combination of \emph{controller elements}, the |MKtlElements|, which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of midi channel 0 cc number 14.
 		 This scheme was to be extended for OpenSoundControl,serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
 		\item  |MDispatch| objects, which allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
 	\end{itemize}
@@ -177,9 +177,41 @@ So far, the ModalityTeam held four meetings:
 	A stumbling block at this point was that the HID implementation in SuperCollider on OSX broke in the move to version 3.5, due to changes in the API to Apple's HID toolkit. This has only recently been solved in version 3.7 with a brand new cross-platform HID implementation.
 	
 	\item[November 2013, BEK, Bergen] After almost 2 years of pause, 
-		use cases, 
+		use cases, issue tracker.
+		
+		\begin{itemize}
+		\item remove FRP
+		\item remove FuncChain
+		\item elementAt shortcut for getting element
+		\item sending values back to the device
+		\item MIDIExplorer
+		\item HIDExplorer
+		\item cleanup HID
+		\item Influx, Halo, DefLib as things to explore in Modality
+		\item Conform to the new description standard
+		\item added howto for description file generating. Lacks sections for HID and OSC.
+		\item implemented hierarchical specs
+		\item noteOn, noteOff, touch, cc work now, tested with MPD18.
+		\item move to VariousMixedThings
+		\item MIDIAnalysis more error checking
+	\end{itemize}
+		
+		
+		
 	\item[April 2014, STEIM, Amsterdam]
-	
+	\begin{itemize}
+		\item Documentation updates
+		\item HID fix
+		\item adding MKtlGUI
+		\item hierarchical descriptions
+		\item add new SoftSet class and help file. will replace .softSet methods for several objects.
+		\item MIDIMKtl implemented polytouch and bend
+		\item refactoring device description loading
+		\item fake an MKtl
+		\item added SetRel command class for relative controllers.
+		\item cleanup of MKtl, allow using MKtl directly instead of MIDIMKtl, add infoMessage posting
+		\item Update description file reference to use Augmented Backus–Naur Form
+	\end{itemize}
 \end{description}
 
 
@@ -187,14 +219,24 @@ So far, the ModalityTeam held four meetings:
 \section{Related work}
 \label{sec:related_work}
 
+The Modality toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
+Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{*def paradigm}.
+
+% simple to complex
 \begin{description}
-	\item[junXion] is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
-	It is implemented as a stand-alone program to be put in the middle between the sensor layer and the synthesis layer.
-	
-	\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
 	\item[OSCulator] 
+		\enquote{[\dots] is the missing link between your controllers and your music or video software.}
+		Assign events to messages
+		Define operation ranges(for floats)
+		Define different events to specific values (ints) 
+	\item[junXion] 
+		is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
+		It is implemented as a stand-alone program to be put in the middle between the sensor layer and the synthesis layer.
+		\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
 	\item[Digital Orchestra Toolkit] \todo{McGill's Digital Orchestra Toolkit for Max/MSP}
-	\item[*def paradigm in SuperCollider]
+	\item[*def paradigm in SuperCollider] 
+		SuperCollider classes like |MIDIdef|, |OSCdef|, |Tdef|, |Pdef|, or |Ndef| memorise, which instances are already created and save them into a dictionary data structure. 
+		Calling their constructor with only the key (e.g., |Ndef(\a)|) triggers the class to look for an instance of itself in its global dictionary and, if it finds it, returns it for further usage. This comes in very handy in live coding situations, where remembering name/function pairs is experienced much easier than keeping up with variable declaration and administration.
 \end{description}
 
 
