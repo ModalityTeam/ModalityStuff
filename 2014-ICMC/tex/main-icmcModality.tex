@@ -250,7 +250,7 @@ Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard201
 
 
 
-\section{Implementation}
+\section{Specification, design and implementation}
 \label{sec:implementation}
 
 
@@ -395,19 +395,28 @@ What are they supposed to be ? Why are there several different ones ?
 	
 \subsubsection{MDispatch}	
 
-describe : An initial attempt, interesting but didn't catch on.
+The MDispatch class was an initial attempt at creating self-contained event logic units. |MDispatch| has similar structure as |MKtl| (both inheriting from |MAbstractKtl|). A dispatch has output elements (|MDispatchOut| class) where actions can be added similarly to |MKtlElement|. It also also has inputs which are updated by registering callbacks on the elements of other |MAbstractKtl|s. When an event is received from a source the input element and it's value are saved and a list of state processing functions is run sequentially. These state processing functions have access to all the internal state of the dispatch which includes the source element which caused the update, all the values of the output elements and any other state variables defined for auxiliary calculations. An MDispatch can be either created from a template containing predefined functionality or explicitly defined. The process for explicitly creating an MDispatch is to specify outputs, define state processing functions and finally connect the dispatch to sources of events. In order to facilitate this process it is possible to first connect to a source and just copy the output names of the source to the output names of dispatch, in fact mirroring the same elements. This makes it easy to create path-through processors which just take the output of each element of an MKtl and do some processing with it and then output a value through an element with same key. Below is the code for creating a dispatch that only outputs when incoming values are increasing and takes values from a midi device:
+
+\begin{Verbatim}
+k = MKtl('nnkn0');
+d = MDispatch.make(\up, k);
+\end{Verbatim}
+
+At the time when MDispatch was created several templates were written for tasks such as for soft paging, getting velocity values or filtering events. 
+
+MDispatch was an interesting experiment that allowed for some degree re-usability of event logic code, nevertheless it's interface was slightly cumbersome since it acted as a virtual device with many inputs and outputs, with explicit creation of outputs, registering for inputs and management of connections. Creating smaller and therefore more re-usable dispatches was discouraged by the burden of all the necessary initialization code. Perhaps because of these issues MDispatch did not gain wide adoption amongst users of the Modality toolkit and it's development is currently paused. \emph{ would be good to get other opinions on this. Do you agree with what I say in this paragraph ? }
 		
 \subsubsection{FRP}
 
-An electronic instrument can be though of as set of inputs from control devices, a set of audio units or processes that create audio units and control logic to allow incoming events from the physical devices to affect the state of the audio units. 
+An electronic instrument can be though of as set of inputs from control devices, a set of audio units or processes that create audio units and control logic in between to allow incoming events from the physical devices to affect the state of the audio units. 
 
-The traditional method of dealing with incoming events is through call-back functions. A call-back function is registered and it is called every time an event is received. Call-back functions, although easy to define lack composability and require all the basic patching to be handled by user. Functional Reactive Programming, or FRP, is a paradigm for programming dynamic and reactive systems using first-class composable abstractions that tries to address some of these issues. The two main abstractions are event streams (sequences of discrete-time event occurrences) and behaviours or signals (time-varying values). FRP is a novel programing technique still being actively researched, nevertheless there are already some practical applications of it, mostly for web development (Flapjax, ELM, reactive-web). Most of the original work on FRP was done on the Haskell programming language\footnote{Haskell is a modern, pure, statically typed functional programming language.} with two main flavors, Classic FRP\cite{elliott_functional_1997,elliott_push-pull_2009} and Arrowized FRP~\cite{hudak_arrows_2003}.
+The traditional method of dealing with incoming events is through callback functions. A callback function is registered and it is called every time an event is received. Callback functions, although easy to define lack composability and require all the basic patching to be handled by user. Functional Reactive Programming, or FRP, is a paradigm for programming dynamic and reactive systems using first-class composable abstractions that tries to address some of these issues. The two main abstractions are event streams (sequences of discrete-time event occurrences) and behaviours or signals (time-varying values). Most of the original work on FRP was done on the Haskell programming language\footnote{Haskell is a modern, pure, lazy, statically typed functional programming language.} with two main flavors, Classic FRP~\cite{elliott1997-fun,elliott2009-pus} and Arrowized FRP~\cite{hudak2003-arr,courtney2003yampa}.
 
-The FRP paradigm seemed promising for the construction of musical digital instruments, so in order to make it available in the SuperCollider language the \emph{reactive-web} library from the Scala language was ported to SuperCollider and extended. Ideas from \emph{reactive-banana}, a modern FRP library for Haskell, were also incorporated. This SuperCollider FRP implementation is part of the FPLib library~\cite{-fpl} which makes available a number of functional programming constructs in SuperCollider such as Monads, Applicative, Functors and Monoids.
+The FRP paradigm seemed promising for the construction of musical digital instruments, so in order to make it available in the SuperCollider language the \emph{reactive-web} library from the Scala language was ported to SuperCollider and extended. Ideas from \emph{reactive-banana}, a modern FRP library for Haskell, were also incorporated. This SuperCollider FRP implementation is part of the FPLib library~\cite{-fpl} which makes available a number of functional programming constructs such as Monads and Applicative Functors in SuperCollider.
  
-In FP-Lib the main entities for FRP are the EventStream and FPSignal classes. Signals are slightly different from the behaviors of Classic FRP: behaviors model any continuous time function $f:Time\rightarrow A$, while signals only model step functions.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams which form an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} forms an\emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing output actions. The connecting and disconnecting from objects outside of the event network is atomic. 
+In FP-Lib the main entities for FRP are the EventStream and FPSignal classes. Signals are slightly different from the behaviors of Classic FRP: behaviors model any continuous time function $f:Time\rightarrow A$, while signals only model step functions.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} forms an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions.
 
-It's possible to create complex programs with time-dependent logic by composing  event streams and signal. Below we list some of the basic operations available:
+It's possible to create complex programs with time\\-dependent logic by composing  event streams and signal using a small set of combinators:
 
 \begin{itemize}
 
@@ -416,7 +425,7 @@ It's possible to create complex programs with time-dependent logic by composing 
 sig1 = es1.hold(0.0)
 es2 = sig2.changes
 \end{Verbatim}
-\item Merging n event streams into one event stream by taking events from any of the incoming streams:
+\item Merging multiple event streams into one event stream by accepting events from any streams:
 \begin{Verbatim}
 mergedEs = es1 | es2 | es3 | es4
 \end{Verbatim}
@@ -424,9 +433,10 @@ mergedEs = es1 | es2 | es3 | es4
 \begin{Verbatim}
 es.filter({ |x| x > 0.5 })
 \end{Verbatim}
-\item Keeping state that can be influenced by several different event streams by  associating each event stream with a state altering function. The state if first set to an initial value, then each time the event streams receive an event it generates a new function to be applied to the current value of the state. For example, a counter that can be incremented by one event stream and decremented with another:
+\item Keeping state that can be influenced by several different event streams by  associating each event stream with a state altering function. The state is first set to an initial value, then each time the event streams receive an event it generates a new function to be applied to the current value of the state. For example, a counter that can be incremented by one event stream and decremented with another:
 \begin{Verbatim}
-(es1.collect(_+1)|es2.collect(_-1))
+( es1.collect{{|x|x+1}} | 
+  es2.collect{{|x|x-1}} )
 .injectF(0) 
 \end{Verbatim}
 \item Merging n signals using an n-ary function. This is possible to do with signals but not with event streams, since only signals remember their last value. For example, converting two signals carrying x and y coordinates to one signal carrying the angle: 
@@ -435,12 +445,13 @@ atah2(_,_).lift.(xSig, ySig)
 \end{Verbatim}
 \item Applying a time-varying function (stored in an signal) to an event stream. This allows event streams to use previous values from other nodes in the graph. For example, starting a synth on pressing a pad with frequency determined by the last value of a slider:
 \begin{Verbatim}
-{ |f,onoff| IO{ Synth(\a,[\freq,f]) } }
-<\$> sliderSig <@> padEs 
+{ |f,e| IO{Synth(\a,[\freq,f])} }
+<$> sliderSig <@> padEs 
 \end{Verbatim}
+%$ need this otherwise texmaker turns all my text to green
 \item Dynamic event switching: changing the event graph by running a function on an incoming event that returns the new event stream or signal to use. For example, every time a signal emits an int $n$, create a new signal that merges the first $n$ elements of a list of signals using an averaging function: 
 \begin{Verbatim}
-sig1.switchInto{ |n|
+sigNum.switchInto{ |n|
   listOfSignals[..n].sequence
   .collect{ |xs| xs.sum / xs.size }
 }
@@ -448,14 +459,14 @@ sig1.switchInto{ |n|
 All FRP objects created inside the function are automatically disposed off when the function is run again preventing leaks.
 \end{itemize}
 
-In the FP-Lib, inputs to the event graph can come from MIDI or HID (via the
-Modality Toolkit), OSC, GUIs or Timers and are declared using  the |enIn| method (signal) or |enInES| (event stream) method. Outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad, which in SuperCollider are essentially just functions). For convenience there are predefined actions available called \textit{sinks}. Passing an FRP object to a sink will execute the default action of the sink using the values emitted by the object.
+In FP-Lib, inputs to the event graph can come from MIDI or HID (via the
+Modality Toolkit), OSC, GUIs or Timers and are declared using  the |enIn| (signal) or |enInES| (event stream) method. Outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad, which in SuperCollider are anonymous functions wrapped in a class). For convenience there are predefined actions available called \textit{sinks}. Passing an FRP object to a sink will execute the default action of the sink using the values emitted by the object.
 
-FPLib can be used in conjunction with UnitLib, in which case the definition of the event network should return a dictionary of synth control names to Signals or event streams. The output of the frp objects can then be automatically scaled to the range of the parameter of the synth, since the unit keeps a control spec for each control in the SynthDef.
+FPLib can be used in conjunction with UnitLib, in which case the definition of the event network should return a dictionary of synth control names to Signals or event streams. The output of the frp objects can then be automatically scaled to the range of the parameter of the synth, since units have a control spec for each control in the SynthDef.
 
-The code used to create an event graph for an instrument is highly reusable since any parts of the graph can be repackaged into a single function and used elsewhere. Since all the functions used to construct the graph are pure\footnote{SuperCollider is not a typed pure FP language like Haskell, so there are no guarantees that the functions passed by the user to the to the FRP combinators are actually pure, it's up to the user to make sure that this is the case.} it's possible to abstract a subset of them into a single function and be confident that the result will be identical. This makes it easy to build a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument.
+Since all the functions used to construct the graph are pure\footnote{SuperCollider is not a typed pure FP language like Haskell, so there are no guarantees that the functions passed by the user to the to the FRP combinators are actually pure, it's up to the user to make sure that this is the case.} it's possible to abstract a subset of them into a single function and be confident that the result will be identical. Also, the event graph does noy depend on the nature of the inputs or outputs, for instance MIDI inputs can be changed to GUIs or OSC messages without changing any of the event graph code. This makes it easy to build a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument.
 
-Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs used in digital instruments.
+Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments. The FRP system has not gained wide adoption amongst Modality users either, perhaps because pure functional programming is quite a different paradigm from the imperative object\\-oriented paradigm of SuperCollider.
 
 \subsubsection{Influx}
 
