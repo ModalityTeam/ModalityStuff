@@ -176,10 +176,10 @@ So far, the ModalityTeam held four meetings:
 	
 	A stumbling block at this point was that the HID implementation in SuperCollider on OSX broke in the move to version 3.5, due to changes in the API to Apple's HID toolkit. This has only recently been solved in version 3.7 with a brand new cross-platform HID implementation.
 	
-	\item[November 2013, BEK, Bergen] After almost 2 years, 
-	
+	\item[November 2013, BEK, Bergen] After almost 2 years of pause, 
+		use cases, 
 	\item[April 2014, STEIM, Amsterdam]
- 
+	
 \end{description}
 
 
@@ -212,7 +212,7 @@ So far, the ModalityTeam held four meetings:
 \label{sec:implementation}
 
 
-ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. The control elements of devices are accessed through the |MKtl| class. A control element is a part of a controller that generates a one-dimensional stream of events, accepts a one-dimensional stream of events or both of the above. Each MKtl object has elements such as sliders or knobs. It is possible to assign an action to such an element that is evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the |allElement| method. The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, etc.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
+ImmLib is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. The control elements of devices are accessed through the |MKtl| class. A control element is a part of a controller that typically generates and/or accepts a one-dimensional stream of events, or does both. Each MKtl object has elements such as sliders, knobs, buttons and the like. One can assign actions to such an element that are evaluated every time the value of that element gets updated. Elements are instances of MKtlElement and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. The elements can also be accessed from a flat array using the |allElement| method. The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (a button, a slider, etc.) and control spec for scaling incoming values. This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
 Each MKtl has a name, and only one MKtl is active with same name at any given time. MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
@@ -220,7 +220,7 @@ Each MKtl has a name, and only one MKtl is active with same name at any given ti
 k = MKtl('nnkn20');
 \end{Verbatim}
 
-Actions are added to elements by setting the MKtlElements' |action| to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the |addAction| and |removeAction| methods which use the |FunctionList| class.
+Actions are added to elements by setting the MKtlElements' |action| to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the |addAction| and |removeAction| methods which use the |FunctionList| class. Optionally, one can use the FuncChain class wher functions can be added and removed by name, as well as reordered, and flexibly enabled and disabled for witching between modes. 
 
 \begin{Verbatim}
 //add action
