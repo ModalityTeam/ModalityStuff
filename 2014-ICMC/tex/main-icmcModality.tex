@@ -135,12 +135,13 @@ Currently, HID and MIDI are supported; GUI-based interfaces can be created on th
 \label{sec:overview_of_modality_concept_and_aims}
 
 The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance. 
-Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. 
+Its primary product is the Modality Toolkit, a library that supports access to many hardware and software controllers, flexible routing of control messages to generative processes, and flexible routing, processing, recording of controller signals.
 It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers, both of and for SuperCollider.
 
-The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g., one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. 
-We belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. 
-The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
+The name Modality arose from the idea to investigate the creation and extensive use of modal interfaces, i.e., to create interfaces where a small set of physical controllers can be used for many different purposes, by making it possible and easy to switch their functionality even in public performance. 
+We contend that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting and rewarding to play. 
+
+The essential strength of modal interfaces is that they allow fast changes and more opportunity for sonic discovery, as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
 \section{Towards modal control}
@@ -156,29 +157,24 @@ The strength of such a modal interface is that it allows for fast changes and mo
 \emph{Tells about how the Modality meetings work, i.e., a description of the combination of developer meeting, public workshop and concerts.}
 
 
-Over the last years, the ModalityTeam met four times at different places:
+So far, the ModalityTeam held four meetings:
 
 \begin{description}
-	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss about modal control in performance and rehearsal situations.
-	Soon it became apparent that, for all attendees, easy access and outlining of modal control structures is of great interest. First sketches for uniform access were made based on the then already existing JITMIDIKtl extension, creating a more uniform access to controllers in the Ktl extension.
+	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss shared ideas about modal control in performance and rehearsal situations.
+	The attendees soon agreed that easy access and outlining of modal control structures is of great interest for all. First sketches for uniform access were made based on the then already existing JITMIDIKtl quark \footnote{a quark is an extension library in SuperCollider-speak}, creating a more uniform access scheme to controllers in the Ktl extension. 
 	
 % 	\todo{add further description on founding meeting. Should do someone who actually was there.}
 	
-	\item[May 2011, STEIM, Amsterdam] Initial discussions unveiled the necessity for users to abstract from hardware dependencies and being able to do flexible routings and filtering incoming data.
-
-	We therefore developed a new extension (a so-called Quark) for the in SuperCollider language that (partly) implemented two sets of functionalities:
+	\item[May 2011, STEIM, Amsterdam] Discussions revealed the need for users to abstract from hardware dependencies, and being able to do flexible routings and filtering incoming data. We therefore developed a new SuperCollider quark that began to implement two sets of functionalities:
 	
 	\begin{itemize}
-		\item 	It was possible to query connected MIDI and HID hardware devices with an |MKtl| object. 
-		Capabilities of each device were stored in a configuration file. 
-		Rather than assigning functions via hardware-specific code (e.g. a MIDI control number, or an HID device element cookie), we thought of controllers as a combination of \emph{controller elements}, |MKtlElements|. 
-		It was possible to associate a human-readable name with element-specific data.
-		With the goal for future support of the serial port, OpenSoundControl, and other hardware interfaces, the workflow was designed as generic as needed to abstract from the actual backend.
-		\item In addition, we worked on the |MDispatch| class, which allowed to create \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. 
-		Templates for commonly used functionality were created.
+		\item 	|MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
+		 Instead of assigning functions to hardware-specifics like MIDI cc numbers, or an HID element cookies, we considered controllers as a combination of \emph{controller elements}, the |MKtlElements|, which were given human-readable short names for semantically simple access, e.g. 'sl1' instead of midi channel 0 cc number 14.
+		 This scheme was to be extended for OpenSoundControl,serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
+		\item  |MDispatch| objects, which allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
 	\end{itemize}
 	
-	A stumbleblock at this point was that the HID implementation in SuperCollider on OSX was broken with the move of the SuperCollider (version 3.5) codebase for 64-bit support on OSX and changes in the API to Apple's HID toolkit. This issue has only recently been solved with version 3.7 with a brand new cross-platform implementation of HID.
+	A stumbling block at this point was that the HID implementation in SuperCollider on OSX broke in the move to version 3.5, due to changes in the API to Apple's HID toolkit. This has only recently been solved in version 3.7 with a brand new cross-platform HID implementation.
 	
 	\item[November 2013, BEK, Bergen] After almost 2 years, 
 	
