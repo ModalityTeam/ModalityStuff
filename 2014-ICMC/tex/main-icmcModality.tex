@@ -122,12 +122,15 @@ The Modality Toolkit aims to improve and facilitate the use of digital technolog
 Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
 To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
 Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
+
+This paper gives an overview on the interpretation of modality as seen by a group of sound artists and researchers.
+Furthermore, it describes the interdisciplinary approach on giving birth to a toolkit written for and by electronic musicians.
 \end{abstract}
 
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140331-IMG_5976.jpg}
-	\caption{Meeting 2014 in Amsterdam}
+	\caption{Meeting 2014 at STEIM, Amsterdam.}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
@@ -140,25 +143,50 @@ The ModalityTeam, an international and transdisciplinary group of people that se
 
 
 
+\section{Introduction}
+\label{sec:introduction}
 
-\section{Towards modal control}
+In ???, Jeff Carey and Bj\o{}rnar Habbestad met over a residency at BEK, Bergen where they soon realised that, despite playing completely different setups, they both had the need to switch between functionalities easily while performing. 
+While both had custom implementation of this behaviour, it appeared to be not flexible enough, especially extending their setup felt cumbersome, original ideas got lost over the hassle of implementation of mapping rules.
+
+Out of these observations arose the idea to gather a group of experts in sound and music computing which eventually formed the ModalityTeam.
+Beginning with five people, over the meetings, more people became involved, such that the group currently consists of 12 members.
+
+The intention of this paper is two-fold:
+After an introduction on the concept of modality (Section~\ref{sec:modal_control}), it gives insight on work in an interdisciplinary team of loose collaboration, driven mostly by a shared interest in, on the one hand, sound, music, performance practice and software design and development on the other (Section \ref{sec:the_modality_meetings}).
+Secondly, it reports on the outcomes in both conceptual (Section~\ref{sec:islands_and_bridges_uniform_protocols}) and concrete implementation details (Section~\ref{sec:implementation}).
+The paper concludes with a reflection on the work done over the course of the last 5 years.
+
+
+\section{The Modality way}
 \label{sec:modal_control}
 
-\emph{Tells about the modality group}
+\emph{Tells about modality as a concept}
 
-The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces, i.e., to create interfaces where a small set of physical controllers can be used for many different purposes, by making it possible and easy to switch their functionality even in public performance. 
-We contend that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting and rewarding to play. 
+The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces.
+A central question was how HCI interfaces can be established, in which a small set of physical controllers can be used for a relatively large amount of purposes.
+More concrete, it was intended to make it easy to switch assigned functionality of hardware controls within a performance. 
+We contend that integration of such on-the-fly remapping features helps to create flexible instruments that are powerful yet interesting and therefore rewarding to play and listen to. 
 
 The essential strength of modal interfaces is that they allow fast changes and more opportunity for sonic discovery, as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
 
 
-\section{The Modality way}
-\label{sub:the_modality_way}
+Modality, however, can also be understood as a descriptor for the ModalityTeam.
+The fact that a number of programmers and artists meet up does not necessarily imply that they share the same  understanding, let alone opinion, on themes as fundamental to Modality as ``performance practice'', ``control strategies'' and even ``software paradigms''.
+It clearly turned out to be a learning process to not only hear other opinions but to take them into account during software design and implementation.
 
-\emph{Tells about how the Modality meetings work, i.e., a description of the combination of developer meeting, public workshop and concerts.}
+As a third interpretation level of the term Modality serves the structure of the meetings.
+Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely developer phases in which the Modality Toolkit was implemented, public workshops disseminating knowledge about the Modality Toolkit, and concerts in which participants performed with their custom instruments.
+
+To illustrate the process, the next section is a report on the modality meetings and their outcomes, combined with subjective analyses of the participants on the working process.
+
+
+
+
+\section{The Modality meetings}
+\label{sec:the_modality_meetings}
 
 So far, the ModalityTeam held four meetings.
-Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely developer phases in which the Modality Toolkit was implemented, public workshops disseminating knowledge about the Modality Toolkit, and concerts in which participants performed with their custom instruments.
 
 \begin{description}
 	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss shared ideas about modal control in performance and rehearsal situations.
@@ -227,6 +255,7 @@ Reflecting the divergence between participants, most of the meetings consisted o
 %		\item Update description file reference to use Augmented Backus–Naur Form
 %	\end{itemize}
 \end{description}
+
 
 
 
