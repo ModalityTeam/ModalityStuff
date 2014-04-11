@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 %\usepackage{cite}
 \usepackage{fancyvrb}
+\usepackage[autostyle]{csquotes}  
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
@@ -26,7 +27,7 @@
 \def\thirdauthor{Third author}
 
 
-% workshop leaders so far:
+% authors so far:
 % Till
 
 % adds the automatic
@@ -105,8 +106,10 @@
    {\thirdauthor} { Affiliation3 \\ %
      {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
 
+\newcommand{\todo}[1] {\emph{\textbf{TODO:} #1}}
+\DefineShortVerb{\|}
 
-% ***************************************** the document starts here ***************
+
 \begin{document}
 %
 \capstartfalse
@@ -114,12 +117,17 @@
 \capstarttrue
 %
 \begin{abstract}
-Modality is a toolkit to improve and facilitate the use of digital technology within sound art and music, based on the audio programming language SuperCollider.
+The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
+Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
+To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
+Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
+
+In the workshop, the toolkit is introduced and used by participants to lay out their control ideas and play music with each other.
 \end{abstract}
 
 \begin{figure}[h]
 	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
+		\includegraphics[width=\columnwidth]{../media/20140403-IMG_1667.jpg}
 	\caption{Public workshop and open Lab at STEIM}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
@@ -132,7 +140,9 @@ Modality is a toolkit to improve and facilitate the use of digital technology wi
 \section{Overview of the modality concept and its aims}
 \label{sec:overview_of_modality_concept_and_aims}
 
-Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
+Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. 
+Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. 
+It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
 
 The idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. 
 To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. 
@@ -142,26 +152,6 @@ Currently HID and MIDI are supported with OSC, GUI-based interfaces can be creat
 \section{Scope of Modality}
 \label{sec:scope_of_modality_tech_info_where_what}
 
-\emph{Tells about the scope of the modality group, how it was established and how the meetings work. Should especially include a description of the combination of developer meeting, public workshop and concert.}
-
-The name Modality arose from the idea to scaffold the creation of modal interfaces, i.e., to create interfaces where e.g. one physical controller can be used for different purposes or it is possible to switch its functionality, even at runtime. It is our belief that integration of such on-the-fly remapping features helps to create instruments that are flexible, powerful, and interesting to play. The strength of such a modal interface is that it allows for fast changes and more opportunity for sonic discovery as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
-
-
-The Modality toolkit aims to facilitate the following:
-
-\begin{itemize}
-	\item Access to data coming from commercial controllers, such as game controllers (human input devices; HID), MIDI controllers, OSC controllers (including mobile phone Apps), and other controllers, by providing a common interface to access these controllers. This includes creating specification files which characterize these devices.
-	\item Access to data coming from custom/DIY controllers/interfaces, such as Arduino (or other microcontroller) based sensor interfaces, linking into the same common interface as above.
-	\item Send output to these same controllers/interfaces.
-	\item Graphical feedback of the current state of a device, as well as a possibility to replace a controller with a graphical user interface (GUI) substitute.
-	\item Manipulation of data streams coming from these devices.
-	\item Mapping the output of these data streams to output parameters of sound units.
-\end{itemize}
-
-
-
-
-Specific attention is given to the concept of modal control: the ability to ‘on -the-­fly’ i.e., within a performance, change the mapping of one control of a device to a control on another device, or change the functionality of one control based on the state of another control (compare to changing the function of an alphanumerical key by using the SHIFT key on a computer keyboard).
 
 
 \section{Workshop content}
