@@ -374,7 +374,13 @@ In both cases the user then supplies suitable labels and orders the elements hie
 
 \section{Islands and Bridges, uniform protocols}
 \label{sec:islands_and_bridges_uniform_protocols}
+Islands and Bridges is a simple mental model for conceiving modal instruments. 
+Islands are objects or processes which represent sources (input devices, control-generating processes), destinations (output processes for sound, visuals), transformers (destinations which process incoming control information, and send the results on like sources), and mixed combinations of these. 
+Islands should be as self-sufficient as possible, and show uniform behavior to allow for simple on-the-fly changes of connections with bridges.
 
+Bridges typically consist of user code that connects islands; modal performance instruments rely on flexible switching between different combinations of bridges, adding some, removing others. Writing and configuring bridges should be as simple as possible. 
+
+Many quarks (libraries for SC) are useful as islands in this model, and 
 
 \begin{itemize}
 	\item Modality Toolkit + Various Mixed Things + closely related
@@ -382,20 +388,40 @@ In both cases the user then supplies suitable labels and orders the elements hie
 		all of Marijes device related quarks, etc 
 \end{itemize}
 
-\subsection{ Uniform devices (MIDI, HID, OSC, GUI, Serial) }
+\subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
 
-		with rich descriptions, hierarchical names for all elements
-		FakeGUI for everything
+All input devices should follow the same schema: 
+They have rich descriptions, with simple short human-readable element names, which are hierarchically ordered where applicable. 
+One can access each element by name or hierarchical name.
+Each element can either have a single action, or one can add and remove multiple actions by identity or name.
+Where applicable, objects have global responders (e.g. for MIDI notes and polytouch per channel). 
 
+Every MKtl can be fully replaced with a FakeGUI, which can every control message without requiring the physical device.
 
-\subsection{ Uniform destinations}
+Explorers simplify adding new devices or sources: 
+One uses every possible controller action at least once to collect specimens of every possible message type. 
+The Explorer makes a description file template from this, and the user adds the final touches by giving them simple, short and clear element names, and organizing their hierarchical order.
 
-		set messages, RelSet, SoftSet, // if Influx, influence
+This is implemented fully for MIDI and HID, with other protocols to follow.
+
+\subsection{Proposed uniform destination schema}
 
 \emph{ miguel: I'm a bit skeptical about us really having a uniform protocol for destinations. MKtl allows registering call-backs for actions, so does Influx, etc, ok, but so do the stock SC guis, MIDIFunc, etc.  I wonder if we are not claiming too much by saying we have created uniform protocols when all that we are doing is providing call-backs which are known and used everywhere in SuperCollider. One could argue all of Supercollider uses a uniform protocol which is calling methods on objects. Maybe I'm missing something here.
 }
- \emph{Till: I think, we should not claim to have a unified protocol for now. But maybe we can talk about the difficulties to get it up...}
-		
+\emph{Till: I think, we should not claim to have a unified protocol for now. But maybe we can talk about the difficulties to get it up...}
+ 
+\emph{adc: agreed, protocol is too big a claim. Maybe Proposed schema is the better term. below a short write-up, hope you find that useable?}
+
+Modality-compatible destinations follow existing SuperCollider object schemata: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters. Objects that are running processes also respond to .play, .stop, .pause and resume messages. 
+
+Requiring destinations to know their parameters specs and current states allows more flexible control: 
+|RelSet| can be used to nudge a parameter relative to its current value. 
+|SoftSet| can be used to take over a parameter only when the physical controller is close enough to its value (or when the physical controller knows the object's previous value well enough, which is the case when it has set it to that value). 
+If specs are kept with the object, they can easily be adjusted there (e.g. for zooming into a subset of the full range), keeping the controller side code simpler by sending unipolar values, and letting the object provide the spec:  
+|{ arg sl; dest.setUni(\freq, sl.value) }|
+
+Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows very simple de/activation when switching mapping to or away from a new process. 
+
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140405-IMG_1691.jpg}
