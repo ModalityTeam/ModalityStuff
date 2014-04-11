@@ -177,41 +177,55 @@ Reflecting the divergence between participants, most of the meetings consisted o
 	
 	A stumbling block at this point was that the HID implementation in SuperCollider on OSX broke in the move to version 3.5, due to changes in the API to Apple's HID toolkit. This has only recently been solved in version 3.7 with a brand new cross-platform HID implementation.
 	
-	\item[November 2013, BEK, Bergen] After almost 2 years of pause, 
-		use cases, issue tracker.
-		\begin{itemize}
-		\item remove FRP
-		\item remove FuncChain
-		\item elementAt shortcut for getting element
-		\item sending values back to the device
-		\item MIDIExplorer
-		\item HIDExplorer
-		\item cleanup HID
-		\item Influx, Halo, DefLib as things to explore in Modality
-		\item Conform to the new description standard
-		\item added howto for description file generating. Lacks sections for HID and OSC.
-		\item implemented hierarchical specs
-		\item noteOn, noteOff, touch, cc work now, tested with MPD18.
-		\item move to VariousMixedThings
-		\item MIDIAnalysis more error checking
-	\end{itemize}
-		
-		
-		
-	\item[April 2014, STEIM, Amsterdam]
+	\item[November 2013, BEK, Bergen] After almost 2 years of pause, this meeting focused on practical steps forward. 
 	\begin{itemize}
-		\item Documentation updates
-		\item HID fix
-		\item adding MKtlGUI
-		\item hierarchical descriptions
-		\item add new SoftSet class and help file. will replace .softSet methods for several objects.
-		\item MIDIMKtl implemented polytouch and bend
-		\item refactoring device description loading
-		\item fake an MKtl
-		\item added SetRel command class for relative controllers.
-		\item cleanup of MKtl, allow using MKtl directly instead of MIDIMKtl, add infoMessage posting
-		\item Update description file reference to use Augmented Backus–Naur Form
+		\item	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become. 
+		\item 	We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
+		\item 	Proposals for related useful concepts, such as FRP and Influx, were explored.
+		\item	Experimental items were moved outside the main toolkit.
 	\end{itemize}
+		
+%		\begin{itemize}
+%		\item remove FRP
+%		\item remove FuncChain
+%		\item elementAt shortcut for getting element
+%		\item sending values back to the device
+%		\item MIDIExplorer
+%		\item HIDExplorer
+%		\item cleanup HID
+%		\item Influx, Halo, DefLib as things to explore in Modality
+%		\item Conform to the new description standard
+%		\item added howto for description file generating. Lacks sections for HID and OSC.
+%		\item implemented hierarchical specs
+%		\item noteOn, noteOff, touch, cc work now, tested with MPD18.
+%		\item move to VariousMixedThings
+%		\item MIDIAnalysis more error checking
+%	\end{itemize}
+		
+		
+		
+	\item[April 2014, STEIM, Amsterdam] 	Many aspects of the input side were unified and simplified further, nearing completion:
+	\begin{itemize} 
+		\item HID support in OSX fixed (pending full tests)
+		\item Fake GUIs are made for missing devices
+		\item description file handling improved in many ways
+		\item Mapping simplified with SoftSet and RelSet
+		\item more use cases were sketched and written in some coding style variants
+		\item much more documentation and examples
+	\end{itemize}
+%	\begin{itemize} 
+%		\item Documentation updates
+%		\item HID fix
+%		\item adding MKtlGUI
+%		\item hierarchical descriptions
+%		\item add new SoftSet class and help file. will replace .softSet methods for several objects.
+%		\item MIDIMKtl implemented polytouch and bend
+%		\item refactoring device description loading
+%		\item fake an MKtl
+%		\item added SetRel command class for relative controllers.
+%		\item cleanup of MKtl, allow using MKtl directly instead of MIDIMKtl, add infoMessage posting
+%		\item Update description file reference to use Augmented Backus–Naur Form
+%	\end{itemize}
 \end{description}
 
 
