@@ -200,7 +200,6 @@ Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard201
 \end{description}
 
 
-
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
@@ -291,9 +290,29 @@ So far, the ModalityTeam held four meetings.
 
 
 
-\section{Specification, design and implementation}
+\section{Specification, design and implementation of the Modality toolkit}
 \label{sec:implementation}
 
+
+\subsection{Specification}
+\label{sub:specification}
+
+% taken from the workshop webpage. please adjust/remove/edit.
+The Modality toolkit aims to facilitate
+\begin{itemize}
+	\item data acquisition from commercially available controllers (e.g. HID and MIDI) by providing a common software interface,
+	\item processing of control data streams,
+	\item sending control data to these controllers (e.g. fader positions, LED states),
+	\item graphical feedback  of the current state in the form of a GUI of connected a device, as well as replacing a controller with a GUI substitute, and finally
+	\item mapping the output of these data streams to output parameters of sound engines.
+\end{itemize}
+
+Specific attention is given to the concept of modal control: the ability to change the mapping on-the-fly from one control element to another, possibly located on another device.
+Or to change assigned functionality of one control element based on the state of another, as in changing the function of an alphanumerical key by using the SHIFT key on a computer keyboard.
+% %%%%%%%
+
+\subsection{Implementation}
+\label{sub:implementation}
 
 The Modality Toolkit is implemented as a set of classes for the SuperCollider language \cite{mccartney2002-ret}. 
 The control elements of devices are accessed through the |MKtl| class. 
