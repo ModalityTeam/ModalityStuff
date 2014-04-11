@@ -134,15 +134,6 @@ Furthermore, it describes the interdisciplinary approach on giving birth to a to
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
-\section{Scope and Overview}
-\label{sec:overview_of_modality_concept_and_aims}
-
-The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance and musical practice.
-Its primary product is the \emph{Modality Toolkit}, a software library that facilitates (a) access to hardware and software controllers, (b) flexible routing of control messages to generative processes, and (c) recording, filtering and further processing of controller signals.
-The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SuperCollider meets at regular intervals to work on the library, discuss issues around music performance and composition, and perform in self-organised concerts.
-
-
-
 \section{Introduction}
 \label{sec:introduction}
 
@@ -153,32 +144,71 @@ Out of these observations arose the idea to gather a group of experts in sound a
 Beginning with five people, over the meetings, more people became involved, such that the group currently consists of 12 members.
 
 The intention of this paper is two-fold:
-After an introduction on the concept of modality (Section~\ref{sec:modal_control}), it gives insight on work in an interdisciplinary team of loose collaboration, driven mostly by a shared interest in, on the one hand, sound, music, performance practice and software design and development on the other (Section \ref{sec:the_modality_meetings}).
-Secondly, it reports on the outcomes in both conceptual (Section~\ref{sec:islands_and_bridges_uniform_protocols}) and concrete implementation details (Section~\ref{sec:implementation}).
+After an introduction on the concept of modality and related work (Section~\ref{sec:modal_control}), it gives insight on work in an interdisciplinary team of loose collaboration, driven mostly by a shared interest in, on the one hand, sound, music, performance practice and software design and development on the other (Section \ref{sec:the_modality_meetings}).
+Secondly, it reports on the outcomes in both conceptual and concrete implementation details (Sections \ref{sec:implementation} and \ref{sec:islands_and_bridges_uniform_protocols}).
 The paper concludes with a reflection on the work done over the course of the last 5 years.
 
-
-\section{The Modality way}
+\section{The modality way}
 \label{sec:modal_control}
 
-\emph{Tells about modality as a concept}
-
+The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance and musical practice.
 The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces.
-A central question was how HCI interfaces can be established, in which a small set of physical controllers can be used for a relatively large amount of purposes.
-More concrete, it was intended to make it easy to switch assigned functionality of hardware controls within a performance. 
+One particular strength of such modal interfaces is that they allow fast changes and therefore a braoder variety for sonic discovery.
+This can be of benefit when, for example, improvising with musicians playing acoustic instruments.
+Out of this arouse the question on how HCI interfaces can be both conceptualised and actually built, in which a small set of physical controls are used for a relatively a amount of purposes.
 We contend that integration of such on-the-fly remapping features helps to create flexible instruments that are powerful yet interesting and therefore rewarding to play and listen to. 
 
-The essential strength of modal interfaces is that they allow fast changes and more opportunity for sonic discovery, as can be necessary when, for example, improvising with musicians playing acoustic instruments. 
+The primary product of the Modality project is the \emph{Modality Toolkit}, a software library that facilitates (a) access to hardware and software controllers, (b) flexible routing of control messages to generative processes, and (c) recording, filtering and further processing of controller signals.
+The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SuperCollider meets at regular intervals to work on the library, discuss issues around music performance and composition, and perform in self-organised concerts.
 
+Modality, however, can also be understood as a social descriptor for the ModalityTeam.
+The fact that a number of programmers and artists from different (music)cultures and nationalies meet up on a more or less regular basis does not necessarily imply that they share the same  understanding, let alone opinion.
+It turned out that themes as fundamental to the Modality project as ``performance practice'', ``control strategies'' and even ``software paradigms'' were highly ambiguous and recognised in different ways.
 
-Modality, however, can also be understood as a descriptor for the ModalityTeam.
-The fact that a number of programmers and artists meet up does not necessarily imply that they share the same  understanding, let alone opinion, on themes as fundamental to Modality as ``performance practice'', ``control strategies'' and even ``software paradigms''.
-It clearly turned out to be a learning process to not only hear other opinions but to take them into account during software design and implementation.
+Further, it turned out to be a learning process to not only hear other opinions but to also take them into account during software design and implementation.
 
 As a third interpretation level of the term Modality serves the structure of the meetings.
 Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely developer phases in which the Modality Toolkit was implemented, public workshops disseminating knowledge about the Modality Toolkit, and concerts in which participants performed with their custom instruments.
 
 To illustrate the process, the next section is a report on the modality meetings and their outcomes, combined with subjective analyses of the participants on the working process.
+
+
+
+
+
+\subsection{Related work}
+\label{sec:related_work}
+
+The Modality Toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
+Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{multiton pattern} implementations.
+
+% simple to complex
+\begin{description}
+	\item[OSCulator] 
+		\enquote{[\dots] is the missing link between your controllers and your music or video software.}
+		Assign events to messages
+		Define operation ranges(for floats)
+		Define different events to specific values (ints) 
+	\item[junXion] 
+		is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
+		It is implemented as a stand-alone program to be put in the middle between the sensor layer and the synthesis layer.
+		\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
+	\item[Digital Orchestra Toolkit] \todo{McGill's Digital Orchestra Toolkit for Max/MSP}
+	\item[multiton pattern in SuperCollider] 
+		SuperCollider classes like |MIDIdef|, |OSCdef|, |Tdef|, |Pdef|, or |Ndef| memorise, which instances are already created and save them into a dictionary data structure. 
+		Calling their constructor with only the key (e.g., |Ndef(\a)|) triggers the class to look for an instance of itself in its global dictionary and, if it finds it, returns it for further usage. This comes in very handy in live coding situations, where remembering name/function pairs is experienced much easier than keeping up with variable declaration and administration.
+\end{description}
+
+
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
+	\caption{Public workshop and open Lab at STEIM}
+	\label{fig:media_20140403-IMG_1667}
+\end{figure}
+
+
 
 
 
@@ -259,38 +289,6 @@ So far, the ModalityTeam held four meetings.
 
 
 
-\section{Related work}
-\label{sec:related_work}
-
-The Modality Toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
-Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{*def paradigm}.
-
-% simple to complex
-\begin{description}
-	\item[OSCulator] 
-		\enquote{[\dots] is the missing link between your controllers and your music or video software.}
-		Assign events to messages
-		Define operation ranges(for floats)
-		Define different events to specific values (ints) 
-	\item[junXion] 
-		is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
-		It is implemented as a stand-alone program to be put in the middle between the sensor layer and the synthesis layer.
-		\todo{Maybe someone with knowledge of what junXion actually does could chime in?}
-	\item[Digital Orchestra Toolkit] \todo{McGill's Digital Orchestra Toolkit for Max/MSP}
-	\item[*def paradigm in SuperCollider] 
-		SuperCollider classes like |MIDIdef|, |OSCdef|, |Tdef|, |Pdef|, or |Ndef| memorise, which instances are already created and save them into a dictionary data structure. 
-		Calling their constructor with only the key (e.g., |Ndef(\a)|) triggers the class to look for an instance of itself in its global dictionary and, if it finds it, returns it for further usage. This comes in very handy in live coding situations, where remembering name/function pairs is experienced much easier than keeping up with variable declaration and administration.
-\end{description}
-
-
-
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
-	\caption{Public workshop and open Lab at STEIM}
-	\label{fig:media_20140403-IMG_1667}
-\end{figure}
-
 
 
 \section{Specification, design and implementation}
@@ -307,7 +305,7 @@ For convenience, elements can also be accessed from a flat array using the |allE
 The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button, slider) and control spec for scaling incoming values. 
 This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
-Mimicking the |*def| paradigm described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
+Utilising the multiton pattern described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
 MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. 
 The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
