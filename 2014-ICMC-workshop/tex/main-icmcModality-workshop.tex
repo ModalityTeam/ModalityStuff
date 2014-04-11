@@ -28,7 +28,7 @@
 
 
 % authors so far:
-% Till
+% Till, Miguel
 
 % adds the automatic
 % Saves a lot of ouptut space in PDF... after conversion with the distiller
@@ -116,14 +116,6 @@
 \maketitle
 \capstarttrue
 %
-\begin{abstract}
-The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
-Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
-To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
-Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
-
-In the workshop, the toolkit is introduced and used by participants to lay out their control ideas and play music with each other.
-\end{abstract}
 
 \begin{figure}[h]
 	\centering
@@ -140,19 +132,20 @@ In the workshop, the toolkit is introduced and used by participants to lay out t
 \section{Overview of the modality concept and its aims}
 \label{sec:overview_of_modality_concept_and_aims}
 
-Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. 
-Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. 
-It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
+
+The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance and musical practice.
+The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces.
+One particular strength of such modal interfaces is that they allow fast changes and therefore a braoder variety for sonic discovery.
+This can be of benefit when, for example, improvising with musicians playing acoustic instruments.
+Out of this arouse the question on how HCI interfaces can be both conceptualised and actually built, in which a small set of physical controls are used for a relatively a amount of purposes.
+We contend that integration of such on-the-fly remapping features helps to create flexible instruments that are powerful yet interesting and therefore rewarding to play and listen to. 
+
+The primary product of the Modality project is the \emph{Modality Toolkit}, a software library that facilitates (a) access to hardware and software controllers, (b) flexible routing of control messages to generative processes, and (c) recording, filtering and further processing of controller signals.
+The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SuperCollider meets at regular intervals to work on the library, discuss issues around music performance and composition, and perform in self-organised concerts.
 
 The idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. 
 To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. 
 Currently HID and MIDI are supported with OSC, GUI-based interfaces can be created on the fly from interface descriptions.
-
-
-\section{Scope of Modality}
-\label{sec:scope_of_modality_tech_info_where_what}
-
-
 
 \section{Workshop content}
 \label{sec:workshop_content}
@@ -166,11 +159,11 @@ In detail, the outline of the workshop is as follows:
 \begin{itemize}
 	\item brief introduction to the Modality toolkit,
 	\item installation party,
-	\item mapping out devices (i.e., writing description files for them), in case the brought devices are not yet specified in Modality (contributing to the library of known devices),
-	\item accessing devices and using data from devices; creating a basic sound--controller setup,
-	\item performing with the system,
+	\item mapping out devices (i.e., writing description files for them), in case the devices brought are not yet specified in Modality (contributing to the library of known devices),
+	\item accessing devices and using data from devices,
+	\item creating a basic sound--controller setup,
+	\item working on complex event logic with the goal of creating interesting relationships between controller data and audio processes,
 	\item swap controllers and share sounds between participants,
-	\item adaption of the setup and manipulation of data streams,
 	\item performing with the system
 \end{itemize}
 
@@ -180,7 +173,7 @@ Participants should bring
 \begin{itemize}
 	\item MIDI or HID controllers such as game gads, joysticks or fader boxes, 
 	\item their own laptops with a recent version of SuperCollider installed, and
-	\item a basic familiarity with the programming environment SuperCollider.
+	\item a basic familiarity with the SuperCollider programming environment.
 \end{itemize}
 
 
