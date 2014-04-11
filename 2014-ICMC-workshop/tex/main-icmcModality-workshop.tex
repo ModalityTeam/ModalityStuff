@@ -128,82 +128,74 @@ In the workshop, the toolkit is introduced and used by participants to lay out t
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=\columnwidth]{../media/20140403-IMG_1667.jpg}
-	\caption{Public workshop and open Lab at STEIM}
+	\caption{A participant gets help by members of the ModalityTeam at a public workshop at STEIM in April 2014.}
 	\label{fig:media_20140331-IMG_5976}
 \end{figure}
 
 
 
 
+\section{Introduction}
+\label{sec:introduction}
 
+The proposed workshop accompanies the paper ``Advances in Modality''.
 
-\section{Overview of the modality concept and its aims}
-\label{sec:overview_of_modality_concept_and_aims}
+\todo{some more words on modality.}
 
-Modality is a project dedicated to modal interaction with synthesis processes for physical control in performance. 
-Its primary product is the Modality Toolkit, a library to facilitate straightforward access to hardware controllers in the SuperCollider programming language. 
-It is designed and developed by the ModalityTeam, a group of people that see themselves as both users and developers both of and for SuperCollider.
+The workshop is intended to be as “hands-­on” as possible.
+Under the guidance of members of the ModalityTeam, each participant will learn how to use the Modality toolkit to work on her own instrument, and use and play it along with other participants.
 
-The idea behind the Modality Toolkit is to simplify the creation of individual electronic instruments using controllers of various kinds. 
-To this end, a common code interface, MKtl, is used for connecting controllers from various sources and protocols. 
-Currently HID and MIDI are supported with OSC, GUI-based interfaces can be created on the fly from interface descriptions.
+In detail, the proposed workshop has the following structure:
 
-
-\section{Scope of Modality}
-\label{sec:scope_of_modality_tech_info_where_what}
-
-
-
-\section{Workshop content}
-\label{sec:workshop_content}
-
-The concept of the workshop is to be as “hands-­on” as possible.
-Participants will learn how to use the Modality toolkit, create their own instruments, and play together with their creations. 
-Under the guidance of the Modality Work Group, each participant will be able to work on his or her own instrument, and use and play it along with the other participants.
-
-In detail, the outline of the workshop is as follows:
-
-\begin{itemize}
-	\item brief introduction to the Modality toolkit,
-	\item installation party,
+\begin{enumerate}\itemsep0em
+	\item a brief introduction to the Modality toolkit,
+	\item an installation party, in which the toolkit is installed (takes 5-10 minutes),
 	\item mapping out devices (i.e., writing description files for them), in case the brought devices are not yet specified in Modality (contributing to the library of known devices),
 	\item accessing devices and using data from devices; creating a basic sound--controller setup,
 	\item performing with the system,
 	\item swap controllers and share sounds between participants,
 	\item adaption of the setup and manipulation of data streams,
 	\item performing with the system
+\end{enumerate}
+
+
+\section{Intended audience and hardware to bring}
+\label{sec:participants}
+
+Workshop participants should have basic knowledge in programming sounds in SuperCollider, e.g. with |SynthDef| or |Ndef|. 
+This can be, however, low-profile; having worked through one of the SuperCollider tutorials on how to make sounds should be enough.
+
+Additionally, each participant is required to bring
+\begin{itemize}\itemsep0em
+	\item at least one MIDI or HID controller such as a game gad, a joystick or a fader box, 
+	\item a laptop with a recent version of SuperCollider installed, 
+	\item a mini jack to mono jacks cable to connect the laptop to a mixing desk, and
+	\item a pair of headphones.
 \end{itemize}
 
-
-
-Participants should bring 
-\begin{itemize}
-	\item MIDI or HID controllers such as game gads, joysticks or fader boxes, 
-	\item their own laptops with a recent version of SuperCollider installed, and
-	\item a basic familiarity with the programming environment SuperCollider.
-\end{itemize}
-
+The hosting institution should provide a stereo pair of speakers including amplification and a mixing desk.
 
 \begin{acknowledgments}
 The Modality team is (in alphabetical order):
     Marije Baalman,
-	Tim Blechmann,
+    Tim Blechmann,
     Till Bovermann,
     Alberto de Campo,
     Jeff Carey,
-    Bjoernar Habbestad,
-	Dominik Hildebrand Marques Lopes,
-	Amelie Hinrichsen,
+    Bj\o{}rnar Habbestad,
+    Dominik Hildebrand Marques Lopes,
+    Amelie Hinrichsen,
     Robert van Heumen,
     Hannes Hoelzl,
-    Miguel Negrao, and
+    Miguel Negr\~{a}o, and
     Wouter Snoei.
 Associated organisations are (in alphabetical order):
 BEK,
 the project \emph{Design, Development and Dissemination of New Musical Instruments} of UdK Berlin/TU Berlin, supported by the Einstein Foundation,
-nescivi supported by theCreative Industry Fund NL, and
+nescivi, and
 STEIM.
 
+The Modality meetings have been funded by Bergen Kommune, Nordisk Kulturfond and Creative Industries Fund NL.
 \end{acknowledgments} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
