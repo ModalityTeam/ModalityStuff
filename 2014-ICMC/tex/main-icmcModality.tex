@@ -117,6 +117,9 @@
 \maketitle
 \capstarttrue
 %
+\todo{'digital technology' ... this is a bit generic, as the
+project is really focused on interfacing with controllers and event
+processing.}
 \begin{abstract}
 The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
 Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
@@ -178,6 +181,8 @@ To illustrate the process, the next section is a report on the modality meetings
 
 \subsection{Related work}
 \label{sec:related_work}
+
+\todo{only mentions the multiton classes. it is a good idea to add a sentence that they are built upon unnamed XXFunc classes.}
 
 The Modality Toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
 Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{multiton pattern} implementations.
@@ -493,6 +498,10 @@ At the time when MDispatch was created several templates were written for tasks 
 MDispatch was an interesting experiment that allowed for some degree re-usability of event logic code, nevertheless it's interface was slightly cumbersome since it acted as a virtual device with many inputs and outputs, with explicit creation of outputs, registering for inputs and management of connections. Creating smaller and therefore more re-usable dispatches was discouraged by the burden of all the necessary initialization code. Perhaps because of these issues MDispatch did not gain wide adoption amongst users of the Modality toolkit and it's development is currently paused. \emph{ would be good to get other opinions on this. Do you agree with what I say in this paragraph ? }
 		
 \subsubsection{FRP}
+
+\todo{functional) reactive programming: the icmc is full of people, who
+use(d) pd/max, which has a reactive semantics. maybe a quick comment on
+this may be helpful for many people of the intended audience}
 
 An electronic instrument can be though of as set of inputs from control devices, a set of audio units or processes that create audio units and control logic in between to allow incoming events from the physical devices to affect the state of the audio units. 
 
