@@ -315,42 +315,35 @@ So far, the ModalityTeam held four meetings.
 \end{description}
 
 
-\section{Islands and Bridges, uniform protocols}
+\section{Islands, Bridges, uniform schemes}
 \label{sec:islands_and_bridges_uniform_protocols}
-Islands and Bridges is a simple mental model for conceiving modal instruments. 
-Islands are objects or processes which represent sources (input devices, control-generating processes), destinations (output processes for sound, visuals), transformers (destinations which process incoming control information, and send the results on like sources), and mixed combinations of these. 
-Islands should be as self-sufficient as possible, and show uniform behavior to allow for simple on-the-fly changes of connections with bridges.
+As many home towns of modality members are harbor cities, Islands and Bridges were chosen as a mental model for conceiving and understanding highly modal instruments.
+Islands are software objects or processes which represent sources (input devices, control-generating processes), destinations (output processes for sound, visuals), combinations of these, such as transformers (which, like destinations, process incoming control information, and send the results on like sources). 
+Islands should be as self-sufficient as possible, and show uniform behavior to allow simple on-the-fly changes of connections with bridges. 
 
-Bridges typically consist of user code that connects islands; modal performance instruments rely on flexible switching between different combinations of bridges, adding some, removing others. Writing and configuring bridges should be as simple as possible. 
+Bridges typically are made by user code that connects islands; conventional digital instruments then contain of a fixed collection of islands and one constellation of bridges between them. Modal performance instruments achieve their modes by switching between different combinations of bridges, adding some, removing others, adjusting settings. 
+Modality aims to make writing and configuring bridges as simple as possible. 
 
-Many quarks (libraries for SC) are useful as islands in this model, and 
+In other words, Modality shifts the instrument metaphor from linear chains of command to flexible networks of communication (or further on, of mutual influence).
 
-\begin{itemize}
-	\item Modality Toolkit + Various Mixed Things + closely related
-	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
-		all of Marijes device related quarks, etc 
-\end{itemize}
+The uniform communication schemes recommended by Modality are largely based on existing conventions in SC, and extend them with only few new methods. Thus many SC quarks dealing with interface devices or data processing are useful sources for more islands. 
+Beside the modality-toolkit\cite{githubmodality}, team actively work on many modality-relevant quarks: SenseWorld (supporting sensor devices), Manta (a controller), FPLib (containing FRP), VariousMixedThings (which includes Influx), UnitLib (?), wslib (many GUI-related niceties), KeyPlayer (contains KtlLoop), DMX (output to light systems), and others.
 
 \subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
 
-All input devices should follow the same scheme: 
+Input devices (such as the |MKtl| class) or other control sources follow a scheme: 
 They have rich descriptions, with simple short human-readable element names, which are hierarchically ordered where applicable. 
 One can access each element by name or hierarchical name.
-Each element can either have a single action, or one can add and remove multiple actions by identity or name.
-Where applicable, objects have global responders (e.g. for MIDI notes and polytouch per channel). 
+Each element can either have a single action, or one can add and remove multiple actions individually by identity or name.
 
-Every MKtl can be fully replaced with a FakeGUI, which can every control message without requiring the physical device.
+Every |MKtl| can be replaced with a FakeGUI, which is made from its description file, and can generate all its control messages instead of the physical device.
 
-Explorers simplify adding new devices or sources: 
-One uses every possible controller action at least once to collect specimens of every possible message type. 
-The Explorer makes a description file template from this, and the user adds the final touches by giving them simple, short and clear element names, and organizing their hierarchical order.
-
+\emph{Explorers} simplify adding new devices or sources: 
+One activates every possible controller action at least once to collect specimens of every possible message type. 
+Then an Explorer can make a description file template from this, and the user adds the final touches by giving them simple, short and clear element names, and organizing their hierarchical order. 
 This is implemented fully for MIDI and HID, with other protocols to follow.
 
-\subsection{Transformer islands} 
-
-What are they supposed to be ? Why are there several different ones ?	
-
+Transformer islands expect control input from sources, and know how to create control output for destinations. E.g. an |Influx| is a transformer which accepts m bipolar parameters from a source, and converts them to n process parameters for a destination with vectors of weights. 
 
 \subsection{Proposed uniform destination schema}
 
@@ -360,20 +353,22 @@ What are they supposed to be ? Why are there several different ones ?
 % 
 %\todo{adc: agreed, protocol is too big a claim. Maybe Proposed schema is the better term. below a short write-up, hope you find that useable?}
 
-Modality-compatible destinations follow existing SC object schemata: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters. Objects that are running processes also respond to .play, .stop, .pause and resume messages. 
+Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to unipolar.
 
-Requiring destinations to know their parameters specs and current states allows more flexible control: 
-|RelSet| can be used to nudge a parameter relative to its current value. 
-|SoftSet| can be used to take over a parameter only when the physical controller is close enough to its value (or when the physical controller knows the object's previous value well enough, which is the case when it has set it to that value). 
-If specs are kept with the object, they can easily be adjusted there (e.g. for zooming into a subset of the full range), keeping the controller side code simpler by sending unipolar values, and letting the object provide the spec:  
-|{ arg sl; dest.setUni(\freq, sl.value) }|
+Modality-compatible destinations also follow existing SC schemes: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters (i.e. range, warp, step size, etc). Most objects that are active processes respond to .play, .stop, .pause and resume messages. 
 
-Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows very simple de/activation when switching mapping to or away from a new process. 
+Requiring destinations to know their parameters specs and current states allows more flexible control in several ways: 
+The |setUni| method can be used to set a param from the controller side's unipolar value; keeping the spec with the destination process is semantically simpler, and multiple control sources will immediately use changed specs if they belong to the object. 
+The |RelSet| class method can be used to nudge a parameter relative to its current value. 
+|SoftSet| class methods can be used to take over a parameter only when the physical controller is close enough to its value, or when the physical controller knows the object's previous value well enough (which is the case when it has set it to that value). 
+If specs are kept with the object, they can easily be adjusted there (e.g. for zooming into a subset of the full range), keeping the controller element side code simpler by sending unipolar values, and letting the object provide the spec:
 
+|{ arg el; dest.setUni(\amp, el.value) }|
+
+Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows very simple de/activation when switching newly to or away from a process. 
 
 \section{Specification, design and implementation of the Modality toolkit}
 \label{sec:implementation}
-
 
 \subsection{Specification}
 \label{sub:specification}
