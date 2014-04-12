@@ -120,7 +120,7 @@
 %\todo{'digital technology' ... this is a bit generic, as the project is really focused on interfacing with controllers and event processing.}
 \todo{ {TODOLITY:} (adc):
 * redo abstract at the end 
-* details for OSCulator and Digital Orchestra Toolkit 
+* details for OSCulator
 * where should multiton pattern section go?
 * meetings: shorten, less tech detail
 * move concepts - islands \& bridges before implementation
@@ -156,10 +156,9 @@ Furthermore, it describes the interdisciplinary approach on giving birth to a to
 \section{Introduction}
 \label{sec:introduction}
 
-In ???, Jeff Carey and Bj\o{}rnar Habbestad met over a residency at BEK, Bergen where they soon realised that, despite playing completely different setups, they both had the need to switch between functionalities easily while performing. 
-While both had custom implementation of this behaviour, it appeared to be not flexible enough, especially extending their setup felt cumbersome, original ideas got lost over the hassle of implementation of mapping rules.
+The \textit{Modality} project was initiated by Jeff Carey and Bj\o{}rnar Habbestad, who after several years of collaboration realised that, despite playing completely different setups, they both had the need to switch between functionalities easily while performing.  While both had custom implementations of this behaviour, it appeared to be not flexible enough, especially extending their setup felt cumbersome, original ideas got lost over the hassle of implementation of mapping rules.
 
-Out of these observations arose the idea to gather a group of experts in sound and music computing which eventually formed the ModalityTeam.
+Out of these observations arose the idea to gather a group of experts in sound and music computing (and specifically from the SuperCollider community) which eventually formed the ModalityTeam.
 Beginning with five people, over the meetings, more people became involved, such that the group currently consists of 12 members.
 
 The intention of this paper is two-fold:
@@ -221,7 +220,8 @@ Inputs can come from 8 different types of data sources, namely MIDI, HID, OSC, W
 The Actions process data based on the input and a host of definable behaviors (switching, toggling, differentiation, integration, activity measurement) and conditions that can imply data from other sensors or values stored in variables and tables. 
 Output can be generated as MIDI messages of many kinds, OSC messages, emulated mouse or keyboard events, Arduino and Wii Remote messages, and state change internal to JunXion, such as switching to a new bank of controller mappings. 
 
-	\item[Digital Orchestra Toolkit] \todo{McGill's Digital Orchestra Toolkit for Max/MSP}
+  \item[Digital Orchestra Toolkit] The Digital Orchestra Toolkit \cite{-dot} was created by McGill as part of the Digital Orchestra project, around \enquote{[\dots] a number of paradigms for the design, creation and performance of digital musical instruments in the context of a long-term interdisciplinary, collaborative environment. Issues related to mapping strategies, notation, the relationship of physical and musical gestures, robustness, responsiveness, and haptic feedback arose during the course of the project.}\cite{ferguson-2009}. The toolkit consists of a number of Max objects implementing various data processing units, as well as accessing various hardware devices or protocols.
+	
 	\item[multiton pattern in SC] 
 		SuperCollider has flexible proxy objects for tasks, patterns, sound processes, and functions, which allow replacing the proxy's object while using it.
 		Named variants of these classes, like |Tdef|, |Pdef|, |Ndef|, or |MIDIdef|, |OSCdef| follow the multiton pattern by creating named instances only, and keeping them in a global dictionary. 
@@ -254,9 +254,9 @@ So far, the ModalityTeam held four meetings.
 	\item[May 2011, STEIM, Amsterdam] Discussions revealed the need for users to abstract from hardware dependencies, and being able to do flexible routings and filtering incoming data. We therefore developed a new SC quark that began to implement two sets of functionalities:
 	
 	\begin{itemize}
-		\item 	|MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
+		\item |MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
 		 Instead of assigning functions to hardware-specifics like MIDI cc numbers, or an HID element cookies, we considered controllers as a combination of \emph{controller elements}, the |MKtlElements|, which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of midi channel 0 cc number 14.
-		 This scheme was to be extended for OpenSoundControl,serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
+		 This scheme was to be extended for OpenSoundControl, serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
 		\item  |MDispatch| objects, which allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
 	\end{itemize}
 	
@@ -327,8 +327,7 @@ Many quarks (libraries for SC) are useful as islands in this model, and
 
 \begin{itemize}
 	\item Modality Toolkit + Various Mixed Things + closely related
-	\item more related libs - FP/FRP, wslib, JITLibExtensions, 
-		all of Marijes device related quarks, etc 
+	\item more related libs - FP/FRP, wslib, JITLibExtensions, SenseWorld and SenseWorld DataNetwork, etc 
 \end{itemize}
 
 \subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
