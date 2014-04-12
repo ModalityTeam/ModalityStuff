@@ -117,10 +117,10 @@
 \maketitle
 \capstarttrue
 %
-\todo{'digital technology' ... this is a bit generic, as the
-project is really focused on interfacing with controllers and event
-processing.}
+%\todo{'digital technology' ... this is a bit generic, as the project is really focused on interfacing with controllers and event processing.}
 \begin{abstract}
+\todo{adc: revisit abstract when body of paper is done!}
+
 The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
 Written in SuperCollider, it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
 To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
@@ -182,10 +182,10 @@ To illustrate the process, the next section is a report on the modality meetings
 \subsection{Related work}
 \label{sec:related_work}
 
-\todo{only mentions the multiton classes. it is a good idea to add a sentence that they are built upon unnamed XXFunc classes.}
+%\todo{only mentions the multiton classes. it is a good idea to add a sentence that they are built upon unnamed XXFunc classes.}
 
 The Modality Toolkit stands in the tradition of a line of related systems, dedicated to control data flow and filtering.
-Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{multiton pattern} implementations.
+Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard2012-osc}, STEIM's \emph{junXion}~\cite{-jun}, the \emph{Digital Orchestra Kit}~\cite{malloch2008-a-n} and SuperCollider's own \emph{multiton pattern} implementations.
 
 % simple to complex
 \begin{description}
@@ -309,7 +309,7 @@ The Modality toolkit aims to facilitate
 	\item processing of control data streams,
 	\item sending control data to these controllers (e.g. fader positions, LED states),
 	\item graphical feedback  of the current state in the form of a GUI of connected a device, as well as replacing a controller with a GUI substitute, and finally
-	\item mapping the output of these data streams to output parameters of sound engines.
+	\item mapping the output of these data streams to input parameters of sound engines.
 \end{itemize}
 
 Specific attention is given to the concept of modal control: the ability to change the mapping on-the-fly from one control element to another, possibly located on another device.
@@ -337,7 +337,7 @@ The system keeps a global set of auto-generated names for all the controllers th
 k = MKtl('nnkn20');
 \end{Verbatim}
 
-Actions are added to elements by setting the MKtlElements' |action| to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the |addAction| and |removeAction| methods which use the |FunctionList| class. Optionally, one can use the FuncChain class wher functions can be added and removed by name, as well as reordered, and flexibly enabled and disabled for witching between modes. 
+Actions are added to elements by setting the MKtlElements' |action| to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the |addAction| and |removeAction| methods which use the |FunctionList| class. Optionally, one can use the FuncChain class where functions can be added and removed by name, as well as reordered, and flexibly enabled and disabled for switching between modes. 
 
 \begin{Verbatim}
 //add action
@@ -366,9 +366,9 @@ MKtl('bcr20000')
 \subsection{Unifications of interface implementations}
 \label{sub:unifications_of_interface_implementations}
 
-The Modality Toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values of from the device are also scaled to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
+The Modality Toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values from the device are normalized to be in the range $[0,1]$ and outgoing values are expected to be in $[0,1]$ range and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
 
-MKtl also has the useful feature of being able to automatically create a GUI representing a known device from it's description file. If the user tries to instantiate an MKtl with an auto-generated name corresponding to a known device, but the device is not currently available, an |MKtlGui| will be automatically created instead. This makes it trivial to exchange a physical controller for a GUI representation without have to change any code at all.
+MKtl also has the useful feature of automatically creating a GUI representation of a known device from it's description file. If the user tries to instantiate an MKtl with an auto-generated name corresponding to a known device, but the device is not currently available, an |MKtlGui| will be automatically created instead. This makes it trivial to exchange a physical controller for a GUI representation without having to change any code at all.
 
 \subsection{Description files}
 \label{sub:descriptions_files}
@@ -394,7 +394,7 @@ As an example, the element dictionary for a button of a MIDI device would look l
 )
 \end{Verbatim}
 
-Elements which are physically (or virtually) grouped on the device such as with pages, rows or columns are grouped together in the description file using arrays. For instance the third button on the second row of page 4 of a Korg NanoKONTROL can be accessed with the following code:
+Elements which are physically (or virtually) grouped on the device such as with pages, rows or columns are grouped together in the description file using arrays. For instance, the third button on the second row of page 4 of a Korg NanoKONTROL can be accessed with the following code, assuming zero-based numbering:
 
 \begin{Verbatim}
 MKtl('nnkn0').elements[\sl][3][1][2]
@@ -421,7 +421,7 @@ If a user tries to access a device for which there is still no description file 
 More specifically, a description file can be generated for HID devices using the |HIDExplorer| class, which collects information provided by the low-level HID stack. 
 For the less self-documenting range of devices connected via MIDI, the user is asked by the |MIDIexplorer| class to operate all available physical controls. 
 The captured data stream is then used to generate a description file.
-In both cases the user then supplies suitable labels and orders the elements hierarchically according to their physical placement on the device.
+As a last step in both cases, the user supplies suitable labels and orders the elements hierarchically according to their physical placement on the device.
 
 \section{Islands and Bridges, uniform protocols}
 \label{sec:islands_and_bridges_uniform_protocols}
@@ -441,7 +441,7 @@ Many quarks (libraries for SC) are useful as islands in this model, and
 
 \subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
 
-All input devices should follow the same schema: 
+All input devices should follow the same scheme: 
 They have rich descriptions, with simple short human-readable element names, which are hierarchically ordered where applicable. 
 One can access each element by name or hierarchical name.
 Each element can either have a single action, or one can add and remove multiple actions by identity or name.
@@ -509,9 +509,9 @@ The traditional method of dealing with incoming events is through callback funct
 
 The FRP paradigm seemed promising for the construction of musical digital instruments, so in order to make it available in the SuperCollider language the \emph{reactive-web} library from the Scala language was ported to SuperCollider and extended. Ideas from \emph{reactive-banana}, a modern FRP library for Haskell, were also incorporated. This SuperCollider FRP implementation is part of the FPLib library~\cite{-fpl} which makes available a number of functional programming constructs such as Monads and Applicative Functors in SuperCollider.
  
-In FP-Lib the main entities for FRP are the EventStream and FPSignal classes. Signals are slightly different from the behaviors of Classic FRP: behaviors model any continuous time function $f:Time\rightarrow A$, while signals only model step functions.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} forms an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions.
+In FP-Lib, the main entities for FRP are the EventStream and FPSignal classes. Signals are slightly different from the behaviors of Classic FRP: behaviors model any continuous time function $f:Time\rightarrow A$, while signals only model step functions.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} forms an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions.
 
-It's possible to create complex programs with time\\-dependent logic by composing  event streams and signal using a small set of combinators:
+It's possible to create complex programs with time\\-dependent logic by composing  event streams and signals using a small set of combinators:
 
 \begin{itemize}
 
@@ -582,8 +582,8 @@ The MPD18 has 16 Buttons and a slider.
 
 \begin{description}
  \item [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
-        By pushing them down sound turns on; releasing: sound off.
-    the Slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
+        By pushing them down, the sound turns on; upon releasing, the sound decays.
+    the slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
  \item [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
         if sound is assigned (see below), sound is played when button depressed.
  \item [Shift Button] Button 4 is a 'shift key'. When depressed
@@ -591,7 +591,7 @@ The MPD18 has 16 Buttons and a slider.
         depressing a Memory Slot button, which assigns the selected sound to that pad.
         if you release the shift key before assignment, nothing happens.
         assigning a copy to an already assigned memory slot replaces existing
-        mute copy +[Sound Button then Shift button]
+        mute copy + [Sound Button then Shift button]
         Sound Button triggers sound
         depress Memory Slot button, assigning the sound to the pad, with sound
 \end{description}
