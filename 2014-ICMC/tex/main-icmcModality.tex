@@ -123,7 +123,6 @@
 * details for OSCulator
 * where should multiton pattern section go?
 * meetings: shorten, less tech detail
-* move concepts - islands \& bridges before implementation
 * implementation - shorten detail? while great to have in general, maybe takes too much space for ICMC paper.
 * moved MDispatch, FRP, Influx to separate section {Modality related projects}.
 * FRP - would be worth saving for its own paper! for the context here, reviewers may find it long and too detailed.
@@ -222,8 +221,8 @@ Output can be generated as MIDI messages of many kinds, OSC messages, emulated m
 
   \item[Digital Orchestra Toolkit] The Digital Orchestra Toolkit \cite{-dot} was created by McGill as part of the Digital Orchestra project, around \enquote{[\dots] a number of paradigms for the design, creation and performance of digital musical instruments in the context of a long-term interdisciplinary, collaborative environment. Issues related to mapping strategies, notation, the relationship of physical and musical gestures, robustness, responsiveness, and haptic feedback arose during the course of the project.}\cite{ferguson-2009}. The toolkit consists of a number of Max objects implementing various data processing units, as well as accessing various hardware devices or protocols.
 	
-	\item[multiton pattern in SC] 
-		SuperCollider has flexible proxy objects for tasks, patterns, sound processes, and functions, which allow replacing the proxy's object while using it.
+	\item[Multiton design patterns in SC] 
+		SuperCollider has flexible proxy objects for tasks, patterns, sound processes, and functions, which allow replacing the proxy's object while using it. (Modality follows these, e.g. in the |MKtl(<name>)| access scheme.)
 		Named variants of these classes, like |Tdef|, |Pdef|, |Ndef|, or |MIDIdef|, |OSCdef| follow the multiton pattern by creating named instances only, and keeping them in a global dictionary. 
 		Calling the constructor, e.g., |Ndef(\a)|, will find an existing instance by that name, or create it. 
 		A second argument, |Ndef(\a, { LFSaw.ar })|, will replace the proxy's current object with the new one given. This is very useful in live coding situations, where remembering name/function pairs is much easier than doing full  variable administration by hand.
