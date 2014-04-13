@@ -128,7 +128,7 @@
 * FRP - would be worth saving for its own paper! for the context here, reviewers may find it long and too detailed.
 * add executive summary of Influx, KeyPlayer/KtlLoop
 * other related - SenseWorld? 
-* use cases: move use cases before implementation? 
+%* use cases: move use cases before implementation? 
 * add Marije's four button use case, add Influx example, maybe w screenshot?
 * write conclusions
 }
@@ -246,28 +246,50 @@ So far, the ModalityTeam held four meetings.
 
 \begin{description}
 	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss shared ideas about modal control in performance and rehearsal situations.
-	The attendees soon agreed that easy access and outlining of modal control structures is of great interest for all. First sketches for uniform access were made based on the then already existing JITMIDIKtl quark \footnote{a quark is an extension library in SuperCollider-speak}, creating a more uniform access scheme to controllers in the Ktl extension. 
+	The attendees soon agreed that easy access and outlining of modal control structures is of great interest for all. First sketches for uniform access were made based on the then already existing JITMIDIKtl quark\footnote{a quark is an extension library in SuperCollider parlance.}, creating a more uniform access scheme to controllers in the Ktl quark. 
 	
 % 	\todo{add further description on founding meeting. Should be done by someone who actually was there.}
 	
 	\item[May 2011, STEIM, Amsterdam] Discussions revealed the need for users to abstract from hardware dependencies, and being able to do flexible routings and filtering incoming data. We therefore developed a new SC quark that began to implement two sets of functionalities:
+
+|MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file. 
+Instead of assigning functions to hardware-specifics, we considered controllers as a combination of \emph{controller elements}, which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of MIDI channel 0 cc 14.
+This scheme was considered extensible for OpenSoundControl, serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
+
+|MDispatch| objects allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
+
+A stumbling block at the time was the broken HID implementation in SC on OSX from version 3.5, due to changes in the API of Apple's HID toolkit. This has now been solved in version 3.7 with a new cross-platform HID implementation.
+
+%	\begin{itemize}
+%		\item |MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
+%		 Instead of assigning functions to hardware-specifics 
+%		 %like MIDI cc numbers, or an HID element cookies, 
+%		 we considered controllers as a combination of \emph{controller elements}, 
+%		 the |MKtlElements|, 
+%		 which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of MIDI channel 0 cc 14.
+%		 This scheme was considered extensible for OpenSoundControl, serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
+%		\item  |MDispatch| objects, which allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
+%	\end{itemize}
+%	
+%	A stumbling block at this point was that the HID implementation in SC on OSX broke in the move to version 3.5, due to changes in the API of Apple's HID toolkit. This has only recently been solved in version 3.7 with a new cross-platform HID implementation.
+
+
+
+	\item[November 2013, BEK, Bergen] After a hiatus of almost 2 years, this meeting focused on practical steps. 
+
+	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become, and to understand the concrete demands for the software better. 
+
+We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
+
+Proposals for related useful concepts, such as FRP and Influx, were explored. Experimental items were moved outside the main toolkit.
+
 	
-	\begin{itemize}
-		\item |MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
-		 Instead of assigning functions to hardware-specifics like MIDI cc numbers, or an HID element cookies, we considered controllers as a combination of \emph{controller elements}, the |MKtlElements|, which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of midi channel 0 cc number 14.
-		 This scheme was to be extended for OpenSoundControl, serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
-		\item  |MDispatch| objects, which allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
-	\end{itemize}
-	
-	A stumbling block at this point was that the HID implementation in SC on OSX broke in the move to version 3.5, due to changes in the API to Apple's HID toolkit. This has only recently been solved in version 3.7 with a brand new cross-platform HID implementation.
-	
-	\item[November 2013, BEK, Bergen] After almost 2 years of pause, this meeting focused on practical steps forward. 
-	\begin{itemize}
-		\item	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become. 
-		\item 	We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
-		\item 	Proposals for related useful concepts, such as FRP and Influx, were explored.
-		\item	Experimental items were moved outside the main toolkit.
-	\end{itemize}
+%	\begin{itemize}
+%		\item	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become. 
+%		\item 	We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
+%		\item 	Proposals for related useful concepts, such as FRP and Influx, were explored.
+%		\item	Experimental items were moved outside the main toolkit.
+%	\end{itemize}
 		
 %		\begin{itemize}
 %		\item remove FRP
@@ -288,15 +310,23 @@ So far, the ModalityTeam held four meetings.
 		
 		
 		
-	\item[April 2014, STEIM, Amsterdam] 	Many aspects of the input side were unified and simplified further, nearing completion:
-	\begin{itemize} 
-		\item HID support in OSX fixed (pending full tests)
-		\item Fake GUIs are made for missing devices
-		\item description file handling improved in many ways
-		\item Mapping simplified with SoftSet and RelSet
-		\item more use cases were sketched and written in some coding style variants
-		\item much more documentation and examples
-	\end{itemize}
+	\item[April 2014, STEIM, Amsterdam] 	Many aspects of the input side were unified and simplified further, thus nearing completion of the input layer.
+
+Description file handling was improved in many ways, and fake GUIs can now be made for missing devices. Mapping strategies were simplified toward a unified style with |SoftSet|, |RelSet| etc. 
+
+Much more documentation and examples were written, including more use cases sketched in text and written in some coding style variants.
+
+Finally, HID in OSX was fixed, pending full tests.
+
+
+%	\begin{itemize} 
+%		\item HID support in OSX fixed (pending full tests)
+%		\item Fake GUIs can now be made for missing devices
+%		\item description file handling improved in many ways
+%		\item Mapping simplified with SoftSet and RelSet
+%		\item more use cases were sketched and written in some coding style variants
+%		\item much more documentation and examples
+%	\end{itemize}
 
 %	\begin{itemize} 
 %		\item Documentation updates
@@ -366,6 +396,43 @@ If specs are kept with the object, they can easily be adjusted there (e.g. for z
 
 Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows very simple de/activation when switching newly to or away from a process. 
 
+\section{Examples / Use Cases}
+\label{sec:examples_use_cases}
+
+We created a number of simple to medium-complex uses cases, which serve both as examples for modality concepts, and as test cases that show how simple they can be implemented in different coding styles. 
+
+\subsection{MPD 18, copy sounds between locations}
+\label{sub:mpd_18}
+
+The Akai MPD18 controller has 16 Buttons and a slider. In this use case, the buttons correspond to locations where sound processes can be. When a sound is active, the slider controls one of its parameters. sounds can be copied between locations.
+
+\begin{description}
+ \item [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
+        By pushing them down, the sound turns on; upon releasing, the sound decays.
+    the slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
+ \item [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
+        if sound is assigned (see below), sound is played when button depressed.
+ \item [Shift Button] Button 4 is a 'shift key'. When depressed
+        Sound Buttons don't trigger any sound but select the active slot. This can be followed by
+        depressing a Memory Slot button, which assigns the selected sound to that pad.
+        if you release the shift key before assignment, nothing happens.
+        assigning a copy to an already assigned memory slot replaces existing
+        mute copy + [Sound Button then Shift button]
+        Sound Button triggers sound
+        depress Memory Slot button, assigning the sound to the pad, with sound
+\end{description}
+       
+\subsection{Switching actions}
+\label{sub:switching_actions}
+
+Switching actions from one controller to another mid-way through a performance.
+
+\subsection{An example of a performance setup with Influx and KtlLoop}
+
+\emph{Would this make sense here ?}
+
+
+
 \section{Specification, design and implementation of the Modality toolkit}
 \label{sec:implementation}
 
@@ -399,7 +466,7 @@ For convenience, elements can also be accessed from a flat array using the |allE
 The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button, slider) and control spec for scaling incoming values. 
 This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
-Utilising the multiton pattern described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
+Using the multiton pattern described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
 MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. 
 The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
@@ -596,42 +663,6 @@ describe
 
 which ones ? SenseWorld, 
 
-\section{Examples / Use Cases}
-\label{sec:examples_use_cases}
-
-
-\subsection{MPD 18, copy sounds between locations}
-\label{sub:mpd_18}
-
-The Akai MPD18 has 16 Buttons and a slider. 
-
-\begin{description}
- \item [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
-        By pushing them down, the sound turns on; upon releasing, the sound decays.
-    the slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
- \item [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
-        if sound is assigned (see below), sound is played when button depressed.
- \item [Shift Button] Button 4 is a 'shift key'. When depressed
-        Sound Buttons don't trigger any sound but select the active slot. This can be followed by
-        depressing a Memory Slot button, which assigns the selected sound to that pad.
-        if you release the shift key before assignment, nothing happens.
-        assigning a copy to an already assigned memory slot replaces existing
-        mute copy + [Sound Button then Shift button]
-        Sound Button triggers sound
-        depress Memory Slot button, assigning the sound to the pad, with sound
-\end{description}
-       
-\subsection{Switching actions}
-\label{sub:switching_actions}
-
-Switching actions from one controller to another mid-way through a performance.
-
-\subsection{An example of a performance setup with Influx and KtlLoop}
-
-\emph{Would this make sense here ?}
-
-
-
 
 \section{Conclusions}
 \label{sec:conclusions}
@@ -639,11 +670,12 @@ Switching actions from one controller to another mid-way through a performance.
 
 Claims to originality:
 * incoming data is associated with a rich knowledge of what generated it. possible to query elements based on type.
-* access to elements done in a logical and memorize-able way, both through the auto-generated device names and element hierarchy.
+* access to elements done in a logical and easy-to-remember way, both through the auto-generated device names and element hierarchy.
 * automatic initialization reduces startup to one line of code.
 * Uniform access to controls from devices across multiple controllers and protocols.
 * Several ways to take inputs and create complex instruments investigated.
 
+* Modality takes the strongest
 We have showed beyond doubt that Modality is the best thing since sliced bread. It surpasses all other solutions out there both already invented and to be invented in the future. Resistance is futile, you will modalidated.
 
 
