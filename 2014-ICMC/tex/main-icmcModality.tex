@@ -123,9 +123,9 @@
 * details for OSCulator
 * where should multiton pattern section go?
 %* meetings: shorten, less tech detail
-* implementation - shorten detail? while great to have in general, maybe takes too much space for ICMC paper.
+%* implementation - shorten detail? while great to have in general, maybe takes too much space for ICMC paper.
 %* moved MDispatch, FRP, Influx to separate section {Modality related projects}.
-* FRP - would be worth saving for its own paper! for the context here, reviewers may find it long and too detailed.
+%* FRP - would be worth saving for its own paper! for the context here, reviewers may find it long and too detailed.
 * add executive summary of Influx, KeyPlayer/KtlLoop
 * other related - SenseWorld? 
 %* use cases: move use cases before implementation? 
@@ -354,7 +354,7 @@ Modality aims to make writing and configuring bridges as simple as possible.
 In other words, Modality shifts the instrument metaphor from linear chains of command to flexible networks of communication (or further on, of mutual influence).
 
 The uniform communication schemes recommended by Modality are largely based on existing conventions in SC, and extend them with only few new methods. Thus many SC quarks dealing with interface devices or data processing are useful sources for more islands. 
-Beside the modality-toolkit\cite{githubmodality}, team actively work on many modality-relevant quarks: SenseWorld (supporting sensor devices), Manta (a controller), FPLib (containing FRP), VariousMixedThings (which includes Influx), UnitLib (?), wslib (many GUI-related niceties), KeyPlayer (contains KtlLoop), DMX (output to light systems), and others.
+Beside the modality-toolkit\cite{githubmodality}, the team actively works on many modality-relevant quarks: SenseWorld (supporting sensor devices), Manta (a controller), FPLib (containing FRP), VariousMixedThings (which includes Influx), UnitLib~\cite{-uni}, wslib (many GUI-related niceties), KeyPlayer (contains KtlLoop), DMX (output to light systems), and others.
 
 \subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
 
@@ -397,33 +397,28 @@ Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows v
 \section{Examples / Use Cases}
 \label{sec:examples_use_cases}
 
-We created a number of simple to medium-complex uses cases, which serve both as examples for modality concepts, and as test cases that show how simple they can be implemented in different coding styles. 
+We created a number of simple to medium-complex uses cases, which serve both as examples for modality concepts, and as test cases that show how simply they can be implemented in different coding styles. 
 
-\subsection{MPD 18, copy sounds between locations}
+\subsection{Switching operation mode}
 \label{sub:mpd_18}
 
-The Akai MPD18 controller has 16 Buttons and a slider. In this use case, the buttons correspond to locations where sound processes can be. When a sound is active, the slider controls one of its parameters. sounds can be copied between locations.
+This example illustrates a situation where there are multiple global  modes of operation. Depending on which mode the system is in the physical controls perform entirely different actions in the system. This is similar to how computer keyboards perform different actions depending on which modifier keys (shift, ctrl, alt) are pressed.
+
+Consider 16 buttons in a $4\times4$ grid. The first 3 rows contain "memory" buttons, in the last row the first 3 are "play" buttons and the last one is the "shift" button.   Sound sources can be copied from the play buttons to the memory buttons.
 
 \begin{description}
- \item [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.
-        By pushing them down, the sound turns on; upon releasing, the sound decays.
-    the slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
- \item [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
-        if sound is assigned (see below), sound is played when button depressed.
- \item [Shift Button] Button 4 is a 'shift key'. When depressed
-        Sound Buttons don't trigger any sound but select the active slot. This can be followed by
-        depressing a Memory Slot button, which assigns the selected sound to that pad.
-        if you release the shift key before assignment, nothing happens.
-        assigning a copy to an already assigned memory slot replaces existing
-        mute copy + [Sound Button then Shift button]
-        Sound Button triggers sound
-        depress Memory Slot button, assigning the sound to the pad, with sound
+ \item [Play slots]  Each play button is assigned one fixed adsr enveloped sound sources with a single parameter. Depressing a play button turns the sound on, releasing it causes the sound to decay. 
+ \item [Memory slots] Each memory button can be assigned from one to all three sound sources associated with the play buttons. Depressing the button activates all assigned sound sources simultaneously.
+ \item [Slider] When a sound source is active, the slider controls one of the synthesis parameters. There is a pickup mechanism in place such  the slider only causes the parameter to change once it is close enough to current value to avoid jumps. 
+ \item [Shift Button] Pressing the shift button causes the system to go into "copy" mode. When in copy mode, up to three of the play buttons can be pressed followed by one of the memory buttons. This will copy the sources of the selected play slots together with their current values for the parameter into the selected memory slot. If the shift key is released mid-way no assignment takes place. Copying into an already assigned memory slot replaces the existing sources and parameter values.
 \end{description}
+
+The number of different operation modes could be easily extended by having multiple modifier buttons with different combinations of them setting the system to different modes of operation.
        
 \subsection{Switching actions}
 \label{sub:switching_actions}
 
-Switching actions from one controller to another mid-way through a performance.
+In this example a certain number of elements control an equal number of synth parameters. Upon pressing a button the system enters "remap" mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
 
 \subsection{An example of a performance setup with Influx and KtlLoop}
 
@@ -459,9 +454,9 @@ The control elements of devices are accessed through the |MKtl| class.
 A control element is a part of a controller that either generates and/or accepts a one-dimensional stream of events. 
 Each |MKtl| object consists of elements such as sliders, knobs, buttons or encoders.
 It is possible to assign actions to such elements that are evaluated every time the value of that element gets updated.
-Elements are instances of |MKtlElement| and are kept in a tree-like data structure using nested arrays and dictionaries which represents the spatial grouping of control elements in the physical controller. 
-For convenience, elements can also be accessed from a flat array using the |allElement| method. 
-The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button, slider) and control spec for scaling incoming values. 
+Elements are instances of |MKtlElement| and are kept in a tree-like data structure of nested arrays and dictionaries which represent the spatial grouping of control elements in the physical controller. 
+
+The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button) and control spec for scaling incoming values. 
 This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
 Using the multiton pattern described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
@@ -469,25 +464,24 @@ MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name'
 The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
 \begin{Verbatim}
-k = MKtl('nnkn20');
+k = MKtl('nnkn0');
 \end{Verbatim}
 
-Actions are added to elements by setting the MKtlElements' |action| to a function. This function is called every time an event is received from that control and it is passed the MKtlElement instance. It's possible to add and remove multiple actions to the same element using the |addAction| and |removeAction| methods which use the |FunctionList| class. Optionally, one can use the FuncChain class where functions can be added and removed by name, as well as reordered, and flexibly enabled and disabled for switching between modes. 
+Actions are added to elements by setting the MKtlElements' |action| to a function.  It's also possible to add and remove multiple unnamed actions to the same element using |FunctionList| or named functions which can also be re-ordered using |FuncChain|.
 
 \begin{Verbatim}
+~el = MKtl('nnkn0')
+.elements[\sl][0];
+
 //add action
-MKtl('nnkn20')
-.elements[\sl][0]
-.action = { |e|
+~el.action = { |e|
   var freq = e.value
   .linlin(0.0,1.0,300,3000);
   x.set(\freq, freq)
 };
 
 //remove action
-MKtl('nnkn20')
-.elements[\sl][0]
-.action = nil
+~el.action.action = nil
 \end{Verbatim}
 
 Some elements (with |ioType| |'out'| or |'inout'|) can also send values back to the device, this is done using the |value_| method of |MKtlElement|.
@@ -549,8 +543,6 @@ MKtl('nnkn0').elements[\sl]
 }
 \end{Verbatim}
 
-The standard order for grouped elements is first page, then row starting from the top of controller and finally column starting from the left of the controller.
-
 New devices can be added to modality easily, all that is needed is to write the corresponding device description file. 
 If a user tries to access a device for which there is still no description file available, the toolkit guides the user in the process of creating the description file. 
 More specifically, a description file can be generated for HID devices using the |HIDExplorer| class, which collects information provided by the low-level HID stack. 
@@ -570,9 +562,6 @@ As a last step in both cases, the user supplies suitable labels and orders the e
 
 \subsection{Modality related projects and quarks} 
 
-\todo {Longer descriptions of MDispatch, FRP, Influx can go here.}
-
-
 	
 \subsubsection{MDispatch}	
 
@@ -589,19 +578,13 @@ MDispatch was an interesting experiment that allowed for some degree re-usabilit
 		
 \subsubsection{FRP}
 
-\todo{functional) reactive programming: the icmc is full of people, who
-use(d) pd/max, which has a reactive semantics. maybe a quick comment on
-this may be helpful for many people of the intended audience}
+%\emph{miguel: It's now a bit less then a page. let me know if needs to shrink more}
 
-An electronic instrument can be though of as set of inputs from control devices, a set of audio units or processes that create audio units and control logic in between to allow incoming events from the physical devices to affect the state of the audio units. 
+The traditional method of dealing with incoming events is through callback functions. Callback functions, although easy to define lack composability and require all the basic patching to be handled by the user. Functional Reactive Programming, or FRP, is an alternative paradigm for programming dynamic and reactive systems using first-class composable abstractions. The two main abstractions are event streams (sequences of discrete-time event occurrences) and behaviours or signals (time-varying values). Most of the original work on FRP was done on the Haskell programming language\footnote{Haskell is a modern, pure, lazy, statically typed functional programming language.} with two main flavors, Classic FRP~\cite{elliott1997-fun,elliott2009-pus} and Arrowized FRP~\cite{hudak2003-arr,courtney2003yampa}. FRP has some similarities to visual reactive languages such as pd and MaxMSP, since both evaluate an event graph, although FRP operates at a higher level of abstraction.
 
-The traditional method of dealing with incoming events is through callback functions. A callback function is registered and it is called every time an event is received. Callback functions, although easy to define lack composability and require all the basic patching to be handled by user. Functional Reactive Programming, or FRP, is a paradigm for programming dynamic and reactive systems using first-class composable abstractions that tries to address some of these issues. The two main abstractions are event streams (sequences of discrete-time event occurrences) and behaviours or signals (time-varying values). Most of the original work on FRP was done on the Haskell programming language\footnote{Haskell is a modern, pure, lazy, statically typed functional programming language.} with two main flavors, Classic FRP~\cite{elliott1997-fun,elliott2009-pus} and Arrowized FRP~\cite{hudak2003-arr,courtney2003yampa}.
-
-The FRP paradigm seemed promising for the construction of musical digital instruments, so in order to make it available in the SuperCollider language the \emph{reactive-web} library from the Scala language was ported to SC and extended. Ideas from \emph{reactive-banana}, a modern FRP library for Haskell, were also incorporated. This SuperCollider FRP implementation is part of the FPLib library~\cite{-fpl} which makes available a number of functional programming constructs such as Monads and Applicative Functors in SC.
+The FRP paradigm seemed promising for the construction of musical digital instruments. An FRP network could determine how events from physical controllers affect sound processes. To explore this possibility a set of classes for doing FRP in SuperCollider, part of the FPLib library~\cite{-fpl}, was created based on \emph{reactive-web}~\cite{-reactive-web} and \emph{reactive-banana}~\cite{-reactive-banana}.
  
-In FP-Lib, the main entities for FRP are the EventStream and FPSignal classes. Signals are slightly different from the behaviors of Classic FRP: behaviors model any continuous time function $f:Time\rightarrow A$, while signals only model step functions.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} forms an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions.
-
-It's possible to create complex programs with time\\-dependent logic by composing  event streams and signals using a small set of combinators:
+In FP-Lib, the main entities for FRP are the EventStream and FPSignal classes.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} form an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions. The most important strategies when using combinators are:
 
 \begin{itemize}
 
@@ -610,48 +593,45 @@ It's possible to create complex programs with time\\-dependent logic by composin
 sig1 = es1.hold(0.0)
 es2 = sig2.changes
 \end{Verbatim}
-\item Merging multiple event streams into one event stream by accepting events from any streams:
+\item Merging event streams:
 \begin{Verbatim}
 mergedEs = es1 | es2 | es3 | es4
 \end{Verbatim}
-\item Filtering events of an event stream using a function that returns a boolean:
+\item Filtering events streams:
 \begin{Verbatim}
 es.filter({ |x| x > 0.5 })
 \end{Verbatim}
-\item Keeping state that can be influenced by several different event streams by  associating each event stream with a state altering function. The state is first set to an initial value, then each time the event streams receive an event it generates a new function to be applied to the current value of the state. For example, a counter that can be incremented by one event stream and decremented with another:
+\item Maintaining state that can be affected by event streams carrying state altering functions. A counter:
 \begin{Verbatim}
 ( es1.collect{{|x|x+1}} | 
   es2.collect{{|x|x-1}} )
 .injectF(0) 
 \end{Verbatim}
-\item Merging n signals using an n-ary function. This is possible to do with signals but not with event streams, since only signals remember their last value. For example, converting two signals carrying x and y coordinates to one signal carrying the angle: 
+\item Merging n signals using an n-ary function:
 \begin{Verbatim}
 atah2(_,_).lift.(xSig, ySig)
 \end{Verbatim}
-\item Applying a time-varying function (stored in an signal) to an event stream. This allows event streams to use previous values from other nodes in the graph. For example, starting a synth on pressing a pad with frequency determined by the last value of a slider:
+\item Applying a time-varying function (stored in an signal) to an event stream. This allows event streams to use previous values from other nodes in the graph, including values that depend on themselves (recursive graphs). Start a synth based on previous value of slider:
 \begin{Verbatim}
 { |f,e| IO{Synth(\a,[\freq,f])} }
 <$> sliderSig <@> padEs 
 \end{Verbatim}
 %$ need this otherwise texmaker turns all my text to green
-\item Dynamic event switching: changing the event graph by running a function on an incoming event that returns the new event stream or signal to use. For example, every time a signal emits an int $n$, create a new signal that merges the first $n$ elements of a list of signals using an averaging function: 
+\item Dynamic event switching. Every time a signal emits an int $n$, create a new signal that merges the first $n$ elements of a list of signals using an averaging function: 
 \begin{Verbatim}
 sigNum.switchInto{ |n|
-  listOfSignals[..n].sequence
-  .collect{ |xs| xs.sum / xs.size }
+  listOfSignals[..(n-1)].sequence
+  .collect{ |xs| xs.sum / n }
 }
 \end{Verbatim}
-All FRP objects created inside the function are automatically disposed off when the function is run again preventing leaks.
 \end{itemize}
 
 In FP-Lib, inputs to the event graph can come from MIDI or HID (via the
-Modality Toolkit), OSC, GUIs or Timers and are declared using  the |enIn| (signal) or |enInES| (event stream) method. Outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad, which in SC are anonymous functions wrapped in a class). For convenience there are predefined actions available called \textit{sinks}. Passing an FRP object to a sink will execute the default action of the sink using the values emitted by the object.
+Modality Toolkit), OSC, GUIs or Timers using |enIn| and outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad). For convenience there are predefined actions available called \textit{sinks}.
 
-FPLib can be used in conjunction with UnitLib, in which case the definition of the event network should return a dictionary of synth control names to Signals or event streams. The output of the frp objects can then be automatically scaled to the range of the parameter of the synth, since units have a control spec for each control in the SynthDef.
+Since all the functions used to construct the graph are pure\footnote{SuperCollider is not a typed pure FP language like Haskell, so there are no guarantees that the functions passed by the user to the to the FRP combinators are actually pure, it's up to the user to make sure that this is the case.} it's possible to abstract a subset of them into a single function and be confident that the result will be identical. Also, the event graph does noy depend on the nature of the inputs or outputs, for instance MIDI inputs can be changed to GUIs or OSC messages without changing any of the event graph code. This makes it easy to build a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument. It also facilitates testing as each sub-component can be tested separately.
 
-Since all the functions used to construct the graph are pure\footnote{SuperCollider is not a typed pure FP language like Haskell, so there are no guarantees that the functions passed by the user to the to the FRP combinators are actually pure, it's up to the user to make sure that this is the case.} it's possible to abstract a subset of them into a single function and be confident that the result will be identical. Also, the event graph does noy depend on the nature of the inputs or outputs, for instance MIDI inputs can be changed to GUIs or OSC messages without changing any of the event graph code. This makes it easy to build a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument.
-
-Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments. The FRP system has not gained wide adoption amongst Modality users either, perhaps because pure functional programming is quite a different paradigm from the imperative object\\-oriented paradigm of SC.
+Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments.
 
 \subsubsection{Influx}
 
