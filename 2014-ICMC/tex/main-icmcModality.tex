@@ -136,8 +136,14 @@
 \begin{abstract}
 %\todo{adc: revisit abstract when body of paper is done!}
 
-The Modality Project explores the idea of highly modal performance instruments; i.e. instrument setups in which a small set of controllers can be used to play a wide variety of sound processes by changing control constellations on the fly, in performance. 
+The Modality Project explores the idea of highly modal performance instruments i.e., setups where a small set of controllers can be used to play a wide variety of sound processes by changing control constellations on the fly. 
 The Modality Toolkit is a SuperCollider library which simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers in  simple-to-write, flexible configurations.
+
+The Modality Toolkit aims to improve and facilitate the use of digital technology within interactive sound art and music. 
+Written in SuperCollider (SC), it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
+To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
+Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
+
 
 This paper gives an overview on the concept of modality as seen by a group of sound artists and researchers, and describes one interdisciplinary approach to creating a toolkit written for and by electronic musicians.
 
@@ -153,14 +159,19 @@ This paper gives an overview on the concept of modality as seen by a group of so
 \section{Introduction}
 \label{sec:introduction}
 
-The \textit{Modality} project was initiated by Jeff Carey and Bj\o{}rnar Habbestad, who after several years of collaboration realised that, despite playing completely different setups, they both had the need to switch between functionalities easily while performing.  While both had custom implementations of this behaviour, it appeared to be not flexible enough, especially extending their setup felt cumbersome, original ideas got lost over the hassle of implementation of mapping rules.
+The \textit{Modality} project was initiated by Jeff Carey and Bj\o{}rnar Habbestad, who, after several years of collaboration, realised that they, despite playing completely different setups, both had the need to easily switch between functionalities  within performance.
+While both had custom implementations of this behaviour, it appeared to be not flexible enough. 
+Especially extending their setup felt cumbersome, and original ideas got lost over the hassle of implementation of mapping rules.
 
 Out of these observations arose the idea to gather a group of experts in sound and music computing (and specifically from the SuperCollider community) which eventually formed the ModalityTeam.
-Beginning with five people, over the meetings, more people became involved, such that the group currently consists of 12 members.
+Starting with five people at the first meeting, more people became involved. The group currently consists of 12 members.
 
 The intention of this paper is two-fold:
-After an introduction on the concept of modality and related work (Section~\ref{sec:modal_control}), it gives insight on work in an interdisciplinary team of loose collaboration, driven mostly by a shared interest in, on the one hand, sound, music, performance practice and software design and development on the other (Section \ref{sec:the_modality_meetings}).
-Secondly, it reports on the outcomes in both conceptual and concrete implementation details (Sections \ref{sec:implementation} and \ref{sec:islands_and_bridges_uniform_protocols}).
+%
+Firstly, after an introduction on the concept of modality and related work (Section~\ref{sec:modal_control}), it gives insight on work in an interdisciplinary team of loose collaboration.
+It is driven mostly by a shared interest in, on the one hand, sound, music, and performance practice, and on the other hand software design and development (Section \ref{sec:the_modality_meetings}).
+%
+Secondly, it reports on the outcomes in both conceptual and concrete implementation details (Section \ref{sec:islands_and_bridges_uniform_protocols} to \ref{sec:implementation}).
 The paper concludes with a reflection on the work done over the course of the last 5 years.
 
 \section{The modality way}
@@ -168,26 +179,24 @@ The paper concludes with a reflection on the work done over the course of the la
 
 The Modality project is dedicated to modal interaction with synthesis processes for physical control in performance and musical practice.
 The name \emph{Modality} arose from the idea to investigate the creation and extensive use of modal interfaces.
-One particular strength of such modal interfaces is that they allow fast changes and therefore a braoder variety for sonic discovery.
+One particular strength of such modal interfaces is that they allow fast changes and therefore a broader variety for sonic discovery.
 This can be of benefit when, for example, improvising with musicians playing acoustic instruments.
-Out of this arouse the question on how HCI interfaces can be both conceptualised and actually built, in which a small set of physical controls are used for a relatively a amount of purposes.
+Out of this arouse the question on how HCI interfaces can be conceptualised and with a small set of physical controls assigned to a relatively large function set.
 We contend that integration of such on-the-fly remapping features helps to create flexible instruments that are powerful yet interesting and therefore rewarding to play and listen to. 
 
 The primary product of the Modality project is the \emph{Modality Toolkit}, a software library that facilitates (a) access to hardware and software controllers, (b) flexible routing of control messages to generative processes, and (c) recording, filtering and further processing of controller signals.
-The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SC meets at regular intervals to work on the library, discuss issues around music performance and composition, and perform in self-organised concerts.
+The ModalityTeam, an international and transdisciplinary group of people that see themselves as users and developers for SC meets at regular intervals to work on the library, discuss issues around music making, and perform in self-organised concerts.
 
 Modality, however, can also be understood as a social descriptor for the ModalityTeam.
-The fact that a number of programmers and artists from different (music)cultures and nationalies meet up on a more or less regular basis does not necessarily imply that they share the same  understanding, let alone opinion.
-It turned out that themes as fundamental to the Modality project as ``performance practice'', ``control strategies'' and even ``software paradigms'' were highly ambiguous and recognised in different ways.
-
-Further, it turned out to be a learning process to not only hear other opinions but to also take them into account during software design and implementation.
+The fact that a number of programmers and artists from different (music)cultures and nationalitirecoges meet up on a more or less regular basis does not necessarily imply that they share the same  understanding, let alone opinion.
+It turned out that themes as fundamental to the Modality project as ``performance practice'', ``control strategies'' and even ``software paradigms'' were highly ambiguous and interpreted in different ways.
+Further, it turned out to be a learning process to not only listen to other people's opinions but to also take them into account during software design and implementation.
 
 As a third interpretation level of the term Modality serves the structure of the meetings.
-Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely developer phases in which the Modality Toolkit was implemented, public workshops disseminating knowledge about the Modality Toolkit, and concerts in which participants performed with their custom instruments.
-
-To illustrate the process, the next section is a report on the modality meetings and their outcomes, combined with subjective analyses of the participants on the working process.
-
-
+Reflecting the divergence between participants, most of the meetings consisted of a broad spectrum of activities, namely 
+(a) developer phases in which the Modality Toolkit was implemented, 
+(b) public workshops disseminating knowledge about the Modality Toolkit, and 
+(c) concerts in which participants performed with their custom instruments.
 
 \subsection{Related work}
 \label{sec:related_work}
@@ -206,26 +215,35 @@ Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard201
 		Define operation ranges(for floats)
 		Define different events to specific values (ints) 
 	\item[junXion] 
-		is a \enquote{[\dots] data routing application that can process [hardware] 'sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
+		is a \enquote{[\dots] data routing application that can process [hardware] `sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
 		It is a stand-alone program to be put in the middle between the control input layer and the synthesis layer.
-The roots of its development lay in the advanced sensor input and data manipulation features of pioneering live sampling software LiSa [2]. 
-LiSa's sampling engine is not further developed, as many software synths are available now to replace its functionality. 
-Similarly, STEIM's groundbreaking sensor and interfacing technologies have now become readily available through a host of affordable controllers and DIY-kits, e.g.those based around the Arduino platform.
+The roots of its development lay in the advanced sensor input and data manipulation features of pioneering live sampling software LiSa~\cite{-jun}.\footnote{As of today, LiSa's sampling engine is not further developed, as many software synthesizer are available to replace its functionality. 
+Similarly, STEIM's groundbreaking sensor and interfacing technologies have become readily available through a host of affordable controllers and DIY-kits, e.g.those based around the Arduino platform.}
 
-In JunXion, data flow is organized in Patches with an Input-Action-Output logic. 
-Inputs can come from 8 different types of data sources, namely MIDI, HID, OSC, Wii Remote, Serial (Arduino et al), internal timers, and data derived from audio (amplitude- and pitch-tracking) and video (blob tracking). 
-The Actions process data based on the input and a host of definable behaviors (switching, toggling, differentiation, integration, activity measurement) and conditions that can imply data from other sensors or values stored in variables and tables. 
-Output can be generated as MIDI messages of many kinds, OSC messages, emulated mouse or keyboard events, Arduino and Wii Remote messages, and state change internal to JunXion, such as switching to a new bank of controller mappings. 
+In JunXion, data flow is organised in patches with an \emph{input-action-output}-logic. 
+Inputs can come from as many as eight different types of data sources.
+%, namely MIDI, HID, OSC, Wii Remote, Serial (Arduino et al), internal timers, and data derived from audio (amplitude- and pitch-tracking) and video (blob tracking). 
+The actions process that data by means of user-definable behaviours such as switching or toggling but also differentiation, or complex activity measurement and based on conditional statements incorporating other incoming data. 
+Output can be generated and sent in various formats to listening programs.
+%as MIDI messages of many kinds, OSC messages, emulated mouse or keyboard events, Arduino and Wii Remote messages, and state change internal to JunXion, such as switching to a new bank of controller mappings. 
 
-  \item[Digital Orchestra Toolkit] The Digital Orchestra Toolkit \cite{-dot} was created by McGill as part of the Digital Orchestra project, around \enquote{[\dots] a number of paradigms for the design, creation and performance of digital musical instruments in the context of a long-term interdisciplinary, collaborative environment. Issues related to mapping strategies, notation, the relationship of physical and musical gestures, robustness, responsiveness, and haptic feedback arose during the course of the project.}\cite{ferguson-2009}. The toolkit consists of a number of Max objects implementing various data processing units, as well as accessing various hardware devices or protocols.
+	\item[Digital Orchestra Toolkit] \cite{-dot} was created as part of the \emph{Digital Orchestra project} around \enquote{[\dots] a number of paradigms for the design, creation and performance of digital musical instruments in the context of a long-term interdisciplinary, collaborative environment. 
+	Issues related to mapping strategies, notation, the relationship of physical and musical gestures, robustness, responsiveness, and haptic feedback arose during the course of the project.}\cite{ferguson-2009}. 
+	The toolkit consists of a number of Max/MSP objects implementing data acquisition and processing for various hardware devices and protocols.
 	
 	\item[Multiton design patterns in SC] 
 		SuperCollider has flexible proxy objects for tasks, patterns, sound processes, and functions, which allow replacing the proxy's object while using it. (Modality follows these, e.g. in the |MKtl(<name>)| access scheme.)
 		Named variants of these classes, like |Tdef|, |Pdef|, |Ndef|, or |MIDIdef|, |OSCdef| follow the multiton pattern by creating named instances only, and keeping them in a global dictionary. 
-		Calling the constructor, e.g., |Ndef(\a)|, will find an existing instance by that name, or create it. 
-		A second argument, |Ndef(\a, { LFSaw.ar })|, will replace the proxy's current object with the new one given. This is very useful in live coding situations, where remembering name/function pairs is much easier than doing full  variable administration by hand.
+		Calling the constructor e.g., |Ndef(\a)|, returns an existing instance by that name or, if not found create it. 
+		Supplying a second argument, |Ndef(\a, { LFSaw.ar })|, replaces the proxy's current object with the new one given. 
+		This is very useful in live coding situations, where remembering name-function pairs is much easier than doing full  variable administration by hand.
 \end{description}
 
+
+
+
+\section{The Modality meetings}
+\label{sec:the_modality_meetings}
 
 \begin{figure}[h]
 	\centering
@@ -234,13 +252,7 @@ Output can be generated as MIDI messages of many kinds, OSC messages, emulated m
 	\label{fig:media_20140403-IMG_1667}
 \end{figure}
 
-
-
-
-\section{The Modality meetings}
-\label{sec:the_modality_meetings}
-
-So far, the ModalityTeam held four meetings.
+To illustrate the Modality way as described in Section~\ref{sec:introduction}, this section reports on the outcomes and discussions within the four modality meetings held so far.
 
 \begin{description}
 	\item[October 2010, BEK, Bergen] Initiated by Jeff Carey and Bj\o{}rnar Habbestad, several experts and sound artists met to discuss shared ideas about modal control in performance and rehearsal situations.
@@ -248,17 +260,19 @@ So far, the ModalityTeam held four meetings.
 	
 % 	\todo{add further description on founding meeting. Should be done by someone who actually was there.}
 	
-	\item[May 2011, STEIM, Amsterdam] Discussions revealed the need for users to abstract from hardware dependencies, and being able to do flexible routings and filtering incoming data. We therefore developed a new SC quark that began to implement two sets of functionalities:
+	\item[May 2011, STEIM, Amsterdam] Discussions revealed the need for users to abstract from hardware dependencies, and being able to do flexible routings and filtering incoming data. 
+	A new SC quark was initiated\footnote{\url{https://github.com/ModalityTeam/Modality-toolkit}} and the group started implementing two sets of functionalities:
 
-|MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file. 
-Instead of assigning functions to hardware-specifics, we considered controllers as a combination of \emph{controller elements}, which were given human-readable short names for semantically simple access, e.g. |'sl1'| instead of MIDI channel 0 cc 14.
+	|MKtl| objects were intended to connect MIDI and HID hardware devices. 
+	They store capabilities of each device in a configuration file. 
+	Instead of assigning functions to hardware-specifics, we considered controllers as a combination of \emph{controller elements}, which were given human-readable short names for semantically simple access (e.g., |'sl1'| instead of MIDI channel 0 cc 14).
 This scheme was considered extensible for OpenSoundControl, serial ports, and other hardware interfaces, to have a uniform workflow, abstracted away from the actual backend.
 
-|MDispatch| objects allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (two states: on/off) to one trigger event (on), or the calculation of slider speed. Many templates for commonly used functionality were created.
+|MDispatch| objects allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (\emph{on}, \emph{off}) to one trigger event (\emph{now}), or the calculation of slider speed. Many templates for commonly used functionality were created.
 
-A stumbling block at the time was the broken HID implementation in SC on OSX from version 3.5, due to changes in the API of Apple's HID toolkit. This has now been solved in version 3.7 with a new cross-platform HID implementation.
-
-%	\begin{itemize}
+A stumbling block at the time was an OS-dependant (and, due to changes in the API of Apple's HID toolkit, on the OSX side non-functional) HID implementation in SC.\footnote{As of April 2014, this has been solved in SuperCollider 3.7 with a new cross-platform HID implementation.}
+The project's state was presented at the SC.symposium 2012 in London, UK.\footnote{\url{http://www.sc2012.org.uk/conference/}}
+%	\begin{itemize}\itemsep0em
 %		\item |MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
 %		 Instead of assigning functions to hardware-specifics 
 %		 %like MIDI cc numbers, or an HID element cookies, 
@@ -274,22 +288,28 @@ A stumbling block at the time was the broken HID implementation in SC on OSX fro
 
 
 	\item[November 2013, BEK, Bergen] After a hiatus of almost 2 years, this meeting focused on practical steps. 
+	It particularly took a while to get back to a productive working environment.
+	The introduction of an issue tracker to define and discuss development goals (in combination with git as a repository for code development) helped to get on track again.
 
-	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become, and to understand the concrete demands for the software better. 
+	In this light, example use cases of different levels of complexity were noted down in order to define the demands (and limits) of the Modality toolkit (see Section~\ref{sec:examples_use_cases}).
+	It also turned out to help understand, how complex the user-written code to implement the use case would be and therefore get insights on how the toolkit has to be adjusted to facilitate this. 
 
-We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
+	Further, unified functionality to the input layers were added: \emph{Explorer} classes for MIDI and HID listen to incoming messages from a source and generate initial data to help writing description files.
+	% till: not really: and eventually responders for that source automagically. 
+	Hierarchical ordering of elements within these files was introduced to allow the representation of semantical grouping.
 
-Proposals for related useful concepts, such as FRP and Influx, were explored. Experimental items were moved outside the main toolkit.
+	Proposals for related useful concepts, such as FRP and Influx, were explored (see Section~\ref{sub:modality_related_projects_and_quarks})
+	Experimental items were moved outside the main toolkit.
 
 	
-%	\begin{itemize}
+%	\begin{itemize}\itemsep0em
 %		\item	We created example use cases of different levels of complexity, in order to check how simple user code for these use cases can become. 
 %		\item 	We added unified functionality to the input layers: Explorers for MIDI and HID which listen to incoming messages from a source and can generate description files, and eventually responders for that source automagically. We also added hierarchical ordering of elements for more flexibility. 
 %		\item 	Proposals for related useful concepts, such as FRP and Influx, were explored.
 %		\item	Experimental items were moved outside the main toolkit.
 %	\end{itemize}
 		
-%		\begin{itemize}
+%		\begin{itemize}\itemsep0em
 %		\item remove FRP
 %		\item remove FuncChain
 %		\item elementAt shortcut for getting element
@@ -308,16 +328,18 @@ Proposals for related useful concepts, such as FRP and Influx, were explored. Ex
 		
 		
 		
-	\item[April 2014, STEIM, Amsterdam] 	Many aspects of the input side were unified and simplified further, thus nearing completion of the input layer.
+	\item[April 2014, STEIM, Amsterdam] 
+	Many aspects of the input side were unified and simplified further, thus nearing completion of the input layer.
 
-Description file handling was improved in many ways, and fake GUIs can now be made for missing devices. Mapping strategies were simplified toward a unified style with |SoftSet|, |RelSet| etc. 
+	Description file handling was improved in many ways, and GUIs could be initiated for missing devices. 
+	Mapping strategies were simplified toward a unified style with e.g., |SoftSet| and |RelSet| (see Section~\ref{sub:unifications_of_interface_implementations}).
 
-Much more documentation and examples were written, including more use cases sketched in text and written in some coding style variants.
+	While in the meetings before, writing documentation was mostly postponed until it was too late, in this meeting,  documentation and examples were written in dedicated sessions, and use cases were sketched in text and implemented in various coding style variants.
 
-Finally, HID in OSX was fixed, pending full tests.
+	Finally, the OS unification of the HID interface implementation was fixed, pending full tests.
 
 
-%	\begin{itemize} 
+%	\begin{itemize}\itemsep0em 
 %		\item HID support in OSX fixed (pending full tests)
 %		\item Fake GUIs can now be made for missing devices
 %		\item description file handling improved in many ways
@@ -326,7 +348,7 @@ Finally, HID in OSX was fixed, pending full tests.
 %		\item much more documentation and examples
 %	\end{itemize}
 
-%	\begin{itemize} 
+%	\begin{itemize} \itemsep0em
 %		\item Documentation updates
 %		\item HID fix
 %		\item adding MKtlGUI
@@ -341,10 +363,40 @@ Finally, HID in OSX was fixed, pending full tests.
 %	\end{itemize}
 \end{description}
 
+\section{Examples / Use Cases}
+\label{sec:examples_use_cases}
+
+We created a number of simple to medium-complex uses cases, which serve both as examples for modality concepts, and as test cases that show how simply they can be implemented in different coding styles. 
+
+\subsection{Switching operation mode}
+\label{sub:mpd_18}
+
+This example illustrates a situation where there are multiple global  modes of operation. Depending on which mode the system is in the physical controls perform entirely different actions in the system. This is similar to how computer keyboards perform different actions depending on which modifier keys (shift, ctrl, alt) are pressed.
+
+Consider 16 buttons in a $4\times4$ grid. The first 3 rows contain \emph{memory} buttons, in the last row the first 3 are \emph{play} buttons and the last one is the \emph{shift} button.   Sound sources can be copied from the play buttons to the memory buttons.
+
+\begin{description}
+ \item [Play slots]  Each play button is assigned one fixed adsr enveloped sound sources with a single parameter. Depressing a play button turns the sound on, releasing it causes the sound to decay. 
+ \item [Memory slots] Each memory button can be assigned from one to all three sound sources associated with the play buttons. Depressing the button activates all assigned sound sources simultaneously.
+ \item [Slider] When a sound source is active, the slider controls one of the synthesis parameters. There is a pickup mechanism in place such  the slider only causes the parameter to change once it is close enough to current value to avoid jumps. 
+ \item [Shift Button] Pressing the shift button causes the system to go into \emph{copy} mode. When in copy mode, up to three of the play buttons can be pressed followed by one of the memory buttons. This will copy the sources of the selected pressedressedlay slots together with their current values for the parameter into the selected memory slot. If the shift key is released mid-way no assignment takes place. Copying into an already assigned memory slot replaces the existing sources and parameter values.
+\end{description}
+
+The number of different operation modes could be easily extended by having multiple modifier buttons with different combinations of them setting the system to different modes of operation.
+       
+\subsection{Switching actions}
+\label{sub:switching_actions}
+
+In this example a certain number of elements control an equal number of synth parameters. Upon pressing a button the system enters \emph{remap} mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
+
+\subsection{An example of a performance setup with Influx and KtlLoop}
+
+\emph{Would this make sense here ?}
+
 
 \section{Islands, Bridges, uniform schemes}
 \label{sec:islands_and_bridges_uniform_protocols}
-As many home towns of modality members are harbor cities, Islands and Bridges were chosen as a mental model for conceiving and understanding highly modal instruments.
+As many home towns of modality members are harbour cities, Islands and Bridges were chosen as a mental model for conceiving and understanding highly modal instruments.
 Islands are software objects or processes which represent sources (input devices, control-generating processes), destinations (output processes for sound, visuals), combinations of these, such as transformers (which, like destinations, process incoming control information, and send the results on like sources). 
 Islands should be as self-sufficient as possible, and show uniform behavior to allow simple on-the-fly changes of connections with bridges. 
 
@@ -354,20 +406,32 @@ Modality aims to make writing and configuring bridges as simple as possible.
 In other words, Modality shifts the instrument metaphor from linear chains of command to flexible networks of communication (or further on, of mutual influence).
 
 The uniform communication schemes recommended by Modality are largely based on existing conventions in SC, and extend them with only few new methods. Thus many SC quarks dealing with interface devices or data processing are useful sources for more islands. 
-Beside the modality-toolkit\cite{githubmodality}, the team actively works on many modality-relevant quarks: SenseWorld (supporting sensor devices), Manta (a controller), FPLib (containing FRP), VariousMixedThings (which includes Influx), UnitLib~\cite{-uni}, wslib (many GUI-related niceties), KeyPlayer (contains KtlLoop), DMX (output to light systems), and others.
+Beside the modality-toolkit\cite{githubmodality}, the team actively works on other modality-relevant quarks.
+These are e.g., 
+\emph{SenseWorld} supporting sensor devices, 
+\emph{Manta} accessing an OSC controller, 
+\emph{FPLib} containing FRP (see Section~\ref{sub:frp}), 
+\emph{VariousMixedThings} containing Influx (see Section~\ref{sub:influx}), 
+\emph{UnitLib}~\cite{-uni}, 
+\emph{wslib} mostly GUI-related niceties, 
+\emph{KeyPlayer} contains KtlLoop, and 
+\emph{DMX} output to light systems.
 
-\subsection{ Uniform input device schema (MIDI, HID, OSC, GUI, Serial) }
 
-Input devices (such as the |MKtl| class) or other control sources follow a scheme: 
+\subsection{The uniform input device scheme (MIDI, HID, OSC, GUI, Serial)}
+\label{sub:the_uniform_input_device_scheme_midi_hid_osc_gui_serial_}
+
+Input devices (such as the |MKtl| class) or other control sources follow a scheme:
 They have rich descriptions, with simple short human-readable element names, which are hierarchically ordered where applicable. 
 One can access each element by name or hierarchical name.
 Each element can either have a single action, or one can add and remove multiple actions individually by identity or name.
 
-Every |MKtl| can be replaced with a FakeGUI, which is made from its description file, and can generate all its control messages instead of the physical device.
+Every |MKtl| can be substituted by a Graphical User Interface derived from the corresponding description file.
+When operated, it acts identically to the physical device.
 
 \emph{Explorers} simplify adding new devices or sources: 
 One activates every possible controller action at least once to collect specimens of every possible message type. 
-Then an Explorer can make a description file template from this, and the user adds the final touches by giving them simple, short and clear element names, and organizing their hierarchical order. 
+Then an Explorer can make a description file template from this, and the user adds the final touches by giving them simple, short and clear element names, and organising their hierarchical order. 
 This is implemented fully for MIDI and HID, with other protocols to follow.
 
 Transformer islands expect control input from sources, and know how to create control output for destinations. E.g. an |Influx| is a transformer which accepts m bipolar parameters from a source, and converts them to n process parameters for a destination with vectors of weights. 
@@ -380,12 +444,12 @@ Transformer islands expect control input from sources, and know how to create co
 % 
 %\todo{adc: agreed, protocol is too big a claim. Maybe Proposed schema is the better term. below a short write-up, hope you find that useable?}
 
-Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to unipolar.
+Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to be unipolar (i.e., between |[0..1]|).
 
 Modality-compatible destinations also follow existing SC schemes: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters (i.e. range, warp, step size, etc). Most objects that are active processes respond to .play, .stop, .pause and resume messages. 
 
 Requiring destinations to know their parameters specs and current states allows more flexible control in several ways: 
-The |setUni| method can be used to set a param from the controller side's unipolar value; keeping the spec with the destination process is semantically simpler, and multiple control sources will immediately use changed specs if they belong to the object. 
+The |setUni| method can be used to set a param from the controller side's unipolar value; keeping the |Spec| with the destination process is semantically simpler to argue for, and multiple control sources will immediately use changed specs if they belong to the object. 
 The |RelSet| class method can be used to nudge a parameter relative to its current value. 
 |SoftSet| class methods can be used to take over a parameter only when the physical controller is close enough to its value, or when the physical controller knows the object's previous value well enough (which is the case when it has set it to that value). 
 If specs are kept with the object, they can easily be adjusted there (e.g. for zooming into a subset of the full range), keeping the controller element side code simpler by sending unipolar values, and letting the object provide the spec:
@@ -394,47 +458,19 @@ If specs are kept with the object, they can easily be adjusted there (e.g. for z
 
 Finally, conforming to the SC convention of |play/stop|, |pause/resume| allows very simple de/activation when switching newly to or away from a process. 
 
-\section{Examples / Use Cases}
-\label{sec:examples_use_cases}
-
-We created a number of simple to medium-complex uses cases, which serve both as examples for modality concepts, and as test cases that show how simply they can be implemented in different coding styles. 
-
-\subsection{Switching operation mode}
-\label{sub:mpd_18}
-
-This example illustrates a situation where there are multiple global  modes of operation. Depending on which mode the system is in the physical controls perform entirely different actions in the system. This is similar to how computer keyboards perform different actions depending on which modifier keys (shift, ctrl, alt) are pressed.
-
-Consider 16 buttons in a $4\times4$ grid. The first 3 rows contain "memory" buttons, in the last row the first 3 are "play" buttons and the last one is the "shift" button.   Sound sources can be copied from the play buttons to the memory buttons.
-
-\begin{description}
- \item [Play slots]  Each play button is assigned one fixed adsr enveloped sound sources with a single parameter. Depressing a play button turns the sound on, releasing it causes the sound to decay. 
- \item [Memory slots] Each memory button can be assigned from one to all three sound sources associated with the play buttons. Depressing the button activates all assigned sound sources simultaneously.
- \item [Slider] When a sound source is active, the slider controls one of the synthesis parameters. There is a pickup mechanism in place such  the slider only causes the parameter to change once it is close enough to current value to avoid jumps. 
- \item [Shift Button] Pressing the shift button causes the system to go into "copy" mode. When in copy mode, up to three of the play buttons can be pressed followed by one of the memory buttons. This will copy the sources of the selected play slots together with their current values for the parameter into the selected memory slot. If the shift key is released mid-way no assignment takes place. Copying into an already assigned memory slot replaces the existing sources and parameter values.
-\end{description}
-
-The number of different operation modes could be easily extended by having multiple modifier buttons with different combinations of them setting the system to different modes of operation.
-       
-\subsection{Switching actions}
-\label{sub:switching_actions}
-
-In this example a certain number of elements control an equal number of synth parameters. Upon pressing a button the system enters "remap" mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
-
-\subsection{An example of a performance setup with Influx and KtlLoop}
-
-\emph{Would this make sense here ?}
-
-
 
 \section{Specification, design and implementation of the Modality toolkit}
 \label{sec:implementation}
+
+The following specification of the Modality toolkit conforms to the island/bridges/unification scheme introduced in Section~\ref{sec:islands_and_bridges_uniform_protocols}
+and respects the use case described in Section~\ref{sec:examples_use_cases}.
 
 \subsection{Specification}
 \label{sub:specification}
 
 % taken from the workshop webpage. please adjust/remove/edit.
 The Modality toolkit aims to facilitate
-\begin{itemize}
+\begin{itemize}\itemsep0em
 	\item data acquisition from commercially available controllers (e.g. HID and MIDI) by providing a common software interface,
 	\item processing of control data streams,
 	\item sending control data to these controllers (e.g. fader positions, LED states),
@@ -553,14 +589,16 @@ As a last step in both cases, the user supplies suitable labels and orders the e
 
 
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140405-IMG_1691.jpg}
-	\caption{Modality Concert 2014 at OT301}
-	\label{fig:media_20140405-IMG_1691}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 		\includegraphics[width=.9\columnwidth]{../media/20140405-IMG_1691.jpg}
+% 	\caption{Modality Concert 2014 at OT301}
+% 	\label{fig:media_20140405-IMG_1691}
+% \end{figure}
 
-\subsection{Modality related projects and quarks} 
+
+\subsection{Modality related projects and quarks}
+\label{sub:modality_related_projects_and_quarks}
 
 	
 \subsubsection{MDispatch}	
@@ -578,6 +616,7 @@ MDispatch was an interesting experiment that allowed for some degree re-usabilit
 \todo{ Miguel: would be good to get other opinions on this. Do you agree with what I say in this paragraph ? Marije: I think mainly the development was paused as you switched over to FRP, before MDispatch was quite finished ;).}
 		
 \subsubsection{FRP}
+\label{sub:frp}
 
 %\emph{miguel: It's now a bit less then a page. let me know if needs to shrink more}
 
@@ -587,38 +626,37 @@ The FRP paradigm seemed promising for the construction of musical digital instru
  
 In FP-Lib, the main entities for FRP are the EventStream and FPSignal classes.  Outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs, and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} form an \emph{event network}. To build an \emph{event network} the inputs, outputs and event graph are described in a definition which can then be compiled into a working event network. The compiled event network can be started and stopped at any moment, stopping it disconnects from all registered event sources and stops performing all output actions. The most important strategies when using combinators are:
 
-\begin{itemize}
-
-\item transforming event streams into signals and vice-versa:
+\begin{itemize}\itemsep0em
+\item transforming event streams into signals and vice-versa:\\
 \begin{Verbatim}
 sig1 = es1.hold(0.0)
 es2 = sig2.changes
 \end{Verbatim}
-\item Merging event streams:
+\item Merging event streams:\\
 \begin{Verbatim}
 mergedEs = es1 | es2 | es3 | es4
 \end{Verbatim}
-\item Filtering events streams:
+\item Filtering events streams:\\
 \begin{Verbatim}
 es.filter({ |x| x > 0.5 })
 \end{Verbatim}
-\item Maintaining state that can be affected by event streams carrying state altering functions. A counter:
+\item Maintaining state that can be affected by event streams carrying state altering functions. A counter:\\
 \begin{Verbatim}
 ( es1.collect{{|x|x+1}} | 
   es2.collect{{|x|x-1}} )
 .injectF(0) 
 \end{Verbatim}
-\item Merging n signals using an n-ary function:
+\item Merging n signals using an n-ary function:\\
 \begin{Verbatim}
 atah2(_,_).lift.(xSig, ySig)
 \end{Verbatim}
-\item Applying a time-varying function (stored in an signal) to an event stream. This allows event streams to use previous values from other nodes in the graph, including values that depend on themselves (recursive graphs). Start a synth based on previous value of slider:
+\item Applying a time-varying function (stored in an signal) to an event stream. This allows event streams to use previous values from other nodes in the graph, including values that depend on themselves (recursive graphs). Start a synth based on previous value of slider:\\
 \begin{Verbatim}
 { |f,e| IO{Synth(\a,[\freq,f])} }
 <$> sliderSig <@> padEs 
 \end{Verbatim}
 %$ need this otherwise texmaker turns all my text to green
-\item Dynamic event switching. Every time a signal emits an int $n$, create a new signal that merges the first $n$ elements of a list of signals using an averaging function: 
+\item Dynamic event switching. Every time a signal emits an int $n$, create a new signal that merges the first $n$ elements of a list of signals using an averaging function:\\
 \begin{Verbatim}
 sigNum.switchInto{ |n|
   listOfSignals[..(n-1)].sequence
@@ -633,7 +671,9 @@ Since all the functions used to construct the graph are pure\footnote{SuperColli
 
 Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments.
 
+
 \subsubsection{Influx}
+\label{sub:influx}
 
 describe
 
