@@ -93,7 +93,7 @@ q.softset = { |es, delta = 0.1|
 	var checked =  { |e|
 		e.storePrevious(0.0).collect{ |t|
 			var current = outSig.now;
-			if( (absdif(current, t.at2) < delta) || (absdif(current,t.at2) < delta) ){Some(t.at2)}{None()}
+			if( (absdif(current, t.at1) < delta) || (absdif(current, t.at2) < delta) ){Some(t.at2)}{None()}
 		}.selectSome
 	};
 	var outES = es.collect(checked).mreduce;
