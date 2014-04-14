@@ -574,7 +574,8 @@ d = MDispatch.make(\up, k);
 
 At the time when MDispatch was created several templates were written for tasks such as for soft paging, getting velocity values or filtering events. 
 
-MDispatch was an interesting experiment that allowed for some degree re-usability of event logic code, nevertheless it's interface was slightly cumbersome since it acted as a virtual device with many inputs and outputs, with explicit creation of outputs, registering for inputs and management of connections. Creating smaller and therefore more re-usable dispatches was discouraged by the burden of all the necessary initialization code. Perhaps because of these issues MDispatch did not gain wide adoption amongst users of the Modality toolkit and it's development is currently paused. \emph{ would be good to get other opinions on this. Do you agree with what I say in this paragraph ? }
+MDispatch was an interesting experiment that allowed for some degree re-usability of event logic code, nevertheless it's interface was slightly cumbersome since it acted as a virtual device with many inputs and outputs, with explicit creation of outputs, registering for inputs and management of connections. Creating smaller and therefore more re-usable dispatches was discouraged by the burden of all the necessary initialization code. Perhaps because of these issues MDispatch did not gain wide adoption amongst users of the Modality toolkit and it's development is currently paused.
+\todo{ Miguel: would be good to get other opinions on this. Do you agree with what I say in this paragraph ? Marije: I think mainly the development was paused as you switched over to FRP, before MDispatch was quite finished ;).}
 		
 \subsubsection{FRP}
 
@@ -626,8 +627,7 @@ sigNum.switchInto{ |n|
 \end{Verbatim}
 \end{itemize}
 
-In FP-Lib, inputs to the event graph can come from MIDI or HID (via the
-Modality Toolkit), OSC, GUIs or Timers using |enIn| and outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad). For convenience there are predefined actions available called \textit{sinks}.
+In FP-Lib, inputs to the event graph can come from MIDI or HID (via the Modality Toolkit), OSC, GUIs or Timers using |enIn| and outputs are declared by calling |enOut| on a signal or event stream that carries actions to be performed (elements of the IO monad). For convenience there are predefined actions available called \textit{sinks}.
 
 Since all the functions used to construct the graph are pure\footnote{SuperCollider is not a typed pure FP language like Haskell, so there are no guarantees that the functions passed by the user to the to the FRP combinators are actually pure, it's up to the user to make sure that this is the case.} it's possible to abstract a subset of them into a single function and be confident that the result will be identical. Also, the event graph does noy depend on the nature of the inputs or outputs, for instance MIDI inputs can be changed to GUIs or OSC messages without changing any of the event graph code. This makes it easy to build a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument. It also facilitates testing as each sub-component can be tested separately.
 
@@ -637,9 +637,17 @@ Several use cases put forward by the Modality Team have been implemented using F
 
 describe
 
+
+\subsubsection{SenseWorld DataNetwork}
+
+The SenseWorld DataNetwork was initially developed for easy data exchange with other programs \cite{Baalman2010}, but within SuperCollider can also be used as a central datahub. Within this framework a single data stream is regarded as a \emph{DataSlot}; multiple data streams that for some reason belong together (e.g. the data comes from the same device, or are datastreams of a similar type) are organised as a \emph{DataNode}. The framework provides methods to query the current value of a node or slot, to set functions to be performed on the data, whenever new data comes in, or put the data automatically on a bus on the SuperCollider server (audio engine), where it can be used directly in synthesis processes, or Unit Generators can be used to process the data further.
+The framework also provides various methods for common data processing methods, such as calculating the mean, variation, gating, range checking, smoothing, etc. The result of each data processing unit is made available again on the \emph{DataNetwork}, and can be used in the same way as unprocessed data. The framework also comes with a GUI that allows visualisation of the data, as well as controls for switching on printing the data to the post window, enabling recording of the data, or creating a bus on the server.
+
+Data from devices accessed with Modality can easily be used as input to the DataNetwork and thus form a DataNode, and then further used in that framework.
+
 \subsubsection{others}
 
-which ones ? SenseWorld, 
+which ones ? UMap from Unit-Lib?
 
 
 \section{Conclusions}
