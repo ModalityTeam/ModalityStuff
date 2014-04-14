@@ -119,18 +119,9 @@
 %
 %\todo{'digital technology' ... this is a bit generic, as the project is really focused on interfacing with controllers and event processing.}
 \todo{ {TODOLITY:} (adc):
-%* redo abstract at the end 
-* details for OSCulator
-* where should multiton pattern section go?
-%* meetings: shorten, less tech detail
-%* implementation - shorten detail? while great to have in general, maybe takes too much space for ICMC paper.
-%* moved MDispatch, FRP, Influx to separate section {Modality related projects}.
-%* FRP - would be worth saving for its own paper! for the context here, reviewers may find it long and too detailed.
-* add executive summary of Influx, KeyPlayer/KtlLoop
-* other related - SenseWorld? 
-%* use cases: move use cases before implementation? 
-* add Marije's four button use case, add Influx example, maybe w screenshot?
-* write conclusions
+* details for OSCulator!
+* add Marije's four button use case?
+* write conclusions!
 }
 
 \begin{abstract}
@@ -143,7 +134,7 @@ The Modality Toolkit aims to improve and facilitate the use of digital technolog
 Written in SuperCollider (SC), it simplifies the creation of individual electronic instruments by combining custom sound engines with off-the-shelf controllers. 
 To this end, a common code interface, |MKtl|, is used to connect controllers from various sources and protocols. 
 Currently, HID and MIDI are supported; GUI-based interfaces can be created on the fly from interface descriptions.
-
+Detailed use cases demonstrate the concepts of working with modality practically in code.
 
 This paper gives an overview on the concept of modality as seen by a group of sound artists and researchers, and describes one interdisciplinary approach to creating a toolkit written for and by electronic musicians.
 
@@ -392,9 +383,9 @@ The number of different operation modes could be easily extended by having multi
 
 In this example a certain number of elements control an equal number of synth parameters. Upon pressing a button the system enters \emph{remap} mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
 
-\subsection{An example of a performance setup with Influx and KtlLoop}
-
-\emph{Would this make sense here ?}
+%\subsection{An example of a performance setup with Influx and KtlLoop}
+%
+%\emph{Would this make sense here? - adc: actually, not}
 
 
 \section{Islands, Bridges, uniform schemes}
@@ -641,10 +632,28 @@ FP-Lib has the same interface as \emph{reactive-banana} for defining the event n
 
 Since all the functions used to construct the graph should be pure it's possible to abstract a subset of the graph into a single function and be confident that the result will be identical due to referential transparency. Also, external sources connected to inputs and actions performed on outputs can be exchanged without changing the event graph. This facilitates building and testing a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument. Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments.
 
-\subsubsection{Influx}
+\subsubsection{Influx - lose control, gain influence}
 \label{sub:influx}
 
-describe
+The Influx concept starts from three practical and aesthetic assumptions: 
+Mapping may be the most flexible part of a NIME; detailed mental models of the instrument may detract from listening while playing; and generally, surprise may be desirable for audiences and performers alike. 
+
+In Modality terms, Influx and its variants are transformer islands: 
+|Influx| maps m named numerical input values to n output values by creating bipolar weights that determine how much each input value influences which output value. 
+In the simplest case, each controller parameter will influence every sound process parameter by a different weight, e.g. a random amount. 
+These weights can be gradually entangled by randomizing, or disentangled by blending toward a known set of weights. 
+This approach allows heuristic exploration of mappings one would never make by hand, and  gently forces players to really listen to how the instrument sounds when they play.
+ 
+|InfluxSpread| can send these control values to multiple destinations. 
+|InfluxMix| can receive 'influence values' from multiple sources, and can determine how much influence it wants to accept from which source. 
+
+|ProxyPreset| allows storing, blending and crossfading between settings of a process, e.g. keeping traces of an ongoing performance which can be re-used as musical material. An Influx can use such a preset as a reference point as the center of its parameter space. This allows playing relative to a known setting, where e.g. zooming allows very subtle explorations of shadings within a known sweet spot in parameter space.
+
+|EventLoop| can record any control data as events with key-value pairs, such as parameter names and values, event time, and other named values describing the event. This allows capturing algorithmically generated streams, performance data from input devices, and many others. One can modify playback by time-scaling, segment selection, playback direction and gradual scrambling of local event order; one can also go back in the history of recorded loops.
+
+The control data variant |KtlLoop| also allows on-the-fly rescaling of numerical control data. The gesture can be scaled to larger or smaller ranges, and shifted by offsets. All these modifications can quickly be accessed in performance, and the opportunities they create are quite distinct from audio loops. In performance, a KtlLoop can replace a live input stream (e.g. realtime-acquired HID data), then the loop can be reshaped while playing. It allows polyphonic layering by letting a loop continue and having it auto-mutate, so each repetition is slowly shifting. 
+
+These heuristics may lead both to finding non-obvious but interesting mapping strategies which can be built into more traditionally well-controlled instruments, and to new concepts for playing single-person instruments with a flexible degree of familiarity or surprise, or multi-player/instrument ensembles based on networks of influence. In effect, it allows musicians to relinquish some control and gain influence in exchange.
 
 
 \subsubsection{SenseWorld DataNetwork}
@@ -662,16 +671,23 @@ which ones ? UMap from Unit-Lib?
 \section{Conclusions}
 \label{sec:conclusions}
 
+\emph{adc: first attempt at new conclusions, delete if nonsense}
 
-Claims to originality:
-* incoming data is associated with a rich knowledge of what generated it. possible to query elements based on type.
-* access to elements done in a logical and easy-to-remember way, both through the auto-generated device names and element hierarchy.
-* automatic initialization reduces startup to one line of code.
-* Uniform access to controls from devices across multiple controllers and protocols.
-* Several ways to take inputs and create complex instruments investigated.
+We find Modality an interesting approach toward creating more fluidly playable performance setups for electronic music. By providing rich knowledge about known controllers and easy way to collect and add this information for new ones, one can create very short controller setup code. By providing uniform access for many different controller protocols, and semantic names for all elements, one can substitute one controller for another (or a stand-in GUI) rather quickly.
+The flexibility provided in connecting multiple sets of actions with controllers allows creating setups which support more modal concepts of playing, using a small set of controls for many different combinations of processes within a single performance. 
 
-* Modality takes the strongest
-We have showed beyond doubt that Modality is the best thing since sliced bread. It surpasses all other solutions out there both already invented and to be invented in the future. Resistance is futile, you will modalidated.
+We hope that Modality contributes to making the creation of more complex performance setups accessible for more musicians; as more setups get realised with Modality, we will learn whether they also remain flexible to extension and change when reaching higher levels of complexity.
+
+
+%Claims to originality:
+%* incoming data is associated with a rich knowledge of what generated it. possible to query elements based on type.
+%* access to elements done in a logical and easy-to-remember way, both through the auto-generated device names and element hierarchy.
+%* automatic initialization reduces startup to one line of code.
+%* Uniform access to controls from devices across multiple controllers and protocols.
+%* Several ways to take inputs and create complex instruments investigated.
+%
+%
+%We have showed beyond doubt that Modality is the best thing since sliced bread. It surpasses all other solutions out there both already invented and to be invented in the future. Resistance is futile, you will modalidated.
 
 
 \begin{acknowledgments}
