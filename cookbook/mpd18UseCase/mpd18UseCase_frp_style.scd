@@ -63,7 +63,7 @@ CmdPeriod.add({ q.mpdwin !? _.close });
 //for dynamic event switching where we might want to use an event stream only at
 //some times
 
-q[\startSynths] = { |i, freqs, sources|
+q.startSynths = { |i, freqs, sources|
 	IO{
 		q.synths[i] = [sources[i], freqs].flopWith{ |j, freq|
 			Synth(q.names[j], [\freq, freq.linlin(0.0,1.0,300,2000)])
@@ -71,11 +71,11 @@ q[\startSynths] = { |i, freqs, sources|
 	}
 };
 
-q[\stopSynths] = { |i|
+q.stopSynths = { |i|
 	IO{ q.synths[i].do(_.release); q.synths[i] = [] }
 };
 
-q[\setFreq] = { |i, freqs|
+q.setFreq = { |i, freqs|
 	IO{ [q.synths[i], freqs].flopWith{ |s,v| s.set(\freq,v.linlin(0.0,1.0,300,2000)) } }
 };
 
@@ -91,10 +91,11 @@ q[\setFreq] = { |i, freqs|
 q.softset = { |es, delta = 0.1|
 	var outSig;
 	var checked =  { |e|
-		e.storePrevious(0.0).collect{ |t|
+		var eSig = e.hold(0.0);
+		({ |last, new|
 			var current = outSig.now;
-			if( (absdif(current, t.at1) < delta) || (absdif(current, t.at2) < delta) ){Some(t.at2)}{None()}
-		}.selectSome
+			if( (absdif(current, last) < delta) || (absdif(current, new) < delta) ){Some(new)}{None()}
+		} <%> eSig <@> e).selectSome
 	};
 	var outES = es.collect(checked).mreduce;
 	outSig = outES.hold(0.0);
@@ -205,7 +206,7 @@ EventNetwork(ENDef({
 	.collect{ |tup|
 		tup.at2.collect{ |x| tup.at2_(x) }
 	}
-	.enDebug("state")
+	//.enDebug("state")
 	//only let through when we have a Some( T([x,y,z], v ) )
 	//this means we have a complete copy description
 	//selectSome only let's through Some(..) values and unwraps
@@ -244,8 +245,8 @@ EventNetwork(ENDef({
 		//only take the first frequency from each array
 		//note the recursive dependency on freqArraySig
 		var copy = copyFromTo.select{ |t| t.at2 == i}.collect{ |t|
-			var currentFreqs = freqArraySig.now.postln;
-			currentFreqs[t.at1].collect(_.first).postln
+			var currentFreqs = freqArraySig.now;
+			currentFreqs[t.at1].collect(_.first)
 		};
 
 		//moving slider while pad playing causes all synths in the pad to use same frequency
@@ -263,17 +264,17 @@ EventNetwork(ENDef({
 		//freqsSig.enDebug("freq "++i);
 
 		//freq changed set new freq to synth
-		freqs.collect{ |fs| q[\setFreq].(i,fs) }
+		freqs.collect{ |fs| q.setFreq.(i,fs) }
 		//.enDebug("freq "++i)
 		.enOut;
 
 		//pad on -> synth start
-		({ |fs, sources, play| q[\startSynths].(i, fs, sources) } <%> freqsSig <*> sources <@> padWhenShiftOff.select(I.d) )
+		({ |fs, sources, play| q.startSynths.(i, fs, sources) } <%> freqsSig <*> sources <@> padWhenShiftOff.select(I.d) )
 		//.enDebug("start "++i)
 		.enOut;
 
 		//pad off -> synth stop
-		padES.select(_.not).collect{ q[\stopSynths].(i) }
+		padES.select(_.not).collect{ q.stopSynths.(i) }
 		//.enDebug("stop "+i)
 		.enOut;
 

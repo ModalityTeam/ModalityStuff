@@ -66,7 +66,7 @@ EventNetwork(ENDef({
 	});
 	//.enDebug("currentOrder");
 
-	var knobsArray = knobs.collect{ |es| butSig.collect(_.not).when(es).hold(0.0) }.sequence;
+	var knobsArray = knobs.collect{ |knob| when( butSig.collect(_.not), knob ).hold(0.0) }.sequence;
 	var outputsArray = ({ |order, values|
 		values[order]
 	} <%> currentOrder <*> knobsArray)
