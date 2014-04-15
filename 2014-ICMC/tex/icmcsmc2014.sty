@@ -137,6 +137,27 @@
   }
 }
 
+\def\fourauthors#1#2#3#4#5#6#7#8{
+  \gdef\@author{
+  \begin{tabular}{@{}c@{}}
+    {\bf #1} \\
+    #2
+  \end{tabular}\hskip .2in
+  \begin{tabular}{@{}c@{}}
+    {\bf #3} \\
+    #4
+  \end{tabular}\hskip .2in
+  \begin{tabular}{@{}c@{}}
+    {\bf #5} \\
+    #6
+  \end{tabular}\hskip .2in
+  \begin{tabular}{@{}c@{}}
+    {\bf #7} \\
+    #8\relax
+  \end{tabular}
+  }
+}
+
 \def\abstract{
   \begin{center}{
   \bf ABSTRACT

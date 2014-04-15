@@ -22,9 +22,11 @@
 
 %user defined variables
 \def\papertitle{Advances in Modality}
-\def\firstauthor{du}
-\def\secondauthor{Second author}
-\def\thirdauthor{Third author}
+\def\firstauthor{Marije Baalman}
+\def\secondauthor{Till Bovermann}
+\def\thirdauthor{Alberto de Campo}
+\def\fourthauthor{Miguel Negr\~ao}
+
 
 
 % authors so far:
@@ -47,7 +49,7 @@
 \ifpdf % compiling with pdflatex
   \usepackage[pdftex,
     pdftitle={\papertitle},
-    pdfauthor={\firstauthor, \secondauthor, \thirdauthor},
+    pdfauthor={\firstauthor, \secondauthor, \thirdauthor, \fourthauthor},
     bookmarksnumbered, % use section numbers with bookmarks
     pdfstartview=XYZ % start with zoom=100% instead of full screen; 
                      % especially useful if working with a big screen :-)
@@ -98,13 +100,19 @@
 
 % Three addresses
 % --------------
- \threeauthors
-   {\firstauthor} {Affiliation1 \\ %
-     {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
-   {\secondauthor} {Affiliation2 \\ %
-     {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
-   {\thirdauthor} { Affiliation3 \\ %
-     {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
+ \fourauthors
+   {\firstauthor} {..., Amsterdam \\ %
+     \href{mailto:marije@nescivi.nl}
+     {marije@nescivi.nl}}
+   {\secondauthor} {..., Berlin \\ %
+     \href{mailto:lfsaw@lfsaw.de}
+     {lfsaw@lfsaw.de}}
+    {\thirdauthor} {..., Berlin \\ %
+     \href{mailto:alberto.decampo@gmail.com}{alberto.decampo@gmail.com}}
+   {\fourthauthor} {
+   		Sonic Arts Research \\
+   		Centre, Belfast \\
+     \href{mailto:miguel.negrao@friendlyvirus.org}	    {miguel.negrao@friendlyvirus.org}}
 
 \newcommand{\todo}[1] {\emph{\textbf{TODO:} #1}}
 \DefineShortVerb{\|}
@@ -438,7 +446,7 @@ Transformer islands expect control input from sources, and know how to create co
 % 
 %\todo{adc: agreed, protocol is too big a claim. Maybe Proposed schema is the better term. below a short write-up, hope you find that useable?}
 
-Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to be unipolar (i.e., between |[0..1]|).
+Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to be unipolar (interval $[0,1]$).
 
 Modality-compatible destinations also follow existing SC schemes: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters (i.e. range, warp, step size, etc). Most objects that are active processes respond to .play, .stop, .pause and resume messages. 
 
@@ -704,6 +712,7 @@ The Modality team is (in alphabetical order):
     Hannes Hoelzl,
     Miguel Negr\~{a}o, and
     Wouter Snoei.
+    
 Associated organisations are (in alphabetical order):
 BEK,
 the project \emph{Design, Development and Dissemination of New Musical Instruments} of UdK Berlin/TU Berlin, supported by the Einstein Foundation,
@@ -711,6 +720,10 @@ nescivi, and
 STEIM.
 
 The Modality meetings have been funded by Bergen Kommune, Nordisk Kulturfond and Creative Industries Fund NL.
+
+Authors listed in alphabetical order. \emph{Does it make sense to include this notice ?}
+
+
 
 
 \end{acknowledgments} 
