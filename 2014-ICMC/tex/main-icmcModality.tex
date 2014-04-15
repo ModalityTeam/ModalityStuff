@@ -101,14 +101,14 @@
 % Three addresses
 % --------------
  \fourauthors
-   {\firstauthor} {..., Amsterdam \\ %
+   {\firstauthor} {STEIM, nescivi\\ Amsterdam \\ %
      \href{mailto:marije@nescivi.nl}
      {marije@nescivi.nl}}
-   {\secondauthor} {..., Berlin \\ %
-     \href{mailto:lfsaw@lfsaw.de}
-     {lfsaw@lfsaw.de}}
-    {\thirdauthor} {..., Berlin \\ %
-     \href{mailto:alberto.decampo@gmail.com}{alberto.decampo@gmail.com}}
+   {\secondauthor} {Berlin University of\\ the Arts, Berlin \\%
+     \href{mailto:t.bovermann@udk-berlin.de}
+     {t.bovermann@udk-berlin.de}}
+    {\thirdauthor} {Berlin University of\\ the Arts, Berlin \\%
+     \href{mailto:decampo@udk-berlin.de}{decampo@udk-berlin.de}}
    {\fourthauthor} {
    		Sonic Arts Research \\
    		Centre, Belfast \\
@@ -126,9 +126,9 @@
 \capstarttrue
 %
 %\todo{'digital technology' ... this is a bit generic, as the project is really focused on interfacing with controllers and event processing.}
-\todo{ {TODOLITY:} (adc):
-* add Marije's four button use case?
-}
+% \todo{ {TODOLITY:} (adc):
+% * add Marije's four button use case?
+% }
 
 \begin{abstract}
 %\todo{adc: revisit abstract when body of paper is done!}
@@ -146,17 +146,10 @@ This paper gives an overview on the concept of modality as seen by a group of so
 
 \end{abstract}
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140331-IMG_5976.jpg}
-	\caption{Meeting 2014 at STEIM, Amsterdam.}
-	\label{fig:media_20140331-IMG_5976}
-\end{figure}
-
 \section{Introduction}
 \label{sec:introduction}
 
-The \textit{Modality} project was initiated by Jeff Carey and Bj\o{}rnar Habbestad, who, after several years of collaboration, realised that they, despite playing completely different setups, both had the need to easily switch between functionalities  within performance.
+The \textit{Modality} project\footnote{\url{http://modality.bek.no}} was initiated by Jeff Carey and Bj\o{}rnar Habbestad, who, after several years of collaboration, realised that they, despite playing completely different setups, both had the need to easily switch between functionalities  within performance.
 While both had custom implementations of this behaviour, it appeared to be not flexible enough. 
 Especially extending their setup felt cumbersome, and original ideas got lost over the hassle of implementation of mapping rules.
 
@@ -170,6 +163,14 @@ It is driven mostly by a shared interest in, on the one hand, sound, music, and 
 %
 Secondly, it reports on the outcomes in both conceptual and concrete implementation details (Section \ref{sec:islands_and_bridges_uniform_protocols} to \ref{sec:implementation}).
 The paper concludes with a reflection on the work done over the course of the last 5 years.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=\columnwidth]{../media/ModalityImpressions.jpg}
+	\caption{Impressions of the Modality meeting (left), workshop (center), and concert (right) 2014 at STEIM, Amsterdam.}
+	\label{fig:media_ModalityImpressions}
+\end{figure}
+
 
 \section{The modality way}
 \label{sec:modal_control}
@@ -213,7 +214,7 @@ Particularly, it is informed by systems like \emph{OSCulator}~\cite{troillard201
 		is a \enquote{[\dots] data routing application that can process [hardware] `sensors' [\dots] using conditional processing and remapping}~\cite{-jun}. 
 		It is a stand-alone program to be put in the middle between the control input layer and the synthesis layer.
 The roots of its development lay in the advanced sensor input and data manipulation features of pioneering live sampling software LiSa~\cite{-jun}.\footnote{As of today, LiSa's sampling engine is not being further developed, as many software synthesizer are available to replace its functionality. 
-Similarly, STEIM's groundbreaking sensor and interfacing technologies have become readily available through a host of affordable controllers and DIY-kits, e.g.those based around the Arduino platform.}
+Similarly, STEIM's groundbreaking sensor and interfacing technologies have become readily available through a host of affordable controllers and DIY-kits, e.g., those based around the Arduino platform.}
 
 In JunXion, data flow is organised in patches with an \emph{input-action-output}-logic. 
 Inputs can come from as many as eight different types of data sources.
@@ -240,12 +241,12 @@ Output can be generated and sent in various formats to listening programs.
 \section{The Modality meetings}
 \label{sec:the_modality_meetings}
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
-	\caption{Public workshop and open Lab at STEIM}
-	\label{fig:media_20140403-IMG_1667}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 		\includegraphics[width=.9\columnwidth]{../media/20140403-IMG_1667.jpg}
+% 	\caption{Public workshop and open Lab at STEIM}
+% 	\label{fig:media_20140403-IMG_1667}
+% \end{figure}
 
 To illustrate the Modality way as described in Section~\ref{sec:introduction}, this section reports on the outcomes and discussions within the four modality meetings held so far.
 
@@ -265,7 +266,7 @@ This scheme was considered extensible for OpenSoundControl, serial ports, and ot
 
 |MDispatch| objects allowed creating \emph{calculation units}; abstract filters that render output from a given input, like the conversion of a button press (\emph{on}, \emph{off}) to one trigger event (\emph{now}), or the calculation of slider speed. Many templates for commonly used functionality were created.
 
-A stumbling block at the time was an OS-dependant (and, due to changes in the API of Apple's HID toolkit, on the OSX side non-functional) HID implementation in SC.\footnote{As of April 2014, this has been solved in SuperCollider 3.7 with a new cross-platform HID implementation.}
+A stumbling block at the time was an OS-dependant (and, due to changes in the API of Apple's HID tool\-kit, on the OSX side non-functional) HID implementation in SC.\footnote{As of April 2014, this has been solved in SuperCollider 3.7 with a new cross-platform HID implementation.}
 The project's state was presented at the SC.symposium 2012 in London, UK~\cite{-sc2012}.
 %	\begin{itemize}\itemsep0em
 %		\item |MKtl| objects for connecting to MIDI and HID hardware devices, and storing capabilities of each device in a configuration file.
@@ -384,7 +385,7 @@ The number of different operation modes could be easily extended by having multi
 \subsection{Exchanging actions}
 \label{sub:exchanging_actions}
 
-In this example a certain number of elements control an equal number of synth parameters. Upon pressing a button the system enters \emph{remap} mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
+In this example a certain number of control elements are assigned to an equal number of synth parameters. Upon pressing a button the system enters \emph{remap} mode: it waits for movement from two different elements and then switches the parameters that they control amongst themselves. This simple example illustrates the need that often arises in a performance of freeing a finger or hand, by moving the action that it is controlling at that moment to another physical control (or just disconnecting it momentarily), so that the hand or finger is now free to control some other parameter which at that point in the performance has become more important. 
 
 %\subsection{An example of a performance setup with Influx and KtlLoop}
 %
@@ -443,13 +444,13 @@ Transformer islands expect control input from sources, and know how to create co
 
 Modality-compatible sources have containers for configurable actions for sending messages to destinations, and they know how to convert their controller ranges to be unipolar (interval $[0,1]$).
 
-Modality-compatible destinations also follow existing SC schemes: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters (i.e. range, warp, step size, etc). Most objects that are active processes respond to .play, .stop, .pause and resume messages. 
+Modality-compatible destinations also follow existing SC schemes: They respond to set messages for control values; they remember current parameter values, and they often have specifications for control parameters (i.e., range, warp, step size, etc). Most objects that are active processes respond to .play, .stop, .pause and resume messages. 
 
 Requiring destinations to know their parameters specs and current states allows more flexible control in several ways: 
 The |setUni| method can be used to set a param from the controller side's unipolar value; keeping the |Spec| with the destination process is semantically simpler to argue for, and multiple control sources will immediately use changed specs if they belong to the object. 
 The |RelSet| class method can be used to nudge a parameter relative to its current value. 
 |SoftSet| class methods can be used to take over a parameter only when the physical controller is close enough to its value, or when the physical controller knows the object's previous value well enough (which is the case when it has set it to that value). 
-If specs are kept with the object, they can easily be adjusted there (e.g. for zooming into a subset of the full range), keeping the controller element side code simpler by sending unipolar values, and letting the object provide the spec:
+If specs are kept with the object, they can easily be adjusted there (e.g., for zooming into a subset of the full range), keeping the controller element side code simpler by sending unipolar values, and letting the object provide the spec:
 
 |{ arg el; dest.setUni(\amp, el.value) }|
 
@@ -468,9 +469,9 @@ and respects the use case described in Section~\ref{sec:examples_use_cases}.
 % taken from the workshop webpage. please adjust/remove/edit.
 The Modality toolkit~\cite{githubmodality} aims to facilitate
 \begin{itemize}\itemsep0em
-	\item data acquisition from commercially available controllers (e.g. HID and MIDI) by providing a common software interface,
+	\item data acquisition from commercially available controllers (e.g, HID and MIDI) by providing a common software interface,
 	\item processing of control data streams,
-	\item sending control data to these controllers (e.g. fader positions, LED states),
+	\item sending control data to these controllers (e.g., fader positions, LED states),
 	\item graphical feedback  of the current state in the form of a GUI of connected to the device, as well as replacing a controller with a GUI substitute, and finally
 	\item mapping the output of these data streams to input parameters of sound engines.
 \end{itemize}
@@ -491,18 +492,18 @@ Each |MKtl| object consists of elements such as sliders, knobs, buttons or encod
 It is possible to assign actions to such elements that are evaluated every time the value of that element gets updated.
 Elements are instances of |MKtlElement| and are kept in a tree-like data structure of nested arrays and dictionaries which represent the spatial grouping of control elements in the physical controller. 
 
-The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as it's type (e.g., button) and control spec for scaling incoming values. 
+The |elementDescription| variable of MKtlElement contains a dictionary with information about that element such as its type (e.g., button) and control spec for scaling incoming values. 
 This dictionary can be used to extract multiple elements from the data structure by filtering using a conditional expression, for instance retrieving all elements of type |slider|.
 
 Using the multiton pattern described in Section~\ref{sec:related_work}, each |MKtl| has a name, and only one |MKtl| is active with that name at any given time. 
 MKtl's can be retrieved from a global dictionary by name, using the |MKtl('name')| syntax. 
-The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g. |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
+The system keeps a global set of auto-generated names for all the controllers that have description files. These short names are auto-generated from the name of the device plus a number starting from zero indexing multiple identical devices (e.g., |'nnkn0'| from |'nanoKONTROL'|). If a user tries to fetch an MKtl with one of the auto-generated names and it is not yet created the system will look for the corresponding device and if it is found an MKtl is created from the description file and connected to the device by creating MIDI or HID responders. This feature means the user can initialize an MKtl for a given device using always the same single line of code.
 
 \begin{Verbatim}
 k = MKtl('nnkn0');
 \end{Verbatim}
 
-Actions are added to elements by setting the MKtlElements' |action| to a function.  It's also possible to add and remove multiple unnamed actions to the same element using |FunctionList| or named functions which can also be re-ordered using |FuncChain|.
+Actions are added to elements by setting the MKtlElements' |action| to a function.  It is also possible to add and remove multiple unnamed actions to the same element using |FunctionList| or named functions which can also be re-ordered using |FuncChain|.
 
 \begin{Verbatim}
 ~el = MKtl('nnkn0')
@@ -532,7 +533,7 @@ MKtl('bcr20000')
 
 The Modality Toolkit works uniformly across multiple protocols. The base class MKtl provides the generic functionality and the children classes (|HIDMKtl|, |MIDIMktl|, |OSCMKtl|, etc.) implement the specific back-end for each protocol. Since the interface for using Modality is defined in |MKtl| and |MKtlElement|, which are protocol agnostic, the syntax and semantics remain uniform across all protocols. The incoming values from the device are normalized by the |MKtl| to be in the interval $[0,1]$ and outgoing values are expected to be in the same $[0,1]$ interval and then scaled to the range used by the specific protocol. This facilitates switching between devices that use different protocols while keeping the event logic unaltered.
 
-MKtl also has the useful feature of automatically creating a GUI representation of a known device from it's description file. If the user tries to instantiate an MKtl with an auto-generated name corresponding to a known device, but the device is not currently available, an |MKtlGui| will be automatically created instead. This makes it trivial to exchange a physical controller for a GUI representation without having to change any code at all.
+MKtl also has the useful feature of automatically creating a GUI representation of a known device from its description file. If the user tries to instantiate an MKtl with an auto-generated name corresponding to a known device, but the device is not currently available, an |MKtlGui| will be automatically created instead. This makes it trivial to exchange a physical controller for a GUI representation without having to change any code at all.
 
 \subsection{Description files}
 \label{sub:descriptions_files}
@@ -543,7 +544,7 @@ It is implemented using one text file per device containing a dictionary with th
 	\item[protocol] currently, HID and MIDI are implemented. Note that only one protocol per device is allowed,
 	\item[device] the name of the device as provided by the operating system,
 	\item[description] a dictionary with a tree structure composed of nested dictionaries and arrays. The value at each leaf of the tree is an element dictionary with key-value pairs describing the element at hand.
-	An element dictionary contains technical specifications of the element, namely identification information (e.g. for MIDI, the MIDI number and channel), the physical type of control (button, slider, etc.) and a |ControlSpec| that specifies how to convert the incoming values to the range $[0,1]$.
+	An element dictionary contains technical specifications of the element, namely identification information (e.g., for MIDI, the MIDI number and channel), the physical type of control (button, slider, etc.) and a |ControlSpec| that specifies how to convert the incoming values to the range $[0,1]$.
 \end{description}
 
 As an example, the element dictionary for a button of a MIDI device would look like this:
@@ -564,7 +565,7 @@ Elements which are physically (or virtually) grouped on the device such as with 
 MKtl('nnkn0').elements[\sl][3][1][2]
 \end{Verbatim}
 
-The hierarchical grouping of elements also facilitates bulk addressing of elements by traversing the hierarchy starting at the desired node. For instance, it's easy to programatically add actions to multiple elements:
+The hierarchical grouping of elements also facilitates bulk addressing of elements by traversing the hierarchy starting at the desired node. For instance, it is easy to programatically add actions to multiple elements:
 
 \begin{Verbatim}
 MKtl('nnkn0').elements[\sl]
@@ -602,7 +603,7 @@ As a last step in both cases, the user supplies suitable labels and orders the e
 	
 \subsubsection{MDispatch}	
 
-The MDispatch class was an initial attempt at creating self-contained event logic units. |MDispatch| has similar structure as |MKtl| (both inheriting from |MAbstractKtl|). A dispatch has output elements (|MDispatchOut| class) where actions can be added similarly to |MKtlElement|. It also has inputs which are updated by registering callbacks on the elements of other |MAbstractKtl|s. When an event is received from a source the input element and it's value are saved and a list of state processing functions is run sequentially. These state processing functions have access to all the internal state of the dispatch which includes the source element which caused the update, all the values of the output elements and any other state variables defined for auxiliary calculations. An MDispatch can be either created from a template containing predefined functionality or explicitly defined. The process for explicitly creating an MDispatch is to specify outputs, define state processing functions and finally connect the dispatch to sources of events. In order to facilitate this process it is possible to first connect to a source and just copy the output names of the source to the output names of dispatch, in fact mirroring the same elements. This makes it straightforward to create path-through processors which take the value from each output element of a source |MAbstractKtl| and send a processed version through an element with same key. Below is the code for creating a dispatch that only outputs when incoming values are increasing and takes values from a midi device:
+The MDispatch class was an initial attempt at creating self-contained event logic units. |MDispatch| has similar structure as |MKtl| (both inheriting from |MAbstractKtl|). A dispatch has output elements (|MDispatchOut| class) where actions can be added similarly to |MKtlElement|. It also has inputs which are updated by registering callbacks on the elements of other |MAbstractKtl|s. When an event is received from a source the input element and its value are saved and a list of state processing functions is run sequentially. These state processing functions have access to all the internal state of the dispatch which includes the source element which caused the update, all the values of the output elements and any other state variables defined for auxiliary calculations. An MDispatch can be either created from a template containing predefined functionality or explicitly defined. The process for explicitly creating an MDispatch is to specify outputs, define state processing functions and finally connect the dispatch to sources of events. In order to facilitate this process it is possible to first connect to a source and just copy the output names of the source to the output names of dispatch, in fact mirroring the same elements. This makes it straightforward to create path-through processors which take the value from each output element of a source |MAbstractKtl| and send a processed version through an element with same key. Below is the code for creating a dispatch that only outputs when incoming values are increasing and takes values from a midi device:
 
 \begin{Verbatim}
 k = MKtl('nnkn0');
@@ -611,19 +612,21 @@ d = MDispatch.make(\up, k);
 
 At the time when MDispatch was created several templates were written for tasks such as for soft paging, getting velocity values or filtering events. 
 
-MDispatch was an interesting experiment that allowed for some degree of re-usability of event logic code, nevertheless for varied reasons it did not gain wide adoption amongst users of the Modality toolkit and it's development is currently paused.
+MDispatch was an interesting experiment that allowed for some degree of re-usability of event logic code, nevertheless for varied reasons it did not gain wide adoption amongst users of the Modality toolkit and its development is currently paused.
 		
 \subsubsection{FRP}
 \label{sub:frp}
 
 The traditional method of dealing with incoming events is through callback functions. Functional Reactive Programming, or FRP, is an alternative paradigm for programming dynamic and reactive systems using first-class composable abstractions. The two main abstractions are event streams (sequences of discrete-time event occurrences) and behaviours or signals (time-varying values). Most of the original work on FRP was done on the Haskell programming language\footnote{Haskell is a modern, pure, lazy, statically typed functional programming language.}~\cite{elliott1997-fun,elliott2009-pus,hudak2003-arr,courtney2003yampa}.
 
-The FRP paradigm seemed promising for the construction of musical digital instruments. An FRP network could determine how events from physical controllers affect sound processes. To explore this possibility a set of classes for doing FRP in SuperCollider, part of the FPLib library~\cite{-fpl}, was created based on \emph{reactive-web}~\cite{-reactive-web} and \emph{reactive-banana}~\cite{-reactive-banana}.
+The FRP paradigm seemed promising for the construction of musical digital instruments. An FRP network could determine how events from physical controllers affect sound processes. To explore this possibility a set of classes for doing FRP in SuperCollider, part of the FPLib library~\cite{-fpl}, was created based on \emph{re\-ac\-tive-web}~\cite{-reactive-web} and \emph{re\-ac\-tive-ba\-nana}~\cite{-reactive-banana}.
  
-FP-Lib has the same interface as \emph{reactive-banana} for defining the event network: outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. To get events into the event graph the system has to register with external sources, the inputs (MIDI,HID,OSC,timers), and to have any effect on the outside world it must perform actions based on the outputs of the event graph. The \emph{event graph} together with \emph{inputs} and \emph{outputs} form an \emph{event network} which can be compiled and activated/deactivated. The most important transformations when using combinators are:
+FP-Lib has the same interface as \emph{reactive-banana} for defining the event network: outputs are defined in terms of inputs using \emph{combinators} (pure functions) applied to the signals or event streams in order to construct an \emph{event graph}. 
+To get events into the event graph the system has to register with external sources, the inputs (MIDI,HID,OSC,timers), and to have any effect on the outside world it must perform actions based on the outputs of the event graph. 
+The \emph{event graph} together with \emph{inputs} and \emph{outputs} form an \emph{event network} which can be compiled and activated and deactivated, respectively. 
+The most important transformations when using combinators are:
 
-\begin{itemize}
-
+\begin{itemize}\itemsep0em
 \item transforming event streams into signals and vice-versa.
 \item Merging event streams.
 \item Filtering events streams.
@@ -633,7 +636,7 @@ FP-Lib has the same interface as \emph{reactive-banana} for defining the event n
 \item Dynamic event switching: changing the event graph based on an event occurrence.
 \end{itemize}
 
-Since all the functions used to construct the graph should be pure it's possible to abstract a subset of the graph into a single function and be confident that the result will be identical due to referential transparency. Also, external sources connected to inputs and actions performed on outputs can be exchanged without changing the event graph. This facilitates building and testing a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument. Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments.
+Since all the functions used to construct the graph should be pure, it is possible to abstract a subset of the graph into a single function and be confident that the result will be identical due to referential transparency. Also, external sources connected to inputs and actions performed on outputs can be exchanged without changing the event graph. This facilitates building and testing a personal library of event logic functions that can be re-used for different instruments or different parts of the same instrument. Several use cases put forward by the Modality Team have been implemented using FPLib and so far the system as shown itself capable of creating complex event graphs to be used in digital instruments.
 
 \subsubsection{Influx - lose control, gain influence}
 \label{sub:influx}
@@ -643,25 +646,25 @@ Mapping may be the most flexible part of a NIME; detailed mental models of the i
 
 In Modality terms, Influx and its variants are transformer islands: 
 |Influx| maps m named numerical input values to n output values by creating bipolar weights that determine how much each input value influences which output value. 
-In the simplest case, each controller parameter will influence every sound process parameter by a different weight, e.g. a random amount. 
-These weights can be gradually entangled by randomizing, or disentangled by blending toward a known set of weights. 
+In the simplest case, each controller parameter will influence every sound process parameter by a different weight e.g., a random amount. 
+These weights can be gradually entangled by randomising, or disentangled by blending toward a known set of weights. 
 This approach allows heuristic exploration of mappings one would never make by hand, and  gently forces players to really listen to how the instrument sounds when they play.
  
 |InfluxSpread| can send these control values to multiple destinations. 
-|InfluxMix| can receive 'influence values' from multiple sources, and can determine how much influence it wants to accept from which source. 
+|InfluxMix| can receive ``influence values'' from multiple sources and can determine how much influence it accepts from which source. 
 
-|ProxyPreset| allows storing, blending and crossfading between settings of a process, e.g. keeping traces of an ongoing performance which can be re-used as musical material. An Influx can use such a preset as a reference point as the center of its parameter space. This allows playing relative to a known setting, where e.g. zooming allows very subtle explorations of shadings within a known sweet spot in parameter space.
+|ProxyPreset| allows storing, blending and crossfading between settings of a process e.g., keeping traces of an ongoing performance which can be re-used as musical material. An Influx can use such a preset as a reference point as the center of its parameter space. This allows playing relative to a known setting, where, for example, zooming allows very subtle explorations of shadings within a known sweet spot in parameter space.
 
 |EventLoop| can record any control data as events with key-value pairs, such as parameter names and values, event time, and other named values describing the event. This allows capturing algorithmically generated streams, performance data from input devices, and many others. One can modify playback by time-scaling, segment selection, playback direction and gradual scrambling of local event order; one can also go back in the history of recorded loops.
 
-The control data variant |KtlLoop| also allows on-the-fly rescaling of numerical control data. The gesture can be scaled to larger or smaller ranges, and shifted by offsets. All these modifications can quickly be accessed in performance, and the opportunities they create are quite distinct from audio loops. In performance, a KtlLoop can replace a live input stream (e.g. realtime-acquired HID data), then the loop can be reshaped while playing. It allows polyphonic layering by letting a loop continue and having it auto-mutate, so each repetition is slowly shifting. 
+The control data variant |KtlLoop| also allows on-the-fly rescaling of numerical control data. The gesture can be scaled to larger or smaller ranges, and shifted by offsets. All these modifications can quickly be accessed in performance, and the opportunities they create are quite distinct from audio loops. In performance, a KtlLoop can replace a live input stream (e.g., realtime-acquired HID data), then the loop can be reshaped while playing. It allows polyphonic layering by letting a loop continue and having it auto-mutate, so each repetition is slowly shifting. 
 
 These heuristics may lead both to finding non-obvious but interesting mapping strategies which can be built into more traditionally well-controlled instruments, and to new concepts for playing single-person instruments with a flexible degree of familiarity or surprise, or multi-player/instrument ensembles based on networks of influence. In effect, it allows musicians to relinquish some control and gain influence in exchange.
 
 
 \subsubsection{SenseWorld DataNetwork}
 
-The SenseWorld DataNetwork was initially developed for easy data exchange with other programs \cite{Baalman2010}, but within SuperCollider can also be used as a central datahub. Within this framework a single data stream is regarded as a \emph{DataSlot}; multiple data streams that for some reason belong together (e.g. the data comes from the same device, or are datastreams of a similar type) are organised as a \emph{DataNode}. The framework provides methods to query the current value of a node or slot, to set functions to be performed on the data, whenever new data comes in, or put the data automatically on a bus on the SuperCollider server (audio engine), where it can be used directly in synthesis processes, or Unit Generators can be used to process the data further.
+The SenseWorld DataNetwork was initially developed for easy data exchange with other programs \cite{Baalman2010}, but within SuperCollider can also be used as a central ``datahub''. Within this framework a single data stream is regarded as a \emph{DataSlot}; multiple data streams that for some reason belong together (e.g., the data comes from the same device, or are datastreams of a similar type) are organised as a \emph{DataNode}. The framework provides methods to query the current value of a node or slot, to set functions to be performed on the data, whenever new data comes in, or put the data automatically on a bus on the SuperCollider server (audio engine), where it can be used directly in synthesis processes, or Unit Generators can be used to process the data further.
 The framework also provides various methods for common data processing methods, such as calculating the mean, variation, gating, range checking, smoothing, etc. The result of each data processing unit is made available again on the \emph{DataNetwork}, and can be used in the same way as unprocessed data. The framework also comes with a GUI that allows visualisation of the data, as well as controls for switching on printing the data to the post window, enabling recording of the data, or creating a bus on the server.
 
 Data from devices accessed with Modality can easily be used as input to the DataNetwork and thus form a DataNode, and then further used in that framework.
@@ -674,11 +677,11 @@ Data from devices accessed with Modality can easily be used as input to the Data
 \section{Conclusions}
 \label{sec:conclusions}
 
-\emph{adc: first attempt at new conclusions, delete if nonsense}
-\emph{miguel: looks great to me.)}
+% \emph{adc: first attempt at new conclusions, delete if nonsense}
+% \emph{miguel: looks great to me.)}
 
-We find Modality an interesting approach toward creating more fluidly playable performance setups for electronic music. By providing rich knowledge about known controllers and easy ways to collect and add this information for new ones, one can create very short controller setup code. By providing uniform access for many different controller protocols, and semantic names for all elements, one can substitute one controller for another (or a stand-in GUI) rather quickly.
-The flexibility provided in connecting multiple sets of actions with controllers allows creating setups which support more modal concepts of playing, using a small set of controls for many different combinations of processes within a single performance. 
+We find Modality an interesting approach toward creating more fluidly playable performance setups for electronic music. By providing rich knowledge about known controllers and easy ways to collect and add this information for new ones, one can create very short controller setup code. By providing uniform access for many different controller protocols and semantic names for all elements, one can substitute a specific controller for another (or a stand-in GUI) rather quickly.
+In addition, the flexibility provided in connecting multiple sets of actions with one or more controllers allows creating setups which support more modal concepts of playing, using a small set of controls for many different combinations of processes within a single performance. 
 
 We hope that Modality contributes to making the creation of more complex performance setups accessible for more musicians; as more setups get realised with Modality, we will learn whether they also remain flexible to extension and change when reaching higher levels of complexity.
 
@@ -717,8 +720,7 @@ STEIM.
 
 The Modality meetings have been funded by Bergen Kommune, Nordisk Kulturfond and Creative Industries Fund NL.
 
-Authors listed in alphabetical order. \emph{Does it make sense to include this notice ?}
-
+Authors of the paper are listed in alphabetical order.
 
 
 
