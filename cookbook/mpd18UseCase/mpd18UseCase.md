@@ -5,8 +5,10 @@ The MPD18 has 16 Buttons and a slider.
 + [Sound Buttons] Buttons 1-3 are mapped to adsr enveloped sound sources.  
   + By pushing them down sound turns on; releasing: sound off.
 + the Slider sets amplitude (or pitch) for the (sound)source of the currently depressed button.
+
 + [Memory Slots] Buttons 5-16 represent 'memory' positions (initially not mapped)
   + if sound is assigned (see below), sound is played when button depressed.
+
 + [Shift Button] Button 4 is a 'shift key'. When depressed
   1. Sound Buttons don't trigger any sound but select the active slot. This can be followed by
   2. depressing a Memory Slot button, which assigns the selected sound to that pad.
