@@ -413,6 +413,7 @@ q.srcButs.do { |bt, i|
 	bt.action.add(\copyGet, { |bt|
 		q.srcIndexToCopy = i;
 		[\srcIndexToCopy, q.srcIndexToCopy].postln;
+		bt.value = 1 - bt.value; // dont change button state
 	});
 };
 
@@ -432,6 +433,7 @@ q.memButs.do { |bt, i|
 	bt.action.add(\copyGet, { |bt|
 		q.srcIndexToCopy = i;
 		[\srcIndexToCopy, q.srcIndexToCopy].postln;
+		bt.value = 1 - bt.value; // dont change button state
 	});
 };
 );
@@ -568,7 +570,9 @@ q.shifter.action.add(\copyMode, { |b|
 // modifies itself while iterating)
 q.memButs.do { |bt, i|
 	bt.action.add(\copyPut, { |bt|
+		var butVal = q.getActives.size.sign;
 		q.copySnd(q.srcIndexToCopy, i + 4);
+		bt.value = butVal;
 		defer ({ q.basicPlayMode }, 0.02);
 	});
 };
@@ -578,6 +582,7 @@ q.sndButs.do { |bt, i|
 	bt.action.add(\copyGet, { |bt|
 		q.srcIndexToCopy = i;
 		[\srcIndexToCopy, q.srcIndexToCopy].postln;
+		bt.value = 1 - bt.value; // dont change button state
 		defer ({
 			q.sndButs.do { |bt| bt.action.mode_(\copyPut); };
 		}, 0.02);
