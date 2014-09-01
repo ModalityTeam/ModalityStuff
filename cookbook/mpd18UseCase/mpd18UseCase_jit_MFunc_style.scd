@@ -209,6 +209,7 @@ q.copySnd = { |q, srcIndex, destIndex, isOn|
 	var src = q.allSnds[srcIndex];
 	var dest = q.allSnds[destIndex];
 	var srcFunc = src.source;
+	var srcSettings = src.getKeysValues.flatten;
 	isOn = isOn ?? { src.getHalo(\isOn).postln };
 
 	if (destIndex < 4) {
@@ -218,6 +219,8 @@ q.copySnd = { |q, srcIndex, destIndex, isOn|
 		// source might be nil - catch that if so?
 		"src.source: %\n".postf(srcFunc);
 		dest.prime(srcFunc);
+		"copy source settings: %\n".postf(srcSettings);
+		dest.set(*srcSettings);
 		 // debug
 		if (isOn) {
 			"copy and play!".postln;
