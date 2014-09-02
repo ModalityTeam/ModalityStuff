@@ -118,8 +118,15 @@ is stored in a variable freqArraySig, which is declared up front, so that it can
 half-way through the pad function before it is event assigned to anything (assignment of that
 variable is last thing done in the FRP code).
 
+ENdef works like Ndef for FRP.
+
+ENdef(\x, {  }) //set frp network
+ENdef(\x).start //start processing events
+ENdef(\x).stop //stop processing events
+ENdef(\x).clear //remove all actions
+
 */
-EventNetwork(ENDef({
+ENdef(\x,{
 
 	var freqArraySig; //declare now for recursive use
 
@@ -298,5 +305,11 @@ EventNetwork(ENDef({
 	// which depends again on 'freqArraySig', creating a cycle.
 	freqArraySig = freqSigs.sequence;
 
-}),true ).start
+}).start
+)
+
+//close gui and remove all actions
+(
+q.mpdwin.close;
+ENdef(\x).clear;
 )
