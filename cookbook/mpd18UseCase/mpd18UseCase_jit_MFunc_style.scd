@@ -480,6 +480,12 @@ q.sndButs.do { |bt, i|
 	bt.action.modes.put(\basicPlay, (on: \toggle, off: \ex3));
 	bt.action.modes.put(\copyGet, (on: \copyGet, off: \ex3));
 	bt.action.modes.put(\copyPut, (on: \copyPut, off: \ex3));
+
+	// // or do the same thing in a single method:
+	// bt.action.makeExclusiveModes(\ex3,
+	// 	[\toggle, \copyGet, \copyPut],
+	// 	[\basicPlay, \copyGet, \copyPut]
+	// );
 };
 );
 // test modes on srcButs:
