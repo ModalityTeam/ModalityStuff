@@ -263,7 +263,8 @@ q.srcTogPlay(5, 0); //  and off again
 // To attach this basic layer of functions to an MPD18, one can:
 // 1. Make an MPD18 MIDIMKtl:
 /*
-m = MIDIMKtl('kmpd180');  // Akai MPD18
+// m = MIDIMKtl('kmpd180');  // Akai MPD18
+m = MKtl('kmpd180');  // Akai MPD18
 */
 // if you don't have one, this makes a virtual one by gui, or
 // 2. Make a GUI that resembles an MPD18 and has all the
@@ -475,7 +476,7 @@ q.srcButs.do { |bt, i|
 (
 // declare all modes for source buttons and memory buttons:
 q.sndButs.do { |bt, i|
- 	bt.action.modeSets.put(\ex3, [\toggle, \copyGet, \copyPut]);
+ 	bt.action.modeLists.put(\ex3, [\toggle, \copyGet, \copyPut]);
 	bt.action.modes.put(\basicPlay, (on: \toggle, off: \ex3));
 	bt.action.modes.put(\copyGet, (on: \copyGet, off: \ex3));
 	bt.action.modes.put(\copyPut, (on: \copyPut, off: \ex3));
@@ -596,3 +597,4 @@ q.sndButs.do { |bt, i|
 // NOW ready to test that everything works as described in use case!
 
 q.basicPlayMode;
+
