@@ -19,6 +19,8 @@
 
 ## Monday, 18.5.2015 -- first full day, 
 
+Note: Dutch crew arrives not before noon.
+
 10:00h:
 : Welcome, introduction and planning of the day led by Till;
 : Short introductions by participants.
