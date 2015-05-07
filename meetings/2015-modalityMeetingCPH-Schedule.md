@@ -7,6 +7,7 @@
 + Jeff Carey, USA
 + Bjoernar Habbestad, NOR
 + Marije Baalman, NED
++ Tijs Ham, NED
 + Alberto de Campo, AUT
 + Wouter Snoei, NED
 + Till Bovermann, GER
