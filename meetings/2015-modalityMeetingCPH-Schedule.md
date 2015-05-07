@@ -44,26 +44,26 @@
 : Discussion of Goals and setting of priorities for the week
 
 
-## Tuesday, 01.4.2014 -- work day
+## Tuesday, 19.5.2015 -- work day
 
 + working phase
 + evening program
 
-## Wednesday, 02.4.2014 -- work day
+## Wednesday, 20.5.2015 -- work day
 
 + Tutorial day
 + discussion on the Bridges/Islands interface
 + OSCMKtl
 + writing tutorials
 
-### Thu, 03.4.2014 -- public Workshop
+### Thu, 21.5.2015 -- public Workshop
 
 
-### Fri, 04.4.2014 -- Open Lab I
+### Fri, 22.5.2015 -- Open Lab I
 
 
-### Sat, 05.4.2014 -- concert, Open Lab II
+### Sat, 23.5.2015 -- concert, Open Lab II
 
-### Sun, 06.4.2014 -- departure / farewell
+### Sun, 24.5.2015 -- departure / farewell
 
 brunch on hopefully sunny Coastline, while reflecting on the week, and perhaps play a little chambernoise
