@@ -78,9 +78,7 @@ There will not be a concert this round as the Uni could not host us.
 + continuity of the Modality group, writing applications etc.
 
 
-### Monday, 18.5.2015 -- first full day, 
-
-Note: Dutch crew arrives not before noon.
+### Monday, 18.5.2015 -- first day, 
 
 16:00h:
 :  Start-up, get settled in at the University
