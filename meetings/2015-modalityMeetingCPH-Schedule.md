@@ -46,12 +46,12 @@ Cumhur and/or Dan will meet us and supply guest key cards. NB! ask for additiona
 
 ### Lodging
 
-+ Wouter, Marije, Tijs share a flat at
++ Marije, Tijs share a flat at
     * You need to agree on who sleeps on the couch.
     * Carl Jacobsens vej 37A 2. Tv Valby,  2500, Danmark
     * https://www.airbnb.no/rooms/5982584?checkin=18.05.2015&checkout=24.05.2015&guests=3&s=TJ4h
 
-+ Till, Alberto, Jeff, Bjørnar
++ Wouter, Till, Alberto, Jeff, Bjørnar
     * Cabinn Metro Hotel
     * Arne Jacobsens Allé 2, København S, 2300, Danmark
 
