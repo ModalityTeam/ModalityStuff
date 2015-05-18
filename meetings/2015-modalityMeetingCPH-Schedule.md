@@ -88,11 +88,23 @@ There will not be a concert this round as the Uni could not host us.
 17:00h:
 
 + [x] Discuss and finalize student activities with Dan and Cumhur
++ [x] Jeff explaining Modality
++ [ ] What we should do in this week
 + [ ] Demos, Show and tell, Modality in the field
+    * [ ] Multiprocess/Multi-interface combinations (AdC)
+    * [ ] SmartSetter (TB, AdC)
+    * [ ] Joystick data for Audui/Vis stuff (TH)
+    * [ ] Scrempler (MB)
+    * [ ] APC öh (JC)
+    * [ ] WaveSets interface (TB)
+    * [ ] iCtlPro (WS)
 + [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
 + [ ] Architecture discussion: Bridging islands;
 + [ ] Planning, Discussion of Goals and setting of priorities for the week
 + [ ] Dinner when appropriate
+
+
+
 
 
 ### Tuesday, 19.5.2015 -- work day
