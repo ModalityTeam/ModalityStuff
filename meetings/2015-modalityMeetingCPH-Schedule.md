@@ -1,4 +1,4 @@
-## Schedule for the 2015 modality meeting at AAU.dk
+## Schedule for the 2015 Modality meeting at AAU.dk
 *draft as of 2015-05-07*
 
 Meeting held at the department of Architecture, Design & Media Technology, Aalborg University, CPH
@@ -61,17 +61,17 @@ See e.g., [maps link](https://goo.gl/maps/8sdnK)
 
 Dan and Cumhur are interested in arranging some input for their phd students ( not finalized yet):
 
-+ modality introduction (2h, nn)
++ Modality introduction (2h, nn)
 + wave field-synthesis (2h, Wouter & Marije?)
 
 The two sessions will take place parallel to the working sessions on Thursday and Friday morning.
 There will not be a concert this round as the Uni could not host us.
 
-### Workshop preparation
+### development session preparation
 
 + everyone should spend some hours getting re-familizared with the current state of the code base before arriving.
 
-### Things to tackle during the Workshop week
+### Things to tackle during the development session week
 
 + OSCMKtl
 + Bridges/Islands interface
@@ -81,57 +81,58 @@ There will not be a concert this round as the Uni could not host us.
 
 ### Monday, 18.5.2015 -- first day, 
 
-16:00h:
-:  Start-up, get settled in at the University
+16:00h
+
++  [x] Start-up, get settled in at the University
+
 17:00h:
-: Discuss and finalize student activities with Dan and Cumhur
-: Demos, Show and tell, Modality in the field
-: Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with the code base.
-: Architecture discussion: Bridging islands;
-: Planning, Discussion of Goals and setting of priorities for the week
-: Dinner when appropriate
+
++ [x] Discuss and finalize student activities with Dan and Cumhur
++ [ ] Demos, Show and tell, Modality in the field
++ [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
++ [ ] Architecture discussion: Bridging islands;
++ [ ] Planning, Discussion of Goals and setting of priorities for the week
++ [ ] Dinner when appropriate
 
 
 ### Tuesday, 19.5.2015 -- work day
 
-10:00h:
-: workshop
-20:00h:
-: dinner
++ [ ] 10:00h -- development session
+20:00h -- dinner
 
 ### Wednesday, 20.5.2015 -- work day &  Modality Presentation
 
-10:00h:
-: Modality workshop
-16:00h:
-: city walk
-20:00h:
-: dinner
+10:00h
++ [ ] Modality presentation for Students of AAU
++ [ ] WFS system presentation
++ [ ] development session
+
+16:00h -- city walk
+
+20:00h -- dinner
 
 
 ### Thu, 21.5.2015
 
 10:00h-18:00h: 
-: workshop
+: development session
 10:00h-12:00h:
-: modality presentations for students
+: Modality presentations for students
 20:00h:
 + dinner
 
-### Fri, 22.5.2015 -- Presentation day
+### Fri, 22.5.2015
 
 10:00h-18:00h: 
-: workshop
-10:00h-12:00h:
-: WFS presentation
+: development session
 20:00h:
 + dinner
 
 
-### Sat, 23.5.2015 -- concert, Open Lab II
+### Sat, 23.5.2015
 
 10:00h:
-: workshop
+: development session
 16:00h:
 : city walk
 20:00h:
