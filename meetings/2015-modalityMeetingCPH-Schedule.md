@@ -90,13 +90,13 @@ There will not be a concert this round as the Uni could not host us.
 + [x] Discuss and finalize student activities with Dan and Cumhur
 + [x] Jeff explaining Modality
 + [ ] What we should do in this week
-+ [ ] Demos, Show and tell, Modality in the field
++ [X] Demos, Show and tell, Modality in the field
     * [X] Multiprocess/Multi-interface combinations (AdC)
-    * [ ] SmartSetter (TB, AdC)
+    * [X] SmartSetter (TB, AdC)
     * [X] Joystick data for Audui/Vis stuff (TH)
     * [X] Scrempler (MB)
     * [X] APC öh (JC)
-    * [ ] WaveSets interface (TB)
+    * [X] WaveSets interface (TB)
     * [X] iCtlPro (WS)
 + [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
 + [ ] Architecture discussion: Bridging islands;
