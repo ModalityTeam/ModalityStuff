@@ -20,29 +20,30 @@ See e.g., [maps link](https://goo.gl/maps/8sdnK)
 
 ## Participants
 
-+ Jeff Carey, USA
-+ Bjoernar Habbestad, NOR
-+ Marije Baalman, NED
-+ Tijs Ham, NED
-+ Alberto de Campo, AUT
-+ Wouter Snoei, NED
-+ Till Bovermann, GER
++ [x] Jeff Carey, USA
++ [x] Bjoernar Habbestad, NOR
++ [x] Marije Baalman, NED
++ [x] Tijs Ham, NED
++ [x] Alberto de Campo, AUT
++ [x] Wouter Snoei, NED
++ [x] Till Bovermann, GER
 
 ### Arrival
 
-+ Till arrives Saturday
-+ Bjørnar arrives late Monday night
-+ Everybody else arrives Monday noon-ish 
-+ We check in individually and meet at 16 at the University:   Augmented Performance Lab (APL) Room 2.0.023,  A.C. Meyers Vænge 15  DK-2450 Copenhagen SV https://goo.gl/maps/9kpk7
++ [x] Till arrives Saturday
++ [ ] Bjørnar arrives late Monday night
++ [x] Everybody else arrives Monday noon-ish 
++ [x] We check in individually and meet at 16 at the University:   Augmented Performance Lab (APL) Room 2.0.023,  A.C. Meyers Vænge 15  DK-2450 Copenhagen SV https://goo.gl/maps/9kpk7
 
 
-Cumhur and/or Dan will meet us and supply guest key cards. NB! ask for additional card for Bjørnar as he arrives late.
++ [x] Cumhur Erkut,  Dan Overholt and Francesco Grani will meet us and supply guest key cards. 
++ [x] NB! ask for additional card for Bjørnar as he arrives late.
 
 ### Departure
 
-+ Bjørnar leaves friday night
-+ Wouter saturday
-+ Rest sunday.
++ [ ] Bjørnar leaves friday night
++ [ ] Wouter saturday
++ [ ] Rest sunday.
 
 ### Lodging
 
@@ -98,17 +99,17 @@ There will not be a concert this round as the Uni could not host us.
 20:00h:
 : dinner
 
-### Wednesday, 20.5.2015 -- work day
+### Wednesday, 20.5.2015 -- work day &  Modality Presentation
 
 10:00h:
-: workshop
+: Modality workshop
 16:00h:
 : city walk
 20:00h:
 : dinner
 
 
-### Thu, 21.5.2015 -- Presentation day
+### Thu, 21.5.2015
 
 10:00h-18:00h: 
 : workshop
