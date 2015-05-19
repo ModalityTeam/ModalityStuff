@@ -89,28 +89,26 @@ There will not be a concert this round as the Uni could not host us.
 
 + [x] Discuss and finalize student activities with Dan and Cumhur
 + [x] Jeff explaining Modality
-+ [ ] What we should do in this week
-+ [X] Demos, Show and tell, Modality in the field
-    * [X] Multiprocess/Multi-interface combinations (AdC)
-    * [X] SmartSetter (TB, AdC)
-    * [X] Joystick data for Audui/Vis stuff (TH)
-    * [X] Scrempler (MB)
-    * [X] APC öh (JC)
-    * [X] WaveSets interface (TB)
-    * [X] iCtlPro (WS)
-+ [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
-+ [ ] Architecture discussion: Bridging islands;
-+ [ ] Planning, Discussion of Goals and setting of priorities for the week
-+ [ ] Dinner when appropriate
-
-
-
++ [x] What we should do in this week
++ [x] Demos, Show and tell, Modality in the field
+    * [x] Multiprocess/Multi-interface combinations (AdC)
+    * [x] SmartSetter (TB, AdC)
+    * [x] Joystick data for Audui/Vis stuff (TH)
+    * [x] Scrempler (MB)
+    * [x] APC öh (JC)
+    * [x] WaveSets interface (TB)
+    * [x] iCtlPro (WS)
++ [x] Dinner when appropriate
 
 
 ### Tuesday, 19.5.2015 -- work day
 
 + [ ] 10:00h -- development session
-20:00h -- dinner
++ [ ] what to do?
++ [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
++ [ ] Architecture discussion: Bridging islands;
++ [ ] Planning, Discussion of Goals and setting of priorities for the week
++ [ ] 20:00h -- dinner
 
 ### Wednesday, 20.5.2015 -- work day &  Modality Presentation
 
