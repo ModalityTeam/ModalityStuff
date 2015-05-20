@@ -1,22 +1,6 @@
-## Schedule for the 2015 Modality meeting at AAU.dk
-*draft as of 2015-05-07*
+## Report for the 2015 Modality meeting at AAU.dk
 
-Meeting held at the department of Architecture, Design & Media Technology, Aalborg University, CPH
-
-## Address and directions
-
-```
-Augmented Performance Lab (APL)
- Room 2.0.023
- A.C. Meyers Vænge 15 
- DK-2450 Copenhagen SV
- https://goo.gl/maps/9kpk7
-```
-
-From the Airport: 
-Metro + S-train A or E.
-See e.g., [maps link](https://goo.gl/maps/8sdnK)
-
+The final meeting was held at the department of Architecture, Design & Media Technology at the Aalborg Universitys Copenhagen branch. Professors Dan Overholt and Cumhur Erkut generously hosted the meeting at the Augumented Performance Lab, wich provided all facilities and equipment needed. 
 
 ## Participants
 
@@ -27,69 +11,26 @@ See e.g., [maps link](https://goo.gl/maps/8sdnK)
 + [x] Alberto de Campo, AUT
 + [x] Wouter Snoei, NED
 + [x] Till Bovermann, GER
++ [x] Dan Overholt (D)
++ [x] Cumhur Erkut (D)
 
-### Arrival
-
-+ [x] Till arrives Saturday
-+ [ ] Bjørnar arrives late Monday night
-+ [x] Everybody else arrives Monday noon-ish 
-+ [x] We check in individually and meet at 16 at the University:   Augmented Performance Lab (APL) Room 2.0.023,  A.C. Meyers Vænge 15  DK-2450 Copenhagen SV https://goo.gl/maps/9kpk7
-
-
-+ [x] Cumhur Erkut,  Dan Overholt and Francesco Grani will meet us and supply guest key cards. 
-+ [x] NB! ask for additional card for Bjørnar as he arrives late.
-
-### Departure
-
-+ [ ] Bjørnar leaves friday night
-+ [ ] Wouter saturday
-+ [ ] Rest sunday.
-
-### Lodging
-
-+ Marije, Tijs share a flat at
-    * You need to agree on who sleeps on the couch.
-    * Carl Jacobsens vej 37A 2. Tv Valby,  2500, Danmark
-    * https://www.airbnb.no/rooms/5982584?checkin=18.05.2015&checkout=24.05.2015&guests=3&s=TJ4h
-
-+ Wouter, Till, Alberto, Jeff, Bjørnar
-    * Cabinn Metro Hotel
-    * Arne Jacobsens Allé 2, København S, 2300, Danmark
 
 
 ## Program
 
-Dan and Cumhur are interested in arranging some input for their phd students ( not finalized yet):
+The working period was focused on the finalizing of the Modality toolkit, tying up the previous efforts and knowledge gained from workshops, concerts, presentations and compositions developed as parts in the Modality project. Two presentations were given to AAU students, showcasing different technologies and strategies from group members.
 
-+ Modality introduction (2h, nn)
-+ wave field-synthesis (2h, Wouter & Marije?)
-
-The two sessions will take place parallel to the working sessions on Thursday and Friday morning.
-There will not be a concert this round as the Uni could not host us.
-
-### development session preparation
-
-+ everyone should spend some hours getting re-familizared with the current state of the code base before arriving.
-
-### Things to tackle during the development session week
-
-+ OSCMKtl
-+ Bridges/Islands interface
-+ writing tutorials
-+ continuity of the Modality group, writing applications etc.
+Topics for the development work during the week
++ OSCMKtl - finalizing OSC compatability for Modality
++ Bridges/Islands interface - explication of the analogy from the Amsterdam meeting 
++ Writing tutorials and help files
++ Continuity of the Modality group. Responsibilities, applications etc.
 
 
 ### Monday, 18.5.2015 -- first day, 
-
-16:00h
-
 +  [x] Start-up, get settled in at the University
-
-17:00h:
-
 + [x] Discuss and finalize student activities with Dan and Cumhur
 + [x] Jeff explaining Modality
-+ [x] What we should do in this week
 + [x] Demos, Show and tell, Modality in the field
     * [x] Multiprocess/Multi-interface combinations (AdC)
     * [x] SmartSetter (TB, AdC)
@@ -98,7 +39,6 @@ There will not be a concert this round as the Uni could not host us.
     * [x] APC öh (JC)
     * [x] WaveSets interface (TB)
     * [x] iCtlPro (WS)
-+ [x] Dinner when appropriate
 
 
 ### Tuesday, 19.5.2015 -- work day
