@@ -117,11 +117,11 @@ There will not be a concert this round as the Uni could not host us.
 + [x] WFS system presentation
 + [x] development session
 
-16:00h -[x]- city walk
+16:00h - [x] city walk
 
-20:00h -[x]- dinner
+20:00h - [x] dinner
 
-22:00h -[x]- city walk
+22:00h - [x] city walk
 
 ### Thu, 21.5.2015
 
