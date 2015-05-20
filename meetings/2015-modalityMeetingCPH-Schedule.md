@@ -103,19 +103,19 @@ There will not be a concert this round as the Uni could not host us.
 
 ### Tuesday, 19.5.2015 -- work day
 
-+ [ ] 10:00h -- development session
-+ [ ] what to do?
-+ [ ] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
++ [x] 10:00h -- development session
++ [x] what to do?
++ [x] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
 + [ ] Architecture discussion: Bridging islands;
-+ [ ] Planning, Discussion of Goals and setting of priorities for the week
-+ [ ] 20:00h -- dinner
++ [x] Planning, Discussion of Goals and setting of priorities for the week
++ [x] 20:00h -- dinner
 
 ### Wednesday, 20.5.2015 -- work day &  Modality Presentation
 
 10:00h
-+ [ ] Modality presentation for Students of AAU
-+ [ ] WFS system presentation
-+ [ ] development session
++ [x] Modality presentation for Students of AAU
++ [x] WFS system presentation
++ [x] development session
 
 16:00h -- city walk
 
