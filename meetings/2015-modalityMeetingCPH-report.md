@@ -18,17 +18,20 @@ The final meeting was held at the department of Architecture, Design & Media Tec
 
 ## Program
 
-The working period was focused on the finalizing of the Modality toolkit, tying up the previous efforts and knowledge gained from workshops, concerts, presentations and compositions developed as parts in the Modality project. Two presentations were given to AAU students, showcasing different technologies and strategies from group members.
+The working period was focused on the finalizing of the Modality toolkit, tying up the previous efforts and knowledge gained from workshops, concerts, presentations and compositions developed as parts in the Modality project. Two presentations were given to AAU students, showcasing different technologies and strategies from group members. 
 
 Topics for the development work during the week
 + OSCMKtl - finalizing OSC compatability for Modality
 + Bridges/Islands interface - explication of the analogy from the Amsterdam meeting 
 + Writing tutorials and help files
++ Completing the auto-GUI generation from desc files
 + Continuity of the Modality group. Responsibilities, applications etc.
++ Revision of website and info-material
 
 
-### Monday, 18.5.2015 -- first day, 
-+  [x] Start-up, get settled in at the University
+### SCHEDULE
+Monday, 18.5.2015 -- first day, 
++ [x] Start-up, get settled in at the University
 + [x] Discuss and finalize student activities with Dan and Cumhur
 + [x] Jeff explaining Modality
 + [x] Demos, Show and tell, Modality in the field
@@ -41,7 +44,7 @@ Topics for the development work during the week
     * [x] iCtlPro (WS)
 
 
-### Tuesday, 19.5.2015 -- work day
+Tuesday, 19.5.2015 -- work day
 
 + [ ] 10:00h -- development session
 + [ ] what to do?
@@ -50,7 +53,7 @@ Topics for the development work during the week
 + [ ] Planning, Discussion of Goals and setting of priorities for the week
 + [ ] 20:00h -- dinner
 
-### Wednesday, 20.5.2015 -- work day &  Modality Presentation
+ Wednesday, 20.5.2015 -- work day &  Modality Presentation
 
 10:00h
 + [ ] Modality presentation for Students of AAU
@@ -61,8 +64,7 @@ Topics for the development work during the week
 
 20:00h -- dinner
 
-
-### Thu, 21.5.2015
+Thu, 21.5.2015
 
 10:00h-18:00h: 
 : development session
@@ -71,7 +73,7 @@ Topics for the development work during the week
 20:00h:
 + dinner
 
-### Fri, 22.5.2015
+Fri, 22.5.2015
 
 10:00h-18:00h: 
 : development session
@@ -79,7 +81,7 @@ Topics for the development work during the week
 + dinner
 
 
-### Sat, 23.5.2015
+Sat, 23.5.2015
 
 10:00h:
 : development session
@@ -88,6 +90,6 @@ Topics for the development work during the week
 20:00h:
 : dinner
 
-### Sun, 24.5.2015 -- departure / farewell
+Sun, 24.5.2015 -- departure / farewell
 
 brunch on hopefully sunny Coastline, while reflecting on the week, and perhaps play a little unplugged park-noise
