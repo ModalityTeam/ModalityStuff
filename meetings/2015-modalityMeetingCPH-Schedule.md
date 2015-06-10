@@ -1,0 +1,154 @@
+## Schedule for the 2015 Modality meeting at AAU.dk
+*draft as of 2015-05-07*
+
+Meeting held at the department of Architecture, Design & Media Technology, Aalborg University, CPH
+
+## Address and directions
+
+```
+Augmented Performance Lab (APL)
+ Room 2.0.023
+ A.C. Meyers Vænge 15 
+ DK-2450 Copenhagen SV
+ https://goo.gl/maps/9kpk7
+```
+
+From the Airport: 
+Metro + S-train A or E.
+See e.g., [maps link](https://goo.gl/maps/8sdnK)
+
+
+## Participants
+
++ [x] Jeff Carey, USA
++ [x] Bjoernar Habbestad, NOR
++ [x] Marije Baalman, NED
++ [x] Tijs Ham, NED
++ [x] Alberto de Campo, AUT
++ [x] Wouter Snoei, NED
++ [x] Till Bovermann, GER
+
+### Arrival
+
++ [x] Till arrives Saturday
++ [ ] Bjørnar arrives late Monday night
++ [x] Everybody else arrives Monday noon-ish 
++ [x] We check in individually and meet at 16 at the University:   Augmented Performance Lab (APL) Room 2.0.023,  A.C. Meyers Vænge 15  DK-2450 Copenhagen SV https://goo.gl/maps/9kpk7
+
+
++ [x] Cumhur Erkut,  Dan Overholt and Francesco Grani will meet us and supply guest key cards. 
++ [x] NB! ask for additional card for Bjørnar as he arrives late.
+
+### Departure
+
++ [ ] Bjørnar leaves friday night
++ [ ] Wouter saturday
++ [ ] Rest sunday.
+
+### Lodging
+
++ Marije, Tijs share a flat at
+    * You need to agree on who sleeps on the couch.
+    * Carl Jacobsens vej 37A 2. Tv Valby,  2500, Danmark
+    * https://www.airbnb.no/rooms/5982584?checkin=18.05.2015&checkout=24.05.2015&guests=3&s=TJ4h
+
++ Wouter, Till, Alberto, Jeff, Bjørnar
+    * Cabinn Metro Hotel
+    * Arne Jacobsens Allé 2, København S, 2300, Danmark
+
+
+## Program
+
+Dan and Cumhur are interested in arranging some input for their phd students ( not finalized yet):
+
++ Modality introduction (2h, nn)
++ wave field-synthesis (2h, Wouter & Marije?)
+
+The two sessions will take place parallel to the working sessions on Thursday and Friday morning.
+There will not be a concert this round as the Uni could not host us.
+
+### development session preparation
+
++ everyone should spend some hours getting re-familizared with the current state of the code base before arriving.
+
+### Things to tackle during the development session week
+
++ OSCMKtl
++ Bridges/Islands interface
++ writing tutorials
++ continuity of the Modality group, writing applications etc.
+
+
+### Monday, 18.5.2015 -- first day, 
+
+16:00h
+
++  [x] Start-up, get settled in at the University
+
+17:00h:
+
++ [x] Discuss and finalize student activities with Dan and Cumhur
++ [x] Jeff explaining Modality
++ [x] What we should do in this week
++ [x] Demos, Show and tell, Modality in the field
+    * [x] Multiprocess/Multi-interface combinations (AdC)
+    * [x] SmartSetter (TB, AdC)
+    * [x] Joystick data for Audui/Vis stuff (TH)
+    * [x] Scrempler (MB)
+    * [x] APC öh (JC)
+    * [x] WaveSets interface (TB)
+    * [x] iCtlPro (WS)
++ [x] Dinner when appropriate
+
+
+### Tuesday, 19.5.2015 -- work day
+
++ [x] 10:00h -- development session
++ [x] what to do?
++ [x] Testing current Modality state. All participants set up a minimal MKTL system to refamiliarise themselves with them code base.
++ [ ] Architecture discussion: Bridging islands;
++ [x] Planning, Discussion of Goals and setting of priorities for the week
++ [x] 20:00h -- dinner
+
+### Wednesday, 20.5.2015 -- work day &  Modality Presentation
+
+10:00h
++ [x] Modality presentation for Students of AAU
++ [x] WFS system presentation
++ [x] development session
+
+16:00h - [x] city walk
+
+20:00h - [x] dinner
+
+22:00h - [x] city walk
+
+### Thu, 21.5.2015
+
+10:00h-18:00h: 
+: development session
+10:00h-12:00h:
+: Modality presentations for students
+20:00h:
++ dinner
+
+### Fri, 22.5.2015
+
+10:00h-18:00h: 
+: development session
+20:00h:
++ dinner
+
+
+### Sat, 23.5.2015
+
+10:00h:
+: development session
+16:00h:
+: city walk
+20:00h:
+: dinner
+
+### Sun, 24.5.2015 -- departure / farewell
+
+brunch on hopefully sunny Coastline, while reflecting on the week, and perhaps play a little unplugged park-noise
